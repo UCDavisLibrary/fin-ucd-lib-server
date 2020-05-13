@@ -71,7 +71,7 @@ class Utils {
       return 'VideoObject';
     } else if( types.includes('http://schema.org/AudioObject') ) {
       return 'AudioObject';
-    } else if( types.includes('http://digital.ucdavis.edu/schema#bagOfFiles') ) {
+    } else if( types.includes('http://digital.ucdavis.edu/schema#BagOfFiles') ) {
       return 'BagOfFiles';
     }
 

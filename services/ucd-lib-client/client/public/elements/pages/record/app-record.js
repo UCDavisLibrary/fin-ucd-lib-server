@@ -182,7 +182,7 @@ export default class AppRecord extends Mixin(PolymerElement)
     this.$.apa.text = await citations.renderEsRecord(this.record, 'apa');
     this.$.chicago.text = await citations.renderEsRecord(this.record, 'chicago');
 
-    this.isBagOfFiles = this.record['@type'].includes('http://digital.ucdavis.edu/schema#bagOfFiles');
+    this.isBagOfFiles = this.record['@type'].includes('http://digital.ucdavis.edu/schema#BagOfFiles');
   }
 
   _renderFcLink(record, media) {

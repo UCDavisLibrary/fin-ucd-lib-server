@@ -112,7 +112,7 @@ export default class AppFsViewer extends Mixin(LitElement)
     this.selectedRecord = e.selectedRecord;
     this.selectedRecordMedia = e.selectedRecordMedia;
 
-    if( this.selectedRecord && this.selectedRecord['@type'].includes('http://digital.ucdavis.edu/schema#bagOfFiles') ) {
+    if( this.selectedRecord && this.selectedRecord['@type'].includes('http://digital.ucdavis.edu/schema#BagOfFiles') ) {
       this._browseDirectory();
       this.title = this.selectedRecord.name || this.selectedRecord.title;
       this.thumbnail = this.selectedRecord.thumbnailUrl || '';

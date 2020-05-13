@@ -162,6 +162,8 @@ class EsReindexer {
       // here we pass the temporary aliases instead for the active index
       // we will make the temp aliases the active index once we finish the crawl
       await indexer.update(esRecord, recordIndex, collectionIndex);
+    } else {
+      logger.warn('Warning: record transform service did not return a record for: '+url);
     }
 
     // check if this container has children
@@ -172,6 +174,8 @@ class EsReindexer {
     if( !Array.isArray(contains) ) {
       contains = [contains];
     }
+
+    logger.info(url+' has '+contains.length+' children to crawl');
 
     // recursively crawl the children
     for( var i = 0; i < contains.length; i++ ) {

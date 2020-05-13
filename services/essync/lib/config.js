@@ -27,7 +27,7 @@ config.essync = {
   childConnections : ['hasPart', 'associatedMedia', 'caption', 'transcript'],
 
   bagOfFiles : {
-    type : 'http://digital.ucdavis.edu/schema#bagOfFiles'
+    type : 'http://digital.ucdavis.edu/schema#BagOfFiles'
   },
 
   // svc: names for frame services 
