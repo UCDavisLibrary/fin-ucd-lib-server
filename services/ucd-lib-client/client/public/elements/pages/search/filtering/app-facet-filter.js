@@ -86,7 +86,8 @@ class AppFacetFilter extends Mixin(PolymerElement)
       }
     });
 
-    if( Object.keys(e.buckets).length > 50 ) {
+    if( Object.keys(e.buckets).length > 0 ) {
+      console.log('using iron list');
       this.$.list.style.display = 'block';
       let top = this.$.list.scrollTop;
 
@@ -208,18 +209,30 @@ class AppFacetFilter extends Mixin(PolymerElement)
     let text = this.$.typeahead.value;
     if( !text ) {
       if( this.originalBuckets ) {
-        this.buckets = this.originalBuckets;
+
+        if( this.ironListActive ) {
+          this.bucketsIronList = this.originalBuckets;
+        } else {
+          this.buckets = this.originalBuckets;
+        }
+
         this.originalBuckets = null;
       }
       return;
     }
 
     if( !this.originalBuckets ) {
-      this.originalBuckets = [...this.buckets];
+      this.originalBuckets = [...(this.ironListActive ? this.bucketsIronList : this.buckets)];
     }
 
     let re = new RegExp('.*'+text.toLowerCase()+'.*', 'i');
-    this.buckets = this.originalBuckets.filter(item => item.sortKey.match(re) ? true : false);
+    let buckets = this.originalBuckets.filter(item => item.sortKey.match(re) ? true : false);
+
+    if( this.ironListActive ) {
+      this.bucketsIronList = buckets;
+    } else {
+      this.buckets = buckets;
+    }
   }
 
 }
