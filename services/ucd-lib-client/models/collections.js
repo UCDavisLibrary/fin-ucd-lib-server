@@ -65,7 +65,7 @@ class CollectionsModel extends ElasticSearchModel {
    * @returns {Promise} resolves to array of collection objects
    */
   async all() {
-    let results = await this.esSearch();
+    let results = await this.esSearch({size : 1000});
     return this.esResultToDamsResult(results);
   }
 }
