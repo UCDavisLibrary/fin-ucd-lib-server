@@ -86,8 +86,7 @@ class AppFacetFilter extends Mixin(PolymerElement)
       }
     });
 
-    if( Object.keys(e.buckets).length > 0 ) {
-      console.log('using iron list');
+    if( Object.keys(e.buckets).length > 50 ) {
       this.$.list.style.display = 'block';
       let top = this.$.list.scrollTop;
 
