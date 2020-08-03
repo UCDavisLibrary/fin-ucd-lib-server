@@ -74,7 +74,8 @@ Sitemap: ${config.server.url}/sitemap.xml`);
    */
   async getRoot() {
     let sitemaps = await collections.esSearch({
-      _source : ['name']
+      _source : ['name'],
+      size:1000
     });
 
     let hits = sitemaps.hits.hits || [];
