@@ -134,7 +134,7 @@ export default class AppRecord extends Mixin(PolymerElement)
     this.alternativeHeadline = this.record.alternativeHeadline || '';
     this.$.link.value = window.location.href;
 
-    this.date = utils.getYearFromDate(this.record.datePublished);
+    this.$.dateValue.innerHTML = this.record.datePublished || 'Undated';
 
     // TODO: add back in when we figure out consolidated resource type 
     // this.$.resourceType.innerHTML = this.record.type ? '<div>'+this.record.type.join('</div><div>')+'</div>' : 'Unknown';
@@ -145,7 +145,7 @@ export default class AppRecord extends Mixin(PolymerElement)
       let def = rightsDefinitions[this.record.license['@id']];
       this.rights = {
         link : this.record.license['@id'],
-        label : def.text,
+        label : def.text.toLowerCase(),
         icon : `/images/rights-icons/${def.icon}.svg`
       }
     } else {
@@ -174,7 +174,7 @@ export default class AppRecord extends Mixin(PolymerElement)
     // set fedora collection link
     this._renderFcLink(record);
 
-    this._updateMetadataRows();
+    // this._updateMetadataRows();
     // this._setTarHref();
 
     // render citations.. this might need to load library, do it last
@@ -313,24 +313,37 @@ export default class AppRecord extends Mixin(PolymerElement)
     }
 
     let ids = Array.isArray(record.identifier) ? record.identifier : [record.identifier];
-    ids = ids.filter(id => id.match(/^(ark|doi)/) ? true : false);
+    let arks = ids.filter(id => id.match(/^(ark|doi)/) ? true : false);
 
-    if( ids.length ) {
+    if( arks.length ) {
 
       // if we are passed a selected media, append identifiers as well
       if( media && media.identifier ) {
         let mediaIds = Array.isArray(media.identifier) ? media.identifier : [media.identifier];
         mediaIds = mediaIds.filter(id => id.match(/^(ark|doi)/) ? true : false);
         for( let id of mediaIds ) {
-          if( ids.indexOf(id) === -1 ) ids.push(id);
+          if( arks.indexOf(id) === -1 ) arks.push(id);
         }
       }
 
       this.$.identifier.classList.remove('hidden');
-      this.$.identifierValue.innerHTML = ids.map(id => `<div><a href="${this._getHost()}${id}">${id}</a></div>`).join('')
+      this.$.identifierValue.innerHTML = arks.map(id => `<div><a href="${this._getHost()}${id}">${id}</a></div>`).join('')
     } else {
       this.$.identifier.classList.add('hidden');
-    }      
+    }
+
+    if( !record.identifiers ) {
+      return this.$.libLocation.classList.add('hidden');
+    }
+
+    let callNumber = Array.isArray(record.identifiers) ? record.identifiers : [record.identifiers];
+    callNumber = callNumber.filter(id => id.match(/^.*,.*box:.*,.*folder:.*$/i) ? true : false);
+    if( callNumber.length ) {
+      this.$.callNumberValue.innerHTML = callNumber.map(id => `<div>${id}</div>`).join('')
+      this.$.callNumber.classList.remove('hidden');
+    } else {
+      this.$.callNumber.classList.add('hidden');
+    }
   }
 
   /**
@@ -374,16 +387,16 @@ export default class AppRecord extends Mixin(PolymerElement)
    * @method _updateMetadataRows
    * @description update metadata table
    */
-  _updateMetadataRows() {
-    let metadata = [];
+  // _updateMetadataRows() {
+  //   let metadata = [];
 
-    this._addMetadataRow(metadata, 'name', 'Item Name');
-    this._addMetadataRow(metadata, 'collectionName', 'Collection');
-    this._addMetadataRow(metadata, 'date', 'Date');
-    this._addMetadataRow(metadata, 'resourceType', 'Resource Type');
+  //   this._addMetadataRow(metadata, 'name', 'Item Name');
+  //   this._addMetadataRow(metadata, 'collectionName', 'Collection');
+  //   this._addMetadataRow(metadata, 'date', 'Date');
+  //   this._addMetadataRow(metadata, 'resourceType', 'Resource Type');
 
-    this.metadata = metadata;
-  }
+  //   this.metadata = metadata;
+  // }
 
   /**
    * @method _addMetadataRow
