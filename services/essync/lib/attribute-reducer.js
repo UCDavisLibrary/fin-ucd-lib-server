@@ -123,7 +123,6 @@ class AttributeReducer {
       }
     }
 
-    console.log('Starting reduce for: '+record['@id']);
     await this.walkRecord(images, record, record, reduced, visited, identifier, e.alias);
 
     this.setImage(record, images);
@@ -186,7 +185,6 @@ class AttributeReducer {
 
     if( visited[record['@id']] ) return;
     visited[record['@id']] = true;
-    console.log('Reducer walking record: '+record['@id']);
 
     // append id information
     if( identifier ) {
