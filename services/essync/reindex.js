@@ -20,14 +20,37 @@ if( process.argv.length > 2 ) {
 if( collection ) {
   logger.info('reindexing collection '+collection);
 
-  reindexer
-    .crawl(
-      indexer.getFcRepoBaseUrl()+'/collection/'+collection,  
-      config.elasticsearch.record.alias,
-      config.elasticsearch.collection.alias
-    )
-    .then(() => logger.info('finished reindexing collection '+collection))
-    .catch((e) => logger.error('failed to reindex collection '+collection, e));
+  (async function() {
+    if( process.argv.includes('--clean') ) {
+      logger.info('cleaning collection '+collection);
+
+      let resp = await indexer.esClient.deleteByQuery({
+        index : config.elasticsearch.record.alias,
+        type: config.elasticsearch.record.schemaType,
+        body : {
+          query: {
+            bool: {
+              filter : {
+                term : {
+                  collectionId : `/collection/${collection}`
+                }
+              }
+            }
+          }
+        }
+      })
+      logger.info(resp);
+    }
+
+    reindexer
+      .crawl(
+        indexer.getFcRepoBaseUrl()+'/collection/'+collection,  
+        config.elasticsearch.record.alias,
+        config.elasticsearch.collection.alias
+      )
+      .then(() => logger.info('finished reindexing collection '+collection))
+      .catch((e) => logger.error('failed to reindex collection '+collection, e));
+  })();
 
 } else {
   logger.info('reindexing all collections');
