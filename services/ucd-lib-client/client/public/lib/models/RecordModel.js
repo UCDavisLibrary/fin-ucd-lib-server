@@ -143,6 +143,20 @@ class RecordModel extends ElasticSearchModel {
           media.clientMediaDownload = this.findRecords(clientMediaDownloadIds, record);
         }
 
+        // map download imagelist to web-view image list
+        if( utils.getMediaType(media) === 'ImageList' ) {
+          let imgListDl = utils.asArray(media, 'clientMediaDownload')
+                            .find(item => utils.getMediaType(item) === 'ImageList');
+
+          if( imgListDl ) {
+            (media.hasPart || []).forEach(clientImg => {
+              if( clientImg.clientMediaDownload ) return;
+              let dlItem = utils.asArray(imgListDl, 'hasPart').find(item => item.position === clientImg.position);
+              if( dlItem ) clientImg.clientMediaDownload = dlItem;
+            });
+          }
+        }
+
         this._appendMediaTypes(media, record.media);
       });
     } else {
