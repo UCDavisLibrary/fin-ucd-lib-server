@@ -68,6 +68,15 @@ module.exports = {
           return value;
         }
       },
+      collectionId : {
+        label : 'Collection',
+        type : 'facet',
+        valueMap : (value) => {
+          let collection = APP_CONFIG.collections.results.find(c => c['@id'] === value);
+          if( collection && collection.name ) return collection.name;
+          return value;
+        }
+      },
       'creators' : {
         label : 'Creator',
         type : 'facet'
