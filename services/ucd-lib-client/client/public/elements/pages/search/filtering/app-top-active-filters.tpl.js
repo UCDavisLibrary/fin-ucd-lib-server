@@ -34,7 +34,7 @@ return html`
   <div style="font-style: italic">Active Filters:</div>
   ${this.activeFilters.map((item, index) => html`
     <div @click="${this._onRemoveFilterClicked}" class="rm-btn" index="${index}" role="button" tabindex="0">
-      <iron-icon icon="fin-icons:close"></iron-icon> ${item.key}
+      <iron-icon icon="fin-icons:close"></iron-icon> ${item.label}
     </div>
   `)}
 </div>

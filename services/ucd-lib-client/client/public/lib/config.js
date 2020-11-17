@@ -68,7 +68,7 @@ module.exports = {
           return value;
         }
       },
-      collectionId : {
+      'collectionId' : {
         label : 'Collection',
         type : 'facet',
         valueMap : (value) => {

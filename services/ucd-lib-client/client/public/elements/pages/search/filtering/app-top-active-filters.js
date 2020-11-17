@@ -1,6 +1,6 @@
 import { LitElement } from 'lit-element';
 import render from "./app-top-active-filters.tpl.js"
-
+import config from "../../../../lib/config"
 
 export default class AppTopActiveFilters extends Mixin(LitElement)
   .with(LitCorkUtils) {
@@ -27,33 +27,48 @@ export default class AppTopActiveFilters extends Mixin(LitElement)
    * 
    * @param {Object} e 
    */
-  _onFilterBucketsUpdate(e) {
-    this.filters[e.filter] = e.buckets;
-    if( this._renderTimer ) clearTimeout(this._renderTimer);
-    this._renderTimer = setTimeout(() => {
-      this._renderTimer = null;
-      this._updateActiveFilters();
-    }, 10);
-  }
+  _onRecordSearchUpdate(e) {
+    if( e.state !== 'loaded' ) return;
 
-  /**
-   * @method _updateActiveFilters
-   * @description called after debouncing of filter-buckets-update events, set 
-   * active filters
-   */
-  _updateActiveFilters() {
     let active = [];
-    for( let key in this.filters ) {
-      active = active.concat(
-        this.filters[key]
-          .filter(item => item.active)
-          .map(item => Object.assign({bucket: key}, item))
-      );
+    this.currentFilters = e.searchDocument.filters || {};
+    
+    for( let key in this.currentFilters ) {
+      let filter = this.currentFilters[key];
+
+      if( filter.type === 'keyword' ) {
+        this.currentFilters[key].value.forEach(value => {
+          active.push({
+            bucket : key,
+            type : 'keyword',
+            value : value,
+            label :  this._getLabel(key, value)
+          });
+        });
+      } else if( filter.type === 'range' ) {
+        let value = this.currentFilters[key].value;
+        active.push({
+          bucket : key,
+          type : 'range',
+          value : value,
+          label :  value.gte+' to '+value.lte
+        });
+      }
     }
-    active.sort((a, b) => a.key.toLowerCase() < b.key.toLowerCase() ? -1 : 1);
+
+    active.sort((a, b) => a.label.toLowerCase() < b.label.toLowerCase() ? -1 : 1);
 
     this.activeFilters = active;
     this.style.display = active.length ? 'block' : 'none';
+  }
+
+  _getLabel(bucket, label) {
+    let conf = config.elasticSearch.facets[bucket] || {};
+    if( !conf.valueMap ) return label;
+    if( typeof conf.valueMap === 'object' ) {
+      return conf.valueMap[label] || label;
+    }
+    return conf.valueMap(label);
   }
 
   /**
@@ -67,7 +82,11 @@ export default class AppTopActiveFilters extends Mixin(LitElement)
 
     let searchDoc = this.RecordModel.getCurrentSearchDocument();
     this.RecordModel.setPaging(searchDoc, 0);
-    this.RecordModel.removeKeywordFilter(searchDoc, item.bucket, item.key);
+    if( item.type === 'keyword') {
+      this.RecordModel.removeKeywordFilter(searchDoc, item.bucket, item.value);
+    } else if( item.type === 'range' ) {
+      this.RecordModel.removeRangeFilter(searchDoc, item.bucket);
+    }
     this.RecordModel.setSearchLocation(searchDoc);
 
     this.requestUpdate();

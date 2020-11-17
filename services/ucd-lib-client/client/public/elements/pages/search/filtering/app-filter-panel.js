@@ -52,6 +52,7 @@ export class AppFilterPanel extends PolymerElement {
     ele.addEventListener('add-selected', (e) => {
       let index = this.selected.findIndex(item => item.label === e.detail.label);
       if( index > -1 ) return;
+      e.detail.niceLabel = this._getLabel(e.detail.label);
       this.push('selected', e.detail);
     });
     ele.addEventListener('remove-selected', (e) => {
@@ -61,6 +62,7 @@ export class AppFilterPanel extends PolymerElement {
     });
     ele.addEventListener('set-selected', (e) => {
       if( e.detail.selected ) {
+        e.detail.niceLabel = this._getLabel(e.detail.label);
         this.selected = [e.detail];
       } else {
         this.selected = [];
@@ -70,6 +72,14 @@ export class AppFilterPanel extends PolymerElement {
     this.ele = ele;
     
     this.$.filters.appendChild(ele);
+  }
+
+  _getLabel(label) {
+    if( !this.filter.valueMap ) return label;
+    if( typeof this.filter.valueMap === 'object' ) {
+      return this.filter.valueMap[label] || label;
+    }
+    return this.filter.valueMap(label);
   }
 
   /**
