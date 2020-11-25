@@ -200,8 +200,11 @@ export default class AppRangeSlider extends PolymerElement {
     this.$.highNumberLabel.style.top = (hh - hBtnHeight - 22) +'px';
 
     // set btn left
-    let minPxValue = this._valueToPx(this.minValue);
-    let maxPxValue = this._valueToPx(this.maxValue);
+    let lv = ( this.minValue < this.absMinValue ) ? this.absMinValue : this.minValue;
+    let uv = ( this.maxValue > this.absMaxValue ) ? this.absMaxValue : this.maxValue;
+
+    let minPxValue = this._valueToPx(lv);
+    let maxPxValue = this._valueToPx(uv);
 
     this.$.lowNumberBtn.style.left = (minPxValue - hBtnHeight)  + 'px';
     this.$.highNumberBtn.style.left = (maxPxValue - hBtnHeight) + 'px';

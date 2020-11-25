@@ -80,11 +80,16 @@ class CollectionModel extends BaseModel {
     async _onSearchDocumentUpdate(e) {
       let selected = null;
 
-      if( e.searchDocument.filters['isPartOf.@id'] ) {
-        selected = await this.get(e.searchDocument.filters['isPartOf.@id'].value[0]);
+      // if( e.searchDocument.filters['isPartOf.@id'] ) {
+      //   selected = await this.get(e.searchDocument.filters['isPartOf.@id'].value[0]);
+      // }
+      // is there one and only one collection filter set
+      if( e.searchDocument.filters['collectionId'] && e.searchDocument.filters['collectionId'].value.length === 1 ) {
+        selected = await this.get(e.searchDocument.filters['collectionId'].value[0]);
       }
 
-      if( !e.searchDocument.filters['isPartOf.@id'] && e.searchDocument.text ) {
+      // if( !e.searchDocument.filters['isPartOf.@id'] && e.searchDocument.text ) {
+      if( !e.searchDocument.filters['collectionId'] && e.searchDocument.text ) {
         if( e.state === 'loading' ) {
           this.search({text: e.searchDocument.text});
         }

@@ -93,7 +93,8 @@ export class AppSearch extends Mixin(PolymerElement)
 
     if( searchUrlParts[0] === 'collection' ) {
       query = this._urlToSearchDocument(['', encodeURIComponent(JSON.stringify([
-        ["isPartOf.@id","or",`/collection/${searchUrlParts[1]}`]
+        // ["isPartOf.@id","or",`/collection/${searchUrlParts[1]}`]
+        ["collectionId","or",`/collection/${searchUrlParts[1]}`]
       ])),'', '10']);
 
       if( this.lastQuery === query ) return;

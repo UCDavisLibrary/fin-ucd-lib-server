@@ -118,7 +118,7 @@
   selected-attribute="showing">
   <div id="filters">
 
-    <div hidden$="[[!collectionMode]]" class="label">Collection</div>
+    <!-- <div hidden$="[[!collectionMode]]" class="label">Collection</div>
     <div hidden$="[[!collectionMode]]" class="collection-filter">
       <app-facet-checkbox 
         type="collection" 
@@ -126,7 +126,7 @@
         checked="[[collectionMode]]"
         on-click="_removeCollectionFilter">
       </app-facet-checkbox>
-    </div>
+    </div> -->
 
     <template is="dom-repeat" items="[[facetFilters]]">
       <app-filter-panel filter="[[item]]"></app-filter-panel>

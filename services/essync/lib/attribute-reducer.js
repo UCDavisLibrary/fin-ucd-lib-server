@@ -58,11 +58,14 @@ class AttributeReducer {
    * 
    * @returns {Promise} resolves to String or null 
    */
-  async findRootRecord(path='', alias) {
+  async findRootRecord(path='', alias, crawled={}) {
     if( path.match(/^http/) ) return null;
 
     let record = await this._get(path, alias);
     if( !record ) return null;
+
+    if( crawled[record['@id']] ) return null;
+    crawled[record['@id']] = true;
 
     if( record.isRootRecord ) {
       return record['@id'];
@@ -80,7 +83,7 @@ class AttributeReducer {
         if( !item['@id'] ) continue;
         if( item['@id'].match(/^http/) ) continue;
 
-        return await this.findRootRecord(item['@id'], alias);
+        return this.findRootRecord(item['@id'], alias, crawled);
       }
     }
 
