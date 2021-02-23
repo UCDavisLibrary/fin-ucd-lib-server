@@ -10,7 +10,7 @@ return html`
     padding-top: 10px;
     padding-bottom: 5px;
     border-top: 1px solid var(--light-background-color);
-    font-size: var(--font-size-sm);
+    font-size: var(--fs-sm);
   }
 
   .layout {

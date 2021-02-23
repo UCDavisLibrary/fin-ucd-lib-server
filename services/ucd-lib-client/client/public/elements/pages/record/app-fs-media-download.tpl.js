@@ -28,8 +28,8 @@ return html`
     color : var(--default-primary-color);
     background-color : var(--default-secondary-color);
     text-transform: uppercase;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-heavy);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
     text-decoration: none;
     white-space: nowrap;
     height: 24px;

@@ -1,7 +1,9 @@
 <custom-style>
   <style>
     html {
-      --default-primary-color : #002655;
+      /* Colors */
+
+      --default-primary-color : #022851;
       --light-primary-color   : #335379;
       
       --default-secondary-color : #daaa00;
@@ -25,18 +27,31 @@
       --color-redbud            : #C6007E;
       --color-putah-creek       : #008EAA;
       --color-quad              : #3DAE2B;
-      --double-decker           : #C10230;
+      --color-double-decker     : #C10230;
       --color-poppy             : #F18A00;
       --color-grey              : #808080;
       --color-light-yellow      : #ede2c0;
 
       --max-width               : 1200px;
       --max-text-width          : 650px;
-      --font-size               : 16px;
-      --font-size-sm            : 14px;
-      --font-weight             : 400;
-      --font-weight-light       : 200;
-      --font-weight-heavy       : 700;
+      
+      
+
+      /* Font sizes */
+      --fs-p                    : 19px;
+      --fs-h1                   : 2.94rem;
+      --fs-h2                   : 2.47rem;
+      --fs-h3                   : 2.05rem;
+      --fs-h4                   : 1.68rem;
+      --fs-h5                   : 1.42rem;
+      --fs-h6                   : 1.15rem;
+      --fs-sm                   : 14px;
+
+      /* Font weights */
+      --fw-regular              : 400;
+      --fw-bold                 : 700;
+      --fw-extra-bold           : 900;
+      --fw-light                : 200;
 
       --layout-sm               : 768px;
       --grid-cell-width         : 250px;
@@ -49,8 +64,8 @@
       * Custom mixins
       */
       --fin-search-box-select: {
-        font-size: var(--font-size);
-        font-weight: var(--font-weight);
+        font-size: var(--fs-p);
+        font-weight: var(--fw-regular);
         color: var(--default-primary-color);
         background-color: var(--default-secondary-color);
         width: 100px;
@@ -62,22 +77,22 @@
       }
       --fin-search-box-input: {
         padding-left: 10px;
-        font-size: var(--font-size);
+        font-size: var(--fs-p);
         background-color: white;
       }
       --cork-drop-down-arrow-color: var(--default-primary-color);
       --cork-toggle-panel-label : {
         padding: 10px 0;
         color: var(--default-primary-color);
-        font-weight: var(--font-weight-heavy);
+        font-weight: var(--fw-regular-bold);
       }
     }
     body, html {
       /* @apply --paper-font-common-base; */
       font-family      : proxima-nova,"Lucida Grande","Lucida Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-      font-size        : var(--font-size);
-      font-weight      : var(--font-weight);
-      line-height      : calc(var(--font-size) * 1.625);
+      font-size        : var(--fs-p);
+      font-weight      : var(--fw-regular);
+      line-height      : 1.6;
       margin           : 0;
       padding          : 0;
       background-color : var(--default-background-color);
