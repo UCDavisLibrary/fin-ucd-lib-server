@@ -68,6 +68,56 @@ class CollectionsModel extends ElasticSearchModel {
     let results = await this.esSearch({size : 1000});
     return this.esResultToDamsResult(results);
   }
+
+  /**
+   * @method overview
+   * @description get all collections
+   * 
+   * @returns {Promise} resolves to array of collection objects
+   */
+  async overview() {
+    // get collection counts
+    let results = await es.search({
+      index : config.elasticsearch.record.alias,
+      body : {
+        aggs : {
+          collectionId : {
+            terms: {
+              field: 'collectionId',
+              size: 10000
+            }
+          }
+        },
+        query : {
+          bool : {
+            filter: [{
+              term: {isRootRecord: true}
+            }]
+          }
+        },
+        size: 0
+      }
+    });
+    let counts = {};
+    results.aggregations.collectionId.buckets.forEach(item => {
+      counts[item.key] = item.doc_count;
+    });
+
+    // grab basic collection info
+    results = await es.search({
+      index : config.elasticsearch.collection.alias,
+      body : {
+        size: 10000
+      },
+      _source_includes : ['@id', 'name', 'description', 'thumbnailUrl'].join(',')
+    });
+
+    // join counts with basic info
+    return results.hits.hits.map(item => {
+      item._source.recordCount = counts[item._source['@id']];
+      return item._source;
+    })
+  }
 }
 
 module.exports = new CollectionsModel();
