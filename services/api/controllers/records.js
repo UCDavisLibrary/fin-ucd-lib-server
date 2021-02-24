@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const model = require('../models/records');
+const {records} = require('@ucd-lib/fin-ucd-lib-node-utils');
 const utils = require('./utils');
 const cors = require('cors');
+
+const model = records;
 
 let idRegExp = /(ark|doi):\/?[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/;
 router.use(cors());

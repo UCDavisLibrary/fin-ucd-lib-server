@@ -1,5 +1,4 @@
-const collections = require('./collections');
-const records = require('./records');
+const {records, collections} = require('@ucd-lib/fin-ucd-lib-node-utils');
 const config = require('../config');
 
 const COLLECTIONS_SITEMAP = '_collections';

@@ -28,5 +28,11 @@ module.exports = [
     description : 'UCD Library DAMS Client UI',
     type : 'ClientService',
     url : 'http://ucd-lib-client:8000'
+  },
+  {
+    id : 'api',
+    description : 'UCD Api for frontend client',
+    type : 'GlobalService',
+    urlTemplate : 'http://api:3000{{svcPath}}'
   }
 ];

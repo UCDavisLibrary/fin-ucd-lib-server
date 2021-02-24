@@ -1,5 +1,5 @@
 const es = require('../lib/esClient');
-const config = require('../config');
+const config = require('../lib/config');
 const ElasticSearchModel = require('./elasticsearch');
 
 class CollectionsModel extends ElasticSearchModel {

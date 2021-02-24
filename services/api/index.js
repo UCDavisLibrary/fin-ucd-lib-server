@@ -1,11 +1,11 @@
-global.LOGGER_NAME = 'ucd-lib-client';
+global.LOGGER_NAME = 'api';
 
 const express = require('express');
 const {logger} = require('@ucd-lib/fin-node-utils');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const config = require('./config');
+// const config = require('./config');
 
 // create express instance
 const app = express();
@@ -13,7 +13,6 @@ const app = express();
 // parse cookies and add compression
 app.use(cookieParser()); 
 app.use(compression());
-
 
 // setup simple http logging
 app.use((req, res, next) => {
@@ -29,22 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json req body
 app.use(bodyParser.json());
 
-
 /**
- * setup ark/doi proxy
+ * Register Controllers
  */
-require('./controllers/identifier')(app);
-
-/**
- * setup sitemap
- */
-require('./models/sitemap').middleware(app);
-
-/**
- * setup static routes
- */
-require('./controllers/static')(app);
+app.use('/api', require('./controllers'));
  
-app.listen(8000, () => {
-  logger.info('server ready on port 8000, using: '+config.server.assets);
+app.listen(3000, () => {
+  logger.info('server ready on port 3000');
 });
