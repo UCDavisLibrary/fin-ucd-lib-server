@@ -14,6 +14,8 @@ import "@ucd-lib/cork-app-utils";
 // styles
 import "./styles/style-properties"
 import "./styles/shared-styles"
+import "./styles/theme-properties"
+import "./styles/theme"
 
 // main library
 import '../lib'
