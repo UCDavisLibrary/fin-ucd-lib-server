@@ -4,6 +4,10 @@ import "../../utils/app-collection-card"
 
 import "@polymer/iron-icons"
 
+import "../../components/icon"
+import "../../components/search-box"
+
+
 import template from "./app-home.html"
 import RecordInterface from "../../interfaces/RecordInterface"
 import AppStateInterface from "../../interfaces/AppStateInterface"

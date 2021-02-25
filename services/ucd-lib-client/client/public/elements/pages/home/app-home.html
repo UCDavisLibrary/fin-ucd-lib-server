@@ -120,12 +120,13 @@
   }
 
   iron-icon.search-icon {
-    color: var(--default-secondary-color);
+    color: var(--default-primary-color);
   }
 
   iron-icon.info {
     fill: white;
   }
+
 </style>
 
 <a href="/about/" class="about-link-icon">
@@ -142,6 +143,19 @@
   <div class="search-box">
     <div class="main">
       <h1>UC Davis Digital Collections</h1>
+
+
+      <app-icons><div slot="icon-text">Collections</div></app-icons>
+      <app-search-box 
+        id="searchBox" 
+        on-search="_onSearch" 
+        on-browse="_onBrowse"
+        placeholder="search">
+        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+
+      </app-search-box>
+
+
       <div style="margin: 5px 0 15px 0;">
         Explore digitized items from the 
         <a class="gold" href="https://library.ucdavis.edu" target="_blank" rel="noopener">UC Davis Library</a> 
