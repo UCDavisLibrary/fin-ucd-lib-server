@@ -3,9 +3,11 @@ const AppStateModel = require('./AppStateModel');
 const CollectionModel = require('./CollectionModel');
 const config = require('../config');
 const clone = require('clone');
-const transform = require('../../../../lib/seo/record-transform');
-const collectionTransform = require('../../../../lib/seo/collection-transform');
 
+const seo = require('@ucd-lib/fin-ucd-lib-node-utils/lib/seo');
+
+const transform = seo.recordTransform;
+const collectionTransform = seo.collectionTransform;
 
 // keep the JSON-LD script tag up to date
 class SeoModel extends BaseModel {

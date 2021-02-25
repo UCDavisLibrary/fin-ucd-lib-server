@@ -9,11 +9,8 @@ ADD package-lock.json .
 RUN npm install --production && npm dedupe
 
 ADD index.js .
-ADD config.js .
-COPY client client
 COPY controllers controllers
 COPY lib lib
-COPY models models
 
 ARG UCD_LIB_SERVER_REPO_HASH
 ARG UCD_LIB_SERVER_REPO_TAG

@@ -1,9 +1,11 @@
 const es = require('../lib/esClient');
-const config = require('../config');
+const config = require('../lib/config');
 const ElasticSearchModel = require('./elasticsearch');
 const clone = require('clone');
-const transform = require('../lib/seo/record-transform');
-const graphConcat = require('../lib/seo/graph-concat');
+const seo = require('../lib/seo');
+
+const transform = seo.recordTransform;
+const graphConcat = seo.transform;
 
 const FILL_ATTRIBUTES = config.elasticsearch.fields.fill;
 

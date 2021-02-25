@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const model = require('../models/collections');
+const {collections} = require('@ucd-lib/fin-ucd-lib-node-utils');
 const utils = require('./utils');
 const cors = require('cors');
+
+const model = collections;
 
 router.use(cors());
 
