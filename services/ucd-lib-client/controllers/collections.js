@@ -14,6 +14,14 @@ router.get('/all', async (req, res) => {
   }
 });
 
+router.get('/overview', async (req, res) => {
+  try {
+    res.json(await model.overview());
+  } catch(e) {
+    res.json(utils.errorResponse(e, 'Error with collection retrieval'));
+  }
+});
+
 // dams search
 router.post('/search', async (req, res) => {
   if( !req.body ) {
