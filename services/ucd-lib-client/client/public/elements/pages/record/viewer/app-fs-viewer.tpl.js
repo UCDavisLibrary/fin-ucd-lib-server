@@ -195,7 +195,7 @@ return html`
 
   .table-header {
     display: flex;
-    font-size: var(--font-size);
+    font-size: var(--fs-p);
     color: var(--color-grey);
     font-style: italic;
     padding: 10px 0;
