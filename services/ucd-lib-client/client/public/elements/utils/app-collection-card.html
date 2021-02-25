@@ -36,7 +36,7 @@
     bottom: 25px;
     
     color: var(--default-secondary-color);
-    font-weight: var(--font-weight-heavy);
+    font-weight: var(--fw-bold);
 
     background-color: rgba(0, 38, 85, .8);      
   }
@@ -47,5 +47,8 @@
   class="img" 
   role="img" 
   aria-label="[[collection.name]]">
-  <div>[[collection.name]]</div>
+  <div>
+    <div>[[collection.name]]</div>
+    <div>[[collection.recordCount]] items</div>
+  </div>
 </div>

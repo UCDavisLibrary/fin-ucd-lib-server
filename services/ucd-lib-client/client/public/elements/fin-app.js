@@ -12,8 +12,8 @@ import "@ucd-lib/fin-icons"
 import "@ucd-lib/cork-app-utils";
 
 // styles
-import "./styles/style-properties"
 import "./styles/shared-styles"
+
 
 // main library
 import '../lib'
