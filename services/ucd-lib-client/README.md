@@ -1,6 +1,30 @@
 
 # Client Development
 
+## Init client
+
+First install the server and client dependencies
+```
+npm install
+cd public/client; npm install
+```
+
+Then you will need to link the node-utils module.
+
+In the fin-ucd-lib-server/node-utils folder run:
+
+```
+npm link
+```
+
+Then in the fin-ucd-lib-server/services/ucd-lib-client/client/public folder run
+```
+npm link @ucd-lib/fin-ucd-lib-node-utils
+```
+
+This will create a symbolic link from the node-utils to your client node_modules
+allowing the client code access to shared .js files.
+
 ## Realtime builds
 
 To run webpack each time a file changes, simply run
