@@ -1,3 +1,7 @@
+/* 
+ * STYLES FOR THE UC DAVIS CAMPUS THEME
+ * DEPENDENT ON FELLOW CSS CUSTOM PROPERTIES FILE
+*/
 body, html {
   font-family      : proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size        : var(--fs-html);
@@ -133,4 +137,9 @@ h4 > a:visited, .h4 > a:visited,
 h5 > a:visited, .h5 > a:visited,
 h6 > a:visited, .h6 > a:visited {
   text-decoration: underline;
+}
+
+/* */
+[hidden] {
+  display: none !important;
 }

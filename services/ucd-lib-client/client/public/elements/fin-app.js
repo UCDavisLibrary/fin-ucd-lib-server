@@ -12,9 +12,6 @@ import "@ucd-lib/fin-icons"
 import "@ucd-lib/cork-app-utils";
 
 // styles
-//import "./styles/campus-brand-properties"
-import "./styles/campus-brand"
-import "./styles/style-properties"
 import "./styles/shared-styles"
 
 
