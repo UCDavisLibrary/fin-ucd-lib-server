@@ -5,7 +5,7 @@ mkdir dist
 
 
 cp -r public/images dist/
-cp -r public/loader dist/
+cp -R -L public/loader dist/
 
 cp public/index.html dist/
 cp public/jwt.html dist/
