@@ -68,6 +68,5 @@
     "@ucd-lib/cork-app-utils": "4.4.0",
     "fs-extra": "7.0.1",
     "fast-deep-equal": "2.0.1"
-  },
-  "devDependencies": {}
+  }
 }

@@ -1,4 +1,4 @@
-const path = require('path');
+const webpack = require('webpack');
 
 let configs = require('@ucd-lib/cork-app-build').dist({
   // root directory, all paths below will be relative to root

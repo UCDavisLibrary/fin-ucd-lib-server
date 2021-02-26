@@ -6,11 +6,34 @@ WORKDIR /service
 
 ADD package.json .
 ADD package-lock.json .
-RUN npm install --production && npm dedupe
+RUN npm install && npm dedupe
+
+RUN npm link @ucd-lib/fin-ucd-lib-node-utils
+
+# client build
+COPY client/build.sh client/build.sh
+COPY client/webpack-dist.config.js client/webpack-dist.config.js
+
+# client npm packages
+COPY client/public/package.json client/public/package.json
+COPY client/public/package-lock.json client/public/package-lock.json
+RUN cd client/public && npm install
+RUN cd client/public && ln -s node_modules/\@ucd-lib/cork-app-load/lib loader
+
+# copt client code
+COPY client/public/images client/public/images
+COPY client/public/index.html client/public/index.html
+COPY client/public/jwt.html client/public/jwt.html
+COPY client/public/ie.html client/public/ie.html
+COPY client/public/manifest.json client/public/manifest.json
+COPY client/public/lib client/public/lib
+COPY client/public/elements client/public/elements
+
+# build the client 
+RUN npm run dist
 
 ADD index.js .
 ADD config.js .
-COPY client client
 COPY controllers controllers
 COPY lib lib
 COPY models models
