@@ -52,15 +52,24 @@ module.exports = (app) => {
         if( user.admin ) result.admin = true;
         user = result;
       } else {
-        user = {loggedIn: false}
+        user = {loggedIn: false};
       }
 
       return {
         collections : await collections.overview(),
         user : user,
         appRoutes : config.server.appRoutes,
-        recordCount: (await records.rootCount()).count
-      }
+        recordCount: (await records.rootCount()).count,
+        env : {
+          BUILD_NUM: process.env.BUILD_NUM || '',
+          BUILD_TIME: process.env.BUILD_TIME || '',
+          APP_VERSION: process.env.APP_VERSION || '',
+          UCD_LIB_SERVER_REPO_HASH: process.env.UCD_LIB_SERVER_REPO_HASH || '',
+          UCD_LIB_SERVER_REPO_TAG: process.env.UCD_LIB_SERVER_REPO_TAG || '',
+          CORE_SERVER_REPO_HASH: process.env.CORE_SERVER_REPO_HASH || '',
+          CORE_SERVER_REPO_TAG: process.env.CORE_SERVER_REPO_TAG || ''
+        }
+      };
     },
     template : async (req, res) => {
       let jsonld = '';
