@@ -22,6 +22,7 @@ import '../lib'
 import "./pages/search/app-search-header"
 import "./pages/search/app-search-breadcrumb"
 import "./app-footer"
+import "./app-footer-new"
 import "./utils/app-header-colorbar"
 
 import AppStateInterface from "./interfaces/AppStateInterface"
