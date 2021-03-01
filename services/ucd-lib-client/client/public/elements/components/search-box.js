@@ -1,5 +1,8 @@
 import { LitElement, html } from 'lit-element';
 import render from './search-box.tpl.js';
+import "@polymer/polymer/polymer-element"
+import "@polymer/iron-icons/iron-icons"
+import { styleMap } from 'lit-html/directives/style-map';
 
 export class AppSearchBox extends LitElement {
 
@@ -20,7 +23,8 @@ export class AppSearchBox extends LitElement {
   constructor() {
     super();
     this.render = render.bind(this);
-    this.placeholder = "search";
+    this.placeholder = "";
+    this.searchValue = "";
   }
 
   get browseValue() {
@@ -40,12 +44,16 @@ export class AppSearchBox extends LitElement {
     this.$.input.value = value;
   }
 
+  _handleChange(e){
+    this.searchValue = e.target.value;
+  }
+
   _fireSearch() {
     this.dispatchEvent(
       new CustomEvent(
         'search', 
         {
-          detail: this.$.input.value,
+          detail: this.searchValue,
           bubbles: true, 
           composed: true
         }

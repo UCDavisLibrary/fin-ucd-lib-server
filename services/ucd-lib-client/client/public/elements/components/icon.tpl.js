@@ -1,4 +1,7 @@
 import { html } from 'lit-element';
+import { classMap } from 'lit-html/directives/class-map';
+import { styleMap } from 'lit-html/directives/style-map';
+
 
 export default function render() { 
 return html`
@@ -6,21 +9,21 @@ return html`
     :host {
       display: inline-block;
     }
-    .icon {
-      height: 24px;
-      width: 24px;
-    }
-
-    .icon.rp {
-      fill: currentColor;
-      width: 25px;
-      height: 25px;
-    }
 
     .icon.extralgSVGIcon {
-      fill: currentColor;
+      fill: var(--default-primary-color);;
       width: 40px;
       height: 40px;
+    }
+    .icon.extralg {
+      fill: var(--default-primary-color);;
+      width: 40px;
+      height: 40px;
+    }
+    .icon.lg {
+      fill: var(--default-primary-color);;
+      width: 24px;
+      height: 24px;
     }
     .lgIcon {
       height: 24px;
@@ -61,13 +64,21 @@ return html`
       vertical-align:middle;
       text-align: center;
       display:table-cell;
+      height: 24px;
+      width: 24px;
 
     }
+    .icon.fin {
+      width: 25px;
+      height: 25px;
+    }
+    
 
 </style>
+
 <div class="container">
-  <div class="circle-icon" >
-    <iron-icon class="icon" icon="search" ></iron-icon>
+  <div class="circle-icon ${classMap(this.constructClasses())}" style="${styleMap(this.getCircleSizeStyles())}">
+    ${this.renderIcon()}
   </div>
   <div><slot name="icon-text"></slot></div>
 </div>

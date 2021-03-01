@@ -1,4 +1,6 @@
 import { html } from 'lit-element';
+import { classMap } from 'lit-html/directives/class-map';
+import { styleMap } from 'lit-html/directives/style-map';
 
 export default function render() { 
 return html`
@@ -33,6 +35,7 @@ return html`
   }
 
 
+
 </style>
 <div class="root">
   <div style="flex:1">
@@ -40,9 +43,12 @@ return html`
       id="input" 
       type="text"
       on-keyup="_onKeyUp"
-      placeholder="${this.placeholder}" />
+      placeholder="${this.placeholder}" 
+      .value=${this.searchValue}
+      @change="${this._handleChange}"
+    />
   </div>
-  <button on-click="_fireSearch">
+  <button @click="${this._fireSearch}">
     <slot name="button-content"></slot>
   </button>
 </div>
