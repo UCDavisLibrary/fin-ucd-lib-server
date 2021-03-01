@@ -141,11 +141,38 @@
     <div class="footer" style="border-bottom:white 10px solid;">
       <app-footer></app-footer>
     </div>
-    <app-footer-new number-of-columns=3>
-      <p>HELLO WORLD</p>
-      <ul slot="one" header="Digital Collections">
-        <li><a href="/#collections">collections</a></li>
-      </ul>
+    <app-footer-new>
+      <ucdlib-site-footer-column header="Digital Collections">
+        <ul>
+          <li><a href="/#collections">collections</a></li>
+          <li><a href="/search">items</a></li>
+          <li><a href="">faq</a></li>
+          <li><a href="/about">about digital collections</a></li>
+        </ul>
+      </ucdlib-site-footer-column>
+      <ucdlib-site-footer-column header="Library Info">
+        <ul>
+          <li><a href="https://library.ucdavis.edu/special-collections/" target="_blank" rel="noopener">special collections</a></li>
+          <li><a href="https://library.ucdavis.edu/news/" target="_blank" rel="noopener">news</a></li>
+          <li><a href="https://library.ucdavis.edu/about/" target="_blank" rel="noopener">About the Library</a></li>
+          <li><a href="https://library.ucdavis.edu/library/" target="_blank" rel="noopener">Visit</a></li>
+          <li><a href="https://library.ucdavis.edu/service/careers/" target="_blank" rel="noopener">Careers</a></li>
+        </ul>
+      </ucdlib-site-footer-column>
+      <ucdlib-site-footer-column header="Account">
+        <ul>
+          <li><app-auth-footer></app-auth-footer></li>
+        </ul>
+      </ucdlib-site-footer-column>
+      <div insert-into="below-address" hidden?="[[showVersion]]">
+        <div><b>Build Information</b></div>
+        <div>[[appVersion]]</div>
+        <div>Build Time: [[localBuildTime]]</div>
+        <div>fin-server: [[coreTag]] @ [[coreHash]]</div>
+        <div>fin-ucd-lib-server: [[clientTag]] @ [[clientHash]]</div>
+
+      </div>
+
     </app-footer-new>
   </div>
 </div>

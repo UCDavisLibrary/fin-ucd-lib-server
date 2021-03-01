@@ -1,153 +1,45 @@
-import { LitElement, html, css, svg } from 'lit-element';
-import render from "./ucdlib-site-footer.tpl.js"
+import { LitElement, html, svg } from 'lit-element';
+import {render, styles} from "./ucdlib-site-footer.tpl.js";
 
 /**
  * @class UcdlibSiteFooter
  * @description UI component class for displaying the standard UC Davis site footer
  * Can be used as is, or be inherited by a child class.
- * The column links can be customized by using named slots one to four, e.g.:
- *  <ul slot="one" header="Column Title Text">
- *    <li><a>Link goes here<a/></li>
- *  </ul>
+ * The column links can be customized by using children in the Light DOM:
+ * <ucdlib-site-footer number-of-columns=1 col-one-header="Your Column Header">
+ *   <li col="1"><a>A Link Under Column 1</a><li>
+ *   <li col="1"><a>Another Link Under Column 1</a><li>
+ * </ucdlib-site-footer>
  */
 export default class UcdlibSiteFooter extends LitElement {
 
   static get properties() {
     return {
-      lastUpdate: {type: String, attribute: "last-update"},
-      numberOfColumns: {type: Number, attribute: "number-of-columns"},
-      colOneHeader: {type: String, attribute: "col-one-header"},
-      colTwoHeader: {type: String, attribute: "col-one-header"},
-      colThreeHeader: {type: String, attribute: "col-one-header"},
-      colFourHeader: {type: String, attribute: "col-one-header"}
-    }
+      lastUpdate: {type: String, attribute: "last-update"}
+    };
+  }
+
+  static get styles() {
+    return styles();
   }
 
   constructor() {
     super();
     this.render = render.bind(this);
-
     this.lastUpdate = "";
-    this.numberOfColumns = 4;
-    this.colOneHeader = "Column 1";
-    this.colTwoHeader = "Column 2";
-    this.colThreeHeader = "Column 3";
-    this.colFourHeader = "Column 4";
-
   }
+
 
   /**
-   * @property styles
-   * @description Default static Lit property for element styles
+   * @method firstUpdated
+   * @description Lit method called when element is first updated.
+   * Removes children from Light DOM and inserts into Shadow DOM
    */
-  static get styles() {
-    return css`
-      :host {
-        display: block;
-        background-color: var(--color-aggie-blue);
-        color: var(--color-white);
-        font-size: var(--fs-html);
-      }
-      a {
-        color: var(--color-white);
-        text-decoration: underline;
-      }
-      .kt {
-        white-space: nowrap;
-      }
-      .plain {
-        text-decoration: none;
-      }
-      .h2 {
-        color: var(--color-white);
-      }
-      .section-columns {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      ::slotted(ul) {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      slot[name=one] ~ li {
-        border: 1px solid red;
-      }
-      slot[name=one] ~ li a {
-        border: 1px solid green;
-      }
-      ::slotted(ul a) {
-        color: var(--color-white);
-        text-decoration: none;
-      }
-      ::slotted(a):hover {
-        text-decoration: underline;
-      }
-      .section-aggie-logo {
-        display: flex;
-        justify-content: center;
-        margin: var(--spacing-md) 0;
-      }
-      .container-aggie-logo {
-        max-width: 100%;
-      }
-      .campus-info {
-        display: flex;
-        align-items: center;
-        flex-flow: column wrap;
-      }
-      .campus-info .row {
-        margin-bottom: var(--spacing-default);
-        display: flex;
-      }
-      .campus-info a:hover {
-        text-decoration: underline;
-      }
-      .campus-info ul {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 0;
-        padding: 0;
-      }
-      .campus-info ul li {
-        display: inline-block;
-      }
-      .campus-info ul a.pipe {
-        border-right: 1px solid var(--color-aggie-blue-70);
-        margin-right: .5rem;
-        padding-right: .5rem;
-        line-height: .9;
-      }
-      .campus-info span {
-        text-align: center;
-      }
-    `;
-  }
-
-  connectedCallback(){
-    super.connectedCallback();
+  firstUpdated(){
     [...this.children].forEach(item => {
-      console.log(item);
-      this.removeChild(item);
-      this.shadowRoot.appendChild(item)
-    })
-  }
-
-  /**
-   * @method onSlotchange
-   * @description Bound to column slots. Sets the column header text.
-   * @param {Event} e 
-   */
-  onSlotchange(e) {
-    const slotName = e.target.getAttribute('name');
-    const childNodes = e.target.assignedNodes({flatten: true});
-    if (childNodes.length > 0 && childNodes[0].getAttribute('header')) {
-      let prop = `col${slotName.split("").map((l, i) => i === 0 ? l.toUpperCase() : l).join("")}Header`;
-      this[prop] = childNodes[0].getAttribute('header');
-    }
+      let insertInto = item.getAttribute('insert-into') ? item.getAttribute('insert-into') : "section-columns";
+      this.shadowRoot.getElementById(insertInto).appendChild(item);
+    });
   }
 
   /**
