@@ -161,8 +161,6 @@
 
 </style>
 
-<!-- This is the Start of the Homepage with Search and Icons
-
 <div id="sample">
   <h1 >Digital Collections</h1>
   <h4>Explore digitized items from the <a>UC Davis Library</a> collections.</h4>
@@ -182,51 +180,11 @@
   <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
   <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Creators</div></app-icons>
   <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
-  <app-icons id="option" icon="iron-star" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
+  <app-icons id="option" icon="fin-search" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
 
 </div>
 
--->
 
-
-<div id="hero">
-  <a href="/about/" class="about-link-icon">
-    <iron-icon icon="info" class="info" role="img" aria-label="About Link"></iron-icon>
-  </a>
-  <div class="logo">
-    <a href="https://www.library.ucdavis.edu/" target="_blank" rel="noopener">
-      <img src="/images/ucd-lib-logo-white.png" alt="UC Davis Library Logo" />
-    </a>
-  </div>
-  <div class="gradient"></div>
-  <div class="search-box">
-    <div class="main">
-      <h1>UC Davis Digital Collections</h1>
-
-      <div style="margin: 5px 0 15px 0;">
-        Explore digitized items from the 
-        <a class="gold" href="https://library.ucdavis.edu" target="_blank" rel="noopener">UC Davis Library</a> 
-        collections. 
-      </div>
-
-      <fin-search-box 
-        id="searchBox" 
-        on-search="_onSearch" 
-        on-browse="_onBrowse"
-        placeholder="Search Keyword(s)">
-        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
-      </fin-search-box>
-    </div>
-
-    <div class="footer">
-      Featured image: 
-      <a href="/collection/eastman/D-051/B-4/B-4709">Agricultural College, Davis</a> |
-      <a href="/collection/eastman">Eastman Collection</a>
-    </div>
-  </div>
-
-</div>
-<app-header-colorbar height="8"></app-header-colorbar>
 <div class="collection-outer">
   <div class="collections" id="collections-home">
     <template is="dom-repeat" items="[[highlightedCollections]]">
@@ -239,4 +197,3 @@
     </template>
   </div>
 </div>
-<app-header-colorbar height="8" flipped></app-header-colorbar>

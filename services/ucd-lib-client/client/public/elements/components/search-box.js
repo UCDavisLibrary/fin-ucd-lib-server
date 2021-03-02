@@ -85,6 +85,7 @@ export class AppSearchBox extends LitElement {
    */
   _onKeyUp(e) {
     if( e.which !== 13 ) return;
+    this._handleChange(e);
     this._fireSearch();
   }
 

@@ -21,7 +21,7 @@ class AppSearchHeader extends Mixin(PolymerElement)
         type : String,
         value : ''
       }
-    }
+    };
   }
 
   static get template() {
@@ -34,7 +34,12 @@ class AppSearchHeader extends Mixin(PolymerElement)
     super();
     this.active = true;
   }
-
+  /**
+   * @method ready
+   * @description It gets the model information for the Collections when 
+   * function is fired.
+   * 
+   */
   async ready() {
     super.ready();
     this._setCollections(await this.CollectionModel.overview());

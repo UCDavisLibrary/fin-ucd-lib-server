@@ -43,9 +43,8 @@ return html`
     <input 
       id="input" 
       type="text"
-      on-keyup="_onKeyUp"
+      @keyup="${this._onKeyUp}"
       placeholder="${this.placeholder}" 
-      .value=${this.searchValue}
       @change="${this._handleChange}"
     />
   </div>
