@@ -1,12 +1,16 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
-import template from "./app-search-header.html"
-
+import {PolymerElement} from "@polymer/polymer/polymer-element";
+import template from "./app-search-header.html";
+import "@polymer/iron-pages/iron-pages";
+import "@polymer/iron-icons/iron-icons";
 import "../../auth/app-auth-header";
-import "@ucd-lib/fin-search-box"
+import "@ucd-lib/fin-search-box";
+import "../../components/search-box";
+import "../../components/nav-bar";
+import "../../components/icon";
 
-import RecordInterface from '../../interfaces/RecordInterface'
-import CollectionInterface from '../../interfaces/CollectionInterface'
-import AppStateInterface from '../../interfaces/AppStateInterface'
+import RecordInterface from '../../interfaces/RecordInterface';
+import CollectionInterface from '../../interfaces/CollectionInterface';
+import AppStateInterface from '../../interfaces/AppStateInterface';
 
 class AppSearchHeader extends Mixin(PolymerElement)
       .with(EventInterface, RecordInterface, CollectionInterface, AppStateInterface) {

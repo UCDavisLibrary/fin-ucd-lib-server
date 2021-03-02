@@ -10,7 +10,7 @@ return html`
   }
   .nav {
     display: flex;
-    background-color: var(--default-primary-color);
+    background-image: linear-gradient( 115deg, var(--default-primary-color) 85%, var(--color-aggie-blue-80) 85% 87%, var(--color-aggie-blue-70) 87%);
     /*background-image: url(${this.background}); */
     background-size: cover;
     background-position: center;
