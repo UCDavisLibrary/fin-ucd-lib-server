@@ -575,6 +575,8 @@
   "version" "4.0.0"
   dependencies:
     "graceful-fs" "^4.1.6"
+  optionalDependencies:
+    "graceful-fs" "^4.1.6"
 
 "leaflet@^1.2.0":
   "integrity" "sha512-adQOIzh+bfdridLM1xIgJ9VnJbAUY3wqs/ueF+ITla+PLQ1z47USdBKUf+iD9FuUA8RtlT6j6hZBfZoA6mW+XQ=="
@@ -627,6 +629,7 @@
 
 "plyr@git://github.com/ucd-library/plyr.git#jm-webcomponents":
   "resolved" "git+ssh://git@github.com/ucd-library/plyr.git#c3b5aceb8872c718e83e1cc2e8cceebd5d5e3495"
+  "version" "3.5.10"
   dependencies:
     "core-js" "^3.6.4"
     "custom-event-polyfill" "^1.0.7"

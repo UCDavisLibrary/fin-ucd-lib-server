@@ -12,6 +12,7 @@ return html`
     display: flex;
     align-items: center;
     max-width: 325px;
+    width:325px;
   }
   input {
     width: 100%;

@@ -1,30 +1,31 @@
 import { LitElement, html, svg} from 'lit-element';
 import render from './icon.tpl.js';
-import "@polymer/polymer/polymer-element"
-import "@polymer/iron-icons/iron-icons"
+import "@polymer/polymer/polymer-element";
+import "@polymer/iron-icons/iron-icons";
 import { styleMap } from 'lit-html/directives/style-map';
 
 
-import template from "./icon.tpl.js"
 
-
-
+/**
+ * @class AppIcons
+ * @description Icons for the DAMS app
+ */
 export default class AppIcons extends LitElement {
 
 
   static get properties() {
     return { 
-        size: {type: String},
-        icon: {type: String},
-        themeColor: {type: String, attribute: 'theme-color'},
-        isLink: {type: Boolean, attribute: 'is-link'},
-        circleBg: {type: Boolean, attribute: 'circle-bg'},
-        hasText: {type: Boolean, attribute: 'has-text'},
-        sizeIcon: {type: String, attribute: 'size-icon'},
-        sizeIconSVG:  {type: String, attribute: 'size-icon-svg'},
-        _customIcons: {type: Object},
-        iconPixelSize: {type: Number},
-        circlePixelSize: {type: Number}
+      size: {type: String},
+      icon: {type: String},
+      themeColor: {type: String, attribute: 'theme-color'},
+      isLink: {type: Boolean, attribute: 'is-link'},
+      circleBg: {type: Boolean, attribute: 'circle-bg'},
+      hasText: {type: Boolean, attribute: 'has-text'},
+      sizeIcon: {type: String, attribute: 'size-icon'},
+      sizeIconSVG:  {type: String, attribute: 'size-icon-svg'},
+      _customIcons: {type: Object},
+      iconPixelSize: {type: Number},
+      circlePixelSize: {type: Number}
 
     };
   }
@@ -67,20 +68,18 @@ export default class AppIcons extends LitElement {
    */
   getIconSize(){
     let size = this.iconPixelSize;
-    if (this.sizeIconSVG == 'extralgSVGIcon' || this.sizeIcon == 'extralgSVGIcon')  {
+    console.log(size);
+    if (this.sizeIconSVG == 'extralg' || this.sizeIcon == 'extralg')  {
       size = 40;
     }
-    else if (this.sizeIcon == 'lg') {
+    else if (this.sizeIconSVG == 'lg' || this.sizeIcon == 'lg') {
       size = 24;
-    }
-    else if (this.sizeIcon == 'extralg') {
-      size = 40;
     }
 
     return size;
   }
 
-    /**
+  /**
    * @method getIconSizeStyles
    * @description return the object of the style assigned
    * icons and calls the getIconSize
@@ -88,10 +87,7 @@ export default class AppIcons extends LitElement {
    */
   getIconSizeStyles(){
     let size = `${this.getIconSize()}px`;
-    return {'width': size, 
-            'min-width': size, 
-            'height': size, 
-          };
+    return {'width': size,'min-width': size,'height': size, 'display': 'block', 'margin': '0 auto' };
   }
 
   /**
@@ -119,10 +115,10 @@ export default class AppIcons extends LitElement {
    */
   getCircleSizeStyles(){
     let size = `${this.getCircleSize()}px`;
-    return {'width': size, "min-width": size, 'height': size, 'display':'table'};
+    return {'width': size, "min-width": size, 'height': size, 'text-align':'center', 'justify-content': 'center', 'display': 'flex', 'align-items': 'center'};
   }
 
-    /**
+  /**
    * @method _constructClasses
    * @description Constructs CSS classes based on element properties
    * 
@@ -169,8 +165,9 @@ export default class AppIcons extends LitElement {
    * @returns {String} 
    */
   _calculateViewBox() {
-    let size = this.getIconSize();
-    return `0 0 ${size} ${size}`;
+    //let size = this.getIconSize();
+    //console.log(size);
+    return `0 0 24 24`;
   }
 
   /**
@@ -180,7 +177,6 @@ export default class AppIcons extends LitElement {
    * @returns {HTML} 
    */
   renderIcon() {
-
     if ( (!this.icon ) || (this.icon == "iron-") ) {
       return html``;
     }
@@ -192,7 +188,7 @@ export default class AppIcons extends LitElement {
     }
     if (this._isCustomIcon(this.icon)) {
       let icon = this.icon.split("-").slice(1).join('-');
-      return html`<svg class="icon fin ${this.sizeIconSVG ? this.sizeIconSVG : ''}" viewBox="${this._calculateViewBox()}" style="${styleMap(this.getIconSizeStyles())}" xmlns="http://www.w3.org/2000/svg">${this._renderCustomIcon(icon)}</svg>`
+      return html`<svg id="svg" class="icon fin ${this.sizeIconSVG ? this.sizeIconSVG : ''}" viewBox="${this._calculateViewBox()}" style="${styleMap(this.getIconSizeStyles())}" xmlns="http://www.w3.org/2000/svg">${this._renderCustomIcon(icon)}</svg>`; 
     }
     return html``;
   }

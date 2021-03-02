@@ -128,13 +128,102 @@
     fill: white;
   }
 
-</style>
+  #sample {
+    background-image: linear-gradient(var(--default-primary-color), white);
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    padding:2rem 4rem;
 
-<a href="/about/" class="about-link-icon">
-  <iron-icon icon="info" class="info" role="img" aria-label="About Link"></iron-icon>
-</a>
+  }
+
+  #options {
+    height: 150px;
+    background-color:white;
+    width: 100%;
+    padding: 2rem 4rem;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+  }
+
+  #option{
+    display: inline-block;
+  }
+
+  .searchContainer{
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    background-color: var(--ucdblue40);
+  }
+
+
+
+</style>
+<!--=============================================================================================-->
+
+<!-- This is the Start of the Nav Bar
+<app-nav-bar
+  choices='[{"text": "Browse"},
+          {"text": "About"},
+          {"text": "FAQ"}]'>
+</app-nav-bar> 
+-->
+<!--=============================================================================================-->
+
+<!-- This is the Start of the Search and Filter Container
+
+<div class="searchContainer">
+  <div style="margin: 0 auto;">
+    <app-search-box 
+      id="searchBox" 
+      on-search="_onSearch" 
+      on-browse="_onBrowse"
+      placeholder="Search Digital Collection">
+      <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+    </app-search-box>
+  </div>
+</div>
+-->
+<!--=============================================================================================-->
+<!-- This is the Start of the Homepage with Search and Icons
+
+<div id="sample">
+  <h1 >Digital Collections</h1>
+  <h4>Explore digitized items from the <a>UC Davis Library</a> collections.</h4>
+
+  <app-search-box 
+    id="searchBox" 
+    on-search="_onSearch" 
+    on-browse="_onBrowse"
+    placeholder="search">
+    <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+  </app-search-box>
+    
+  <p>Featured Image: <a>Annual Winter Sale 1952</a> | <a>Sherry Lehmann Wine Catalogs</a></p>
+</div>
+<div id="options">
+  <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
+  <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
+  <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Creators</div></app-icons>
+  <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
+  <app-icons id="option" icon="iron-star" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
+
+</div>
+
+-->
+
 
 <div id="hero">
+  <a href="/about/" class="about-link-icon">
+    <iron-icon icon="info" class="info" role="img" aria-label="About Link"></iron-icon>
+  </a>
   <div class="logo">
     <a href="https://www.library.ucdavis.edu/" target="_blank" rel="noopener">
       <img src="/images/ucd-lib-logo-white.png" alt="UC Davis Library Logo" />
@@ -145,24 +234,12 @@
     <div class="main">
       <h1>UC Davis Digital Collections</h1>
 
-
-      <app-icons icon="iron-link" theme-color='secondary' size-icon='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
-      <app-search-box 
-        id="searchBox" 
-        on-search="_onSearch" 
-        on-browse="_onBrowse"
-        placeholder="search">
-        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
-      </app-search-box>
-      </br>
-
-
       <div style="margin: 5px 0 15px 0;">
         Explore digitized items from the 
         <a class="gold" href="https://library.ucdavis.edu" target="_blank" rel="noopener">UC Davis Library</a> 
         collections. 
       </div>
-      
+
       <fin-search-box 
         id="searchBox" 
         on-search="_onSearch" 

@@ -1,20 +1,24 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
-import "@ucd-lib/fin-search-box"
-import "../../utils/app-collection-card"
+import {PolymerElement} from "@polymer/polymer/polymer-element";
+import "@ucd-lib/fin-search-box";
+import "../../utils/app-collection-card";
 
-import "@polymer/iron-icons"
+import "@polymer/iron-icons";
 
-import "../../components/icon"
-import "../../components/search-box"
+import "../../components/icon";
+import "../../components/search-box";
+import "../../components/nav-bar";
 
+import template from "./app-home.html";
+import RecordInterface from "../../interfaces/RecordInterface";
+import AppStateInterface from "../../interfaces/AppStateInterface";
+import CollectionInterface from "../../interfaces/CollectionInterface";
 
-import template from "./app-home.html"
-import RecordInterface from "../../interfaces/RecordInterface"
-import AppStateInterface from "../../interfaces/AppStateInterface"
-import CollectionInterface from "../../interfaces/CollectionInterface"
-
+/**
+ * @class AppHome
+ * @description home page is rendered to the DAMS v2
+ */
 class AppHome extends Mixin(PolymerElement) 
-      .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
+  .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
   
   static get template() {
     let tag = document.createElement('template');
@@ -31,10 +35,10 @@ class AppHome extends Mixin(PolymerElement)
       count : {
         type : String,
         value : (APP_CONFIG.recordCount || 0)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       }
-    }
+    };
   }
 
   constructor() {
@@ -42,11 +46,24 @@ class AppHome extends Mixin(PolymerElement)
     this.active = true;
   }
 
+  /**
+   * @method ready
+   * @description It gets the model information for the Collections when 
+   * function is fired.
+   * 
+   */
   async ready() {
     super.ready();
     this._setCollections(await this.CollectionModel.overview());
   }
 
+  /**
+   * @method _onAppStateUpdate
+   * @description on the App update, the state is determined and by checking
+   * the location
+   * 
+   * @param {Object} e 
+   */
   _onAppStateUpdate(e) {
     if( e.location.hash === 'collections' ) {
       setTimeout(() => {
@@ -83,7 +100,7 @@ class AppHome extends Mixin(PolymerElement)
       if( item.workExample ) {
         item.thumbnail = '/fcrepo/rest'+item.workExample['@id']+'/svc:iiif/full/,320/0/default.jpg';
       } else {
-         item.thumbnail = '/images/logos/logo-white-512.png';
+        item.thumbnail = '/images/logos/logo-white-512.png';
       }
     });
 
@@ -94,6 +111,8 @@ class AppHome extends Mixin(PolymerElement)
   /**
    * @method _onBrowse
    * @description called from the search box browse button
+   * @param {Object} e
+   * @returns 
    */
   _onBrowse(e) {
     let id = e.detail;
@@ -102,12 +121,14 @@ class AppHome extends Mixin(PolymerElement)
     }
     this.$.searchBox.browseValue = 'Browse';
     this._onCollectionSelected(id);
+    return this._onCollectionSelected(id);
   }
 
   /**
    * @method _onSearch
    * @description called from the search box button is clicked or
    * the enter key is hit.  set the text filter
+   * @param {Object} e
    */
   _onSearch(e) {
     let searchDoc = this._getEmptySearchDocument();
@@ -118,6 +139,7 @@ class AppHome extends Mixin(PolymerElement)
   /**
    * @method _onCollectionClicked
    * @description called when collection img on home page is clicked 
+   * @param {Object} e
    */
   _onCollectionClicked(e) {
     if( e.type === 'keyup' && e.which !== 13 ) return;
@@ -128,6 +150,8 @@ class AppHome extends Mixin(PolymerElement)
   /**
    * @method _onCollectionSelected
    * @description filter based on a collection using short ids.
+   * @param {String} id
+   * 
    */
   _onCollectionSelected(id) {
     this._setWindowLocation(id);
