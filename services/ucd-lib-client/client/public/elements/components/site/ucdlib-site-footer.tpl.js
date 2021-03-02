@@ -35,6 +35,10 @@ export function styles() {
         justify-content: space-between;
         margin-top: var(--spacing-sm);
       }
+      #section-columns > * {
+        margin: 0 var(--spacing-default) var(--spacing-default);
+        flex-grow: 1;
+      }
       ucdlib-site-footer-column ul {
         margin: 0;
         padding: 0;
@@ -43,6 +47,20 @@ export function styles() {
         display: block;
         margin-bottom: var(--spacing-default);
         text-transform: lowercase;
+      }
+      .button {
+        margin-top: 15px;
+      }
+      .button > a {
+        display: inline-block !important;
+        padding: 8px !important;
+        font-weight: var(--fw-bold);
+        border: 1px solid white;
+        text-decoration: none;
+        white-space: normal !important;
+      }
+      .button > a:hover {
+        background: var(--color-a-hover);
       }
       address {
         font-style: normal;

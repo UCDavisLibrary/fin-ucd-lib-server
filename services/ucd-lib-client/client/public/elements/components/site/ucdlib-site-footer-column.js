@@ -12,7 +12,8 @@ export default class UcdlibSiteFooterColumn extends LitElement {
   static get properties() {
     return {
       header: {type: String},
-      role: {type: String, reflect: true}
+      role: {type: String, reflect: true},
+      template: {type: String}
     };
   }
 
@@ -26,6 +27,7 @@ export default class UcdlibSiteFooterColumn extends LitElement {
 
     this.header = "Footer Column Header";
     this.role = "navigation";
+    this.template = "";
   }
 
 }

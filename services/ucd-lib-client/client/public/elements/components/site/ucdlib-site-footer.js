@@ -1,5 +1,6 @@
 import { LitElement, html, svg } from 'lit-element';
 import {render, styles} from "./ucdlib-site-footer.tpl.js";
+import ThemeUtils from "../themeUtils";
 
 /**
  * @class UcdlibSiteFooter
@@ -11,7 +12,8 @@ import {render, styles} from "./ucdlib-site-footer.tpl.js";
  *   <li col="1"><a>Another Link Under Column 1</a><li>
  * </ucdlib-site-footer>
  */
-export default class UcdlibSiteFooter extends LitElement {
+export default class UcdlibSiteFooter extends Mixin(LitElement)
+  .with(ThemeUtils) {
 
   static get properties() {
     return {
@@ -26,20 +28,7 @@ export default class UcdlibSiteFooter extends LitElement {
   constructor() {
     super();
     this.render = render.bind(this);
-    this.lastUpdate = "";
-  }
-
-
-  /**
-   * @method firstUpdated
-   * @description Lit method called when element is first updated.
-   * Removes children from Light DOM and inserts into Shadow DOM
-   */
-  firstUpdated(){
-    [...this.children].forEach(item => {
-      let insertInto = item.getAttribute('insert-into') ? item.getAttribute('insert-into') : "section-columns";
-      this.shadowRoot.getElementById(insertInto).appendChild(item);
-    });
+    this.lastUpdate = "hey";
   }
 
   /**

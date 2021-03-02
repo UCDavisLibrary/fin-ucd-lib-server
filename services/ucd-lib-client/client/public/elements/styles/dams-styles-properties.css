@@ -16,6 +16,9 @@ html {
   --color-dams-wc-3             : var(--color-pinot);
   --color-dams-wc-4             : var(--color-strawberry);
 
+  /* CAMPUS STYLE OVERRIDES */
+  --color-a-hover               : var(--color-dams-alt);
+
   /* POLYMER COLOR VARIABLES?? */
   --default-primary-color : var(--color-dams-primary) !important;
   --light-primary-color   : var(--color-dams-primary-g1) !important;

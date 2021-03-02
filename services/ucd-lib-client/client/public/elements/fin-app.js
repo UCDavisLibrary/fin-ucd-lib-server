@@ -22,8 +22,8 @@ import '../lib'
 import "./pages/search/app-search-header"
 import "./pages/search/app-search-breadcrumb"
 import "./app-footer"
-import "./app-footer-new";
 import "./auth/app-auth-footer";
+import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
 import "./utils/app-header-colorbar"
 
