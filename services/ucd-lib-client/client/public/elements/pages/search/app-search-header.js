@@ -64,6 +64,9 @@ class AppSearchHeader extends Mixin(PolymerElement)
    * selects a specific collection to browse
    * 
    * @param {Object} e 
+   * 
+   * @returns {String} Window Location
+   * 
    */
   _onBrowse(e) {
     let id = e.detail;
@@ -75,6 +78,7 @@ class AppSearchHeader extends Mixin(PolymerElement)
     }
 
     this._setWindowLocation(id);
+    return this._setWindowLocation;
   }
 
   /**
