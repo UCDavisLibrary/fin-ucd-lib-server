@@ -18,6 +18,8 @@ import "./styles/shared-styles"
 // main library
 import '../lib'
 
+import "./tmp/test-footer"
+
 // app elements
 import "./pages/search/app-search-header"
 import "./pages/search/app-search-breadcrumb"

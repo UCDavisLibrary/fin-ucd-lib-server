@@ -2,6 +2,7 @@ const elasticsearch = require('elasticsearch');
 const request = require('request');
 const schemaRecord = require('../schemas/record');
 const schemaCollection = require('../schemas/collection');
+const schemaApplication = require('../schemas/application');
 const {logger, jwt, waitUntil} = require('@ucd-lib/fin-node-utils');
 const api = require('@ucd-lib/fin-node-api');
 const {URL} = require('url');
@@ -68,9 +69,11 @@ class EsIndexer {
 
     let recordConfig = config.elasticsearch.record;
     let colConfig = config.elasticsearch.collection;
+    let appConfig = config.elasticsearch.application;
 
     await this.ensureIndex(recordConfig.alias, recordConfig.schemaType, schemaRecord);
     await this.ensureIndex(colConfig.alias, colConfig.schemaType, schemaCollection);
+    await this.ensureIndex(appConfig.alias, appConfig.schemaType, schemaApplication);
   }
 
   /**
@@ -159,7 +162,7 @@ class EsIndexer {
    * 
    * @returns {Promise}
    */
-  async update(jsonld, recordIndex, collectionIndex) {
+  async update(jsonld, recordIndex, collectionIndex, applicationIndex) {
     if( !jsonld ) return;
 
     // only index binary and collections
@@ -187,6 +190,17 @@ class EsIndexer {
       this.attributeReducer.onRecordUpdate({
         record: jsonld,
         alias : recordIndex || config.elasticsearch.record.alias
+      });
+    
+    } else if ( this.isApplication(jsonld['@type']) ) {
+
+      logger.info(`ES Indexer updating application container: ${jsonld['@id']}`);
+
+      await this.esClient.index({
+        index : applicationIndex || config.elasticsearch.application.alias,
+        type: config.elasticsearch.application.schemaType,
+        id : jsonld['@id'],
+        body: jsonld
       });
 
     } else {
@@ -302,7 +316,11 @@ class EsIndexer {
     else if( this.isRecord(path, types) ) svc = config.essync.transformServices.record;
 
     // we don't have a frame service for this
-    if( !svc ) return null;
+    // if( !svc ) return null;
+
+    if( !svc ) {
+      return await this.getContainer(path);
+    }
 
     let response = await this._requestSvcContainer(path, svc);
     if( !response ) return null;
@@ -515,6 +533,10 @@ class EsIndexer {
   // }
   isRecord(path, types=[]) {
     return path.match(/^\/collection\/.*\/.*/);
+  }
+
+  isApplication(path) {
+    return path.match(/^\/application\//);
   }
 
   /**
