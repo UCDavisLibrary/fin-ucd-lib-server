@@ -1,12 +1,16 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
-import template from "./app-search-header.html"
-
+import {PolymerElement} from "@polymer/polymer/polymer-element";
+import template from "./app-search-header.html";
+import "@polymer/iron-pages/iron-pages";
+import "@polymer/iron-icons/iron-icons";
 import "../../auth/app-auth-header";
-import "@ucd-lib/fin-search-box"
+import "@ucd-lib/fin-search-box";
+import "../../components/search-box";
+import "../../components/nav-bar";
+import "../../components/icon";
 
-import RecordInterface from '../../interfaces/RecordInterface'
-import CollectionInterface from '../../interfaces/CollectionInterface'
-import AppStateInterface from '../../interfaces/AppStateInterface'
+import RecordInterface from '../../interfaces/RecordInterface';
+import CollectionInterface from '../../interfaces/CollectionInterface';
+import AppStateInterface from '../../interfaces/AppStateInterface';
 
 class AppSearchHeader extends Mixin(PolymerElement)
       .with(EventInterface, RecordInterface, CollectionInterface, AppStateInterface) {
@@ -17,7 +21,7 @@ class AppSearchHeader extends Mixin(PolymerElement)
         type : String,
         value : ''
       }
-    }
+    };
   }
 
   static get template() {
@@ -30,7 +34,12 @@ class AppSearchHeader extends Mixin(PolymerElement)
     super();
     this.active = true;
   }
-
+  /**
+   * @method ready
+   * @description It gets the model information for the Collections when 
+   * function is fired.
+   * 
+   */
   async ready() {
     super.ready();
     this._setCollections(await this.CollectionModel.overview());
@@ -60,6 +69,9 @@ class AppSearchHeader extends Mixin(PolymerElement)
    * selects a specific collection to browse
    * 
    * @param {Object} e 
+   * 
+   * @returns {String} Window Location
+   * 
    */
   _onBrowse(e) {
     let id = e.detail;
@@ -71,6 +83,7 @@ class AppSearchHeader extends Mixin(PolymerElement)
     }
 
     this._setWindowLocation(id);
+    return this._setWindowLocation;
   }
 
   /**

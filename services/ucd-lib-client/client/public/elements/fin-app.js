@@ -1,24 +1,25 @@
-import {PolymerElement, html} from "@polymer/polymer"
+import {PolymerElement, html} from "@polymer/polymer";
 
 // polymer elements
-import "@polymer/paper-button/paper-button"
-import "@polymer/iron-pages/iron-pages"
-import "@polymer/iron-icons/iron-icons"
-import "@polymer/iron-icons/social-icons"
-import "@polymer/iron-iconset-svg/iron-iconset-svg"
-import "@ucd-lib/fin-icons"
+import "@polymer/paper-button/paper-button";
+import "@polymer/iron-pages/iron-pages";
+import "@polymer/iron-icons/iron-icons";
+import "@polymer/iron-icons/social-icons";
+import "@polymer/iron-iconset-svg/iron-iconset-svg";
+import "@ucd-lib/fin-icons";
 
 // sets globals Mixin and EventInterface
 import "@ucd-lib/cork-app-utils";
 
 // styles
-import "./styles/shared-styles"
+import "./styles/shared-styles";
 
 
 // main library
-import '../lib'
+import '../lib';
 
 // app elements
+<<<<<<< HEAD
 import "./pages/search/app-search-header"
 import "./pages/search/app-search-breadcrumb"
 import "./app-footer"
@@ -26,11 +27,18 @@ import "./auth/app-auth-footer";
 import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
 import "./utils/app-header-colorbar"
+=======
+import "./pages/search/app-search-header";
+import "./pages/search/app-search-breadcrumb";
+import "./app-footer";
+import "./utils/app-header-colorbar";
+>>>>>>> v2.0-sandbox
 
-import AppStateInterface from "./interfaces/AppStateInterface"
-import AuthInterface from "./interfaces/AuthInterface"
-import CollectionInterface from "./interfaces/CollectionInterface"
-import RecordInterface from "./interfaces/RecordInterface"
+
+import AppStateInterface from "./interfaces/AppStateInterface";
+import AuthInterface from "./interfaces/AuthInterface";
+import CollectionInterface from "./interfaces/CollectionInterface";
+import RecordInterface from "./interfaces/RecordInterface";
 
 import template from "./fin-app.html";
 
@@ -94,7 +102,10 @@ export class FinApp extends Mixin(PolymerElement)
 
     this.SEARCH_HEADER_PAGES = ['about', 'record', 'search'];
     this.BREADCRUMB_PAGES = ['record', 'search'];
+<<<<<<< HEAD
     this.showVersion = APP_CONFIG.env.APP_VERSION.match(/(alpha|beta|rc)/) ? true : false;
+=======
+>>>>>>> v2.0-sandbox
 
     this.loadedPages = {};
 
@@ -155,14 +166,15 @@ export class FinApp extends Mixin(PolymerElement)
    */
   loadPage(page) {
     if( page === 'home' ) {
-      return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home")
+      return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
     } else if( page === 'search' ) {
-      return import(/* webpackChunkName: "page-search" */ "./pages/search/app-search")
+      return import(/* webpackChunkName: "page-search" */ "./pages/search/app-search");
     } else if( page === 'record' ) {
-      return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record")
+      return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record");
     } else if( page === 'about' ) {
-      return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about")
+      return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
     }
+    return import("");
   }
 
   /**

@@ -10,15 +10,6 @@ const {seo, records, collections} = require('@ucd-lib/fin-ucd-lib-node-utils');
 const transform = seo.recordTransform;
 const collectionTransform = seo.collectionTransform;
 
-// const bundle = `
-//   <script>
-//     var CORK_LOADER_VERSIONS = {
-//       loader : '${config.client.versions.loader}',
-//       bundle : '${config.client.versions.bundle}'
-//     }
-//   </script>
-//   <script src="/loader/loader.js?_=${config.client.versions.loader}"></script>`;
-
 const loaderPath = path.join(__dirname, '..', 'client', config.server.assets, 'loader', 'loader.js');
 const loaderSrc = fs.readFileSync(loaderPath, 'utf-8');
 const bundle = `

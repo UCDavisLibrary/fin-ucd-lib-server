@@ -42,6 +42,7 @@
     background-image: url('/images/default-home-background.jpg');
     background-size: cover;
     background-position: center;
+    
   }
 
   .gradient {    
@@ -120,52 +121,70 @@
   }
 
   iron-icon.search-icon {
-    color: var(--default-secondary-color);
+    color: var(--default-primary-color);
   }
 
   iron-icon.info {
     fill: white;
   }
+
+  #sample {
+    background-image: linear-gradient(var(--default-primary-color), white);
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    padding:2rem 4rem;
+
+  }
+
+  #options {
+    height: 150px;
+    background-color:white;
+    width: 100%;
+    padding: 2rem 4rem;
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+  }
+
+  #option{
+    display: inline-block;
+  }
+
+
+
+
 </style>
 
-<a href="/about/" class="about-link-icon">
-  <iron-icon icon="info" class="info" role="img" aria-label="About Link"></iron-icon>
-</a>
+<div id="sample">
+  <h1 >Digital Collections</h1>
+  <h4>Explore digitized items from the <a>UC Davis Library</a> collections.</h4>
 
-<div id="hero">
-  <div class="logo">
-    <a href="https://www.library.ucdavis.edu/" target="_blank" rel="noopener">
-      <img src="/images/ucd-lib-logo-white.png" alt="UC Davis Library Logo" />
-    </a>
-  </div>
-  <div class="gradient"></div>
-  <div class="search-box">
-    <div class="main">
-      <h1>UC Davis Digital Collections</h1>
-      <div style="margin: 5px 0 15px 0;">
-        Explore digitized items from the 
-        <a class="gold" href="https://library.ucdavis.edu" target="_blank" rel="noopener">UC Davis Library</a> 
-        collections.
-      </div>
-      
-      <fin-search-box 
-        id="searchBox" 
-        on-search="_onSearch" 
-        on-browse="_onBrowse"
-        placeholder="Search Keyword(s)">
-        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
-      </fin-search-box>
-    </div>
-
-    <div class="footer">
-      Featured image: 
-      <a href="/collection/eastman/D-051/B-4/B-4709">Agricultural College, Davis</a> |
-      <a href="/collection/eastman">Eastman Collection</a>
-    </div>
-  </div>
+  <app-search-box 
+    id="searchBox" 
+    on-search="_onSearch" 
+    on-browse="_onBrowse"
+    placeholder="search">
+    <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+  </app-search-box>
+    
+  <p>Featured Image: <a>Annual Winter Sale 1952</a> | <a>Sherry Lehmann Wine Catalogs</a></p>
+</div>
+<div id="options">
+  <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
+  <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
+  <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Creators</div></app-icons>
+  <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
+  <app-icons id="option" icon="fin-search" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
 
 </div>
-<app-header-colorbar height="8"></app-header-colorbar>
+
+
 <div class="collection-outer">
   <div class="collections" id="collections-home">
     <template is="dom-repeat" items="[[highlightedCollections]]">
@@ -178,4 +197,3 @@
     </template>
   </div>
 </div>
-<app-header-colorbar height="8" flipped></app-header-colorbar>
