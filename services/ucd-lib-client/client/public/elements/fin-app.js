@@ -19,7 +19,6 @@ import "./styles/shared-styles";
 import '../lib';
 
 // app elements
-<<<<<<< HEAD
 import "./pages/search/app-search-header"
 import "./pages/search/app-search-breadcrumb"
 import "./app-footer"
@@ -27,12 +26,6 @@ import "./auth/app-auth-footer";
 import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
 import "./utils/app-header-colorbar"
-=======
-import "./pages/search/app-search-header";
-import "./pages/search/app-search-breadcrumb";
-import "./app-footer";
-import "./utils/app-header-colorbar";
->>>>>>> v2.0-sandbox
 
 
 import AppStateInterface from "./interfaces/AppStateInterface";
@@ -102,20 +95,16 @@ export class FinApp extends Mixin(PolymerElement)
 
     this.SEARCH_HEADER_PAGES = ['about', 'record', 'search'];
     this.BREADCRUMB_PAGES = ['record', 'search'];
-<<<<<<< HEAD
-    this.showVersion = APP_CONFIG.env.APP_VERSION.match(/(alpha|beta|rc)/) ? true : false;
-=======
->>>>>>> v2.0-sandbox
 
     this.loadedPages = {};
 
     // App Version variables
+    this.showVersion = APP_CONFIG.env.APP_VERSION.match(/(alpha|beta|rc)/) ? true : false;
     this.appVersion = APP_CONFIG.env.APP_VERSION;
     this.clientTag = APP_CONFIG.env.UCD_LIB_SERVER_REPO_TAG;
     this.clientHash = APP_CONFIG.env.UCD_LIB_SERVER_REPO_HASH;
     this.coreTag = APP_CONFIG.env.CORE_SERVER_REPO_TAG;
     this.coreHash = APP_CONFIG.env.CORE_SERVER_REPO_HASH;
-    this.showVersion = APP_CONFIG.env.APP_VERSION.match(/(alpha|beta|rc)/) ? true : false;
     if( APP_CONFIG.env.BUILD_TIME ) {
       this.localBuildTime = new Date(APP_CONFIG.env.BUILD_TIME).toISOString().replace('T', ' ');
     } else {

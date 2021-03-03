@@ -5,11 +5,13 @@ import ThemeUtils from "../themeUtils";
 /**
  * @class UcdlibSiteFooter
  * @description UI component class for displaying the standard UC Davis site footer
- * Can be used as is, or be inherited by a child class.
  * The column links can be customized by using children in the Light DOM:
- * <ucdlib-site-footer number-of-columns=1 col-one-header="Your Column Header">
- *   <li col="1"><a>A Link Under Column 1</a><li>
- *   <li col="1"><a>Another Link Under Column 1</a><li>
+ * <ucdlib-site-footer>
+ *   <ucdlib-site-footer-column header="Header Title">
+ *     <ul>
+ *       <li><a>A link</a></li>
+ *     </ul>
+ *   </ucdlib-site-footer-column>
  * </ucdlib-site-footer>
  */
 export default class UcdlibSiteFooter extends Mixin(LitElement)
@@ -28,7 +30,8 @@ export default class UcdlibSiteFooter extends Mixin(LitElement)
   constructor() {
     super();
     this.render = render.bind(this);
-    this.lastUpdate = "hey";
+    this.lastUpdate = "";
+    this.defaultShadowAnchor = "section-columns";
   }
 
   /**

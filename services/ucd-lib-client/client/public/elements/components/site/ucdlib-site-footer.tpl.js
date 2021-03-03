@@ -118,7 +118,7 @@ export function render() {
 return html`
 
 <div class="container">
-  <div id="section-columns">
+  <div id="section-columns" shadow-anchor="section-columns">
     <div id="address-column">
       <div class="lib-logo-container">
         <a href="https://library.ucdavis.edu" target="_blank">${this._renderLibraryLogo()}</a>
@@ -132,7 +132,7 @@ return html`
         <br>
         <a href="mailto:library@ucdavis.edu" class="plain">library@ucdavis.edu</a>
       </address>
-      <div id="below-address"></div>
+      <div id="below-address" shadow-anchor="below-address"></div>
     </div>
   </div>
   <div class="section-aggie-logo">
