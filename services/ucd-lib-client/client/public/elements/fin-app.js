@@ -126,7 +126,6 @@ export class FinApp extends Mixin(PolymerElement)
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
     }
-    return import("");
   }
 
   /**
