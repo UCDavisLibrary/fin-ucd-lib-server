@@ -1,6 +1,6 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
-import template from "./app-collection-card.html"
-import ioLoader from "../../lib/utils/intersection-observer-loader"
+import {PolymerElement} from "@polymer/polymer/polymer-element";
+import template from "./app-collection-card.html";
+import ioLoader from "../../lib/utils/intersection-observer-loader";
 
 export default class AppCollectionCard extends PolymerElement {
 
@@ -22,7 +22,7 @@ export default class AppCollectionCard extends PolymerElement {
         value : 0,
         reflectToAttribute : true
       },
-    }
+    };
   }
 
   constructor() {

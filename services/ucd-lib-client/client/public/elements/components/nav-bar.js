@@ -13,16 +13,12 @@ export class AppNavBar extends LitElement {
     return {
       placeholder : {
         type : String,
-        value : ''
       },
       browse : {
         type : Object,
-        observer : '_onBrowseOptionsChange',
-        value : () => ({})
       },
       background : {
         type: String,
-        value: ''
       },
       choices: {
         type: Array

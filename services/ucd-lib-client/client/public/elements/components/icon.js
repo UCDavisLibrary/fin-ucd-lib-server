@@ -68,7 +68,6 @@ export default class AppIcons extends LitElement {
    */
   getIconSize(){
     let size = this.iconPixelSize;
-    console.log(size);
     if (this.sizeIconSVG == 'extralg' || this.sizeIcon == 'extralg')  {
       size = 40;
     }
@@ -102,7 +101,7 @@ export default class AppIcons extends LitElement {
       size = 35;
     }
     else if ( this.size == 'extralg') {
-      size = 70;
+      size = 86;
     }
     return size;
   }

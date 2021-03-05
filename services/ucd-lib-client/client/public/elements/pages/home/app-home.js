@@ -1,4 +1,5 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element";
+import { LitElement} from 'lit-element';
+
 import "@ucd-lib/fin-search-box";
 import "../../utils/app-collection-card";
 
@@ -7,8 +8,11 @@ import "@polymer/iron-icons";
 import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";
+import "../../components/filterButton";
 
-import template from "./app-home.html";
+import render from './app-home.tpl.js';
+//import "../../styles/shared-styles";
+
 import RecordInterface from "../../interfaces/RecordInterface";
 import AppStateInterface from "../../interfaces/AppStateInterface";
 import CollectionInterface from "../../interfaces/CollectionInterface";
@@ -17,33 +21,28 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
  * @class AppHome
  * @description home page is rendered to the DAMS v2
  */
-class AppHome extends Mixin(PolymerElement) 
+class AppHome extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
   
-  static get template() {
-    let tag = document.createElement('template');
-    tag.innerHTML = template;
-    return tag;
-  }
+  // static get template() {
+  //   let tag = document.createElement('template');
+  //   tag.innerHTML = template;
+  //   return tag;
+  // }
 
   static get properties() {
     return {
-      highlightedCollections : {
-        type : Array,
-        value : () => []
-      },
-      count : {
-        type : String,
-        value : (APP_CONFIG.recordCount || 0)
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      }
+      highlightedCollections : {type : Array},
+      count : {type : String}
     };
   }
 
   constructor() {
     super();
+    this.render = render.bind(this);
     this.active = true;
+    this.highlightedCollections = [];
+
   }
 
   /**
@@ -52,11 +51,15 @@ class AppHome extends Mixin(PolymerElement)
    * function is fired.
    * 
    */
-  async ready() {
-    super.ready();
-    this._setCollections(await this.CollectionModel.overview());
-  }
+  // async ready() {
+  //   super.ready();
+  //   this._setCollections(await this.CollectionModel.overview());
+  // }
 
+  async firstUpdated() {
+    this._setCollections(await this.CollectionModel.overview());
+
+  }
   /**
    * @method _onAppStateUpdate
    * @description on the App update, the state is determined and by checking
@@ -104,25 +107,11 @@ class AppHome extends Mixin(PolymerElement)
       }
     });
 
-    this.$.searchBox.browse = browse;
+    //this.$.searchBox.browse = browse;
     this.highlightedCollections = overview;
+
   }
 
-  /**
-   * @method _onBrowse
-   * @description called from the search box browse button
-   * @param {Object} e
-   * @returns 
-   */
-  _onBrowse(e) {
-    let id = e.detail;
-    if( !id || id === 'Browse' ) {
-      return this.RecordModel.setSearchLocation(this._getEmptySearchDocument());
-    }
-    this.$.searchBox.browseValue = 'Browse';
-    this._onCollectionSelected(id);
-    return this._onCollectionSelected(id);
-  }
 
   /**
    * @method _onSearch
@@ -131,6 +120,7 @@ class AppHome extends Mixin(PolymerElement)
    * @param {Object} e
    */
   _onSearch(e) {
+
     let searchDoc = this._getEmptySearchDocument();
     this._setTextFilter(searchDoc, e.detail);
     this.RecordModel.setSearchLocation(searchDoc);

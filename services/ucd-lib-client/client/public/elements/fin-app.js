@@ -115,6 +115,7 @@ export class FinApp extends Mixin(PolymerElement)
    * @description code splitting done here.  dynamic import a page based on route
    * 
    * @param {String} page page to load
+   * @returns {String} import()
    */
   loadPage(page) {
     if( page === 'home' ) {
@@ -126,7 +127,8 @@ export class FinApp extends Mixin(PolymerElement)
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
     }
-    return import("");
+    return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
+
   }
 
   /**

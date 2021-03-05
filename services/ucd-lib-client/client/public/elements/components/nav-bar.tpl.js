@@ -22,9 +22,9 @@ return html`
     color: var(--color-aggie-gold);
   }
   .parallelogram {
-	height: 50px;
-	transform: skew(-20deg);
-	background: transparent;
+    height: 50px;
+    transform: skew(-20deg);
+    background: transparent;
     display:flex;
     text-align:center;
     justify-content: center;

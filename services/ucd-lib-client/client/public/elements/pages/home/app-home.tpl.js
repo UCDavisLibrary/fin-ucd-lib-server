@@ -1,8 +1,16 @@
-<style include="shared-styles">
+import { html } from 'lit-element';
+import sharedStylesCss from "../../styles/shared-styles";
+import { classMap } from 'lit-html/directives/class-map';
+import { styleMap } from 'lit-html/directives/style-map';
+
+export default function render() { 
+return html`
+<style>
   :host {
     display: block;
     position: relative;
     background: var(--super-light-background-color);
+
   }
 
   a {
@@ -129,7 +137,7 @@
   }
 
   #sample {
-    background-image: linear-gradient(var(--default-primary-color), white);
+    background: linear-gradient(0deg, rgba(111,207,235,0.8), rgba(2, 40, 81, 0.8) 100%);
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -156,24 +164,63 @@
     display: inline-block;
   }
 
+  #top-header{
+    display: inline-block;
+    width: 100%;
+  }
+  span {
+    color:var(--color-aggie-gold);
+  }
 
+  #subtext{
+    color:white;
+    text-decoration: underline;
+  }
+  #watercolor{
+    background-color:red;
+    height: 8rem;
+    margin-left:0px;
+  }
+  h1{
+    margin-top: 4rem;
+    margin-bottom: 1rem; 
+    color:white;
+    font-size: 2.94rem;
+  }
+  h4{
+    margin-top: .5rem; 
+    margin-bottom: 2.5rem; 
+    color:white; 
+    font-weight: normal;
+    font-size: 1.68rem;
+
+  }
+
+
+  ${sharedStylesCss}
 
 
 </style>
 
 <div id="sample">
+  <div id="top-header">  
+    <img style="all:unset; height: 1.5rem;" src="/images/ucd-lib-logo-white.png">
+    <p style="all:unset; float:right; color:white;font-size: 1.45rem; float:right">About <span>&#9679;</span> FAQ</p>
+  </div>
+
   <h1 >Digital Collections</h1>
-  <h4>Explore digitized items from the <a>UC Davis Library</a> collections.</h4>
+  <h4 >Explore digitized items from the <a style="text-decoration:underline;color:var(--color-aggie-gold);">UC Davis Library</a> collections.</h4>
 
   <app-search-box 
     id="searchBox" 
-    on-search="_onSearch" 
-    on-browse="_onBrowse"
+    @search="${this._onSearch}" 
     placeholder="search">
     <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
   </app-search-box>
-    
-  <p>Featured Image: <a>Annual Winter Sale 1952</a> | <a>Sherry Lehmann Wine Catalogs</a></p>
+
+  <div style="color:white; margin-top:.75rem; margin-bottom: 2rem; font-size:.75rem;font-weight: 800;">
+    Featured Image:  <a id="subtext">Annual Winter Sale 1952</a>  |  <a id="subtext">Sherry Lehmann Wine Catalogs</a>
+  </div>
 </div>
 <div id="options">
   <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
@@ -187,13 +234,16 @@
 
 <div class="collection-outer">
   <div class="collections" id="collections-home">
-    <template is="dom-repeat" items="[[highlightedCollections]]">
+    ${this.highlightedCollections.map((item) => 
+      html`
       <app-collection-card 
-        data-id$="[[item._id]]" 
-        collection="[[item]]" 
-        on-keyup="_onCollectionClicked"
-        on-click="_onCollectionClicked">
+        data-id="${item._id}" 
+        .collection="${item}" 
+        @keyup="${this._onCollectionClicked}"
+        @click="${this._onCollectionClicked}">
       </app-collection-card>
-    </template>
+      `
+      )}
   </div>
 </div>
+`;}

@@ -97,6 +97,13 @@
     justify-content: center;
     background-color: var(--color-aggie-blue-40);
   }
+  #filter-box{
+    width:100%;
+    text-align:center;
+    align-items:center;
+    background-color: var(--color-aggie-blue-40);
+    padding-bottom: 1rem;
+  }
 </style>
 
 <div class="layout">
@@ -117,5 +124,11 @@
       <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
     </app-search-box>
   </div>
+  <br />
+</div>
+<div id="filter-box">
+  <app-filter-button><div slot="filter-button-text">Collections</div></app-filter-button>
+  <app-filter-button><div slot="filter-button-text">House</div></app-filter-button>
+  <app-filter-button><div slot="filter-button-text">Values</div></app-filter-button>
 </div>
 
