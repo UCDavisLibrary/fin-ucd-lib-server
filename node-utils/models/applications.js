@@ -80,7 +80,7 @@ class ApplicationsModel extends ElasticSearchModel {
 function asArray(val) {
   if( val === undefined ) return [];
   if( Array.isArray(val) ) return val;
-  return [...val];
+  return [val];
 }
 
 module.exports = new ApplicationsModel();
