@@ -1,4 +1,4 @@
-const {config} = require('@ucd-lib/fin-node-utils');
+const {config} = require('@ucd-lib/fin-ucd-lib-node-utils');
 
 config.essync = {
 
@@ -31,14 +31,15 @@ config.essync = {
   },
 
   // svc: names for frame services 
-  frameServices : {
-    collection : 'es-collection-frame',
-    record : 'es-record-frame'
-  },
+  // frameServices : {
+  //   collection : 'es-collection-frame',
+  //   record : 'es-record-frame'
+  // },
 
   transformServices : {
     collection : 'es-collection-transform',
-    record : 'es-record-transform'
+    record : 'es-record-transform',
+    application : 'es-application-transform'
   }
 }
 
