@@ -1,10 +1,7 @@
-ARG CORE_SERVER_REPO_TAG
-FROM ucdlib/fin-node-utils:${CORE_SERVER_REPO_TAG} as fin-node-utils
-FROM node:12
+ARG NODEJS_BASE
+FROM ${NODEJS_BASE}
 
-COPY --from=fin-node-utils /fin-node-utils /fin-node-utils
-RUN cd /fin-node-utils && npm link
-ENV NODE_PATH /usr/local/lib/node_modules
+RUN npm link @ucd-lib/fin-ucd-lib-node-utils
 
 RUN mkdir /service
 WORKDIR /service

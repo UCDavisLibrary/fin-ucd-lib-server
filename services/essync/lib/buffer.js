@@ -5,7 +5,8 @@ class UpdateBuffer extends EventEmitter {
   constructor() {
     super();
     this.buffer = {};
-    this.bufferTime = 1000 * 10;
+    // this.bufferTime = 1000 * 10;
+    this.bufferTime = 1000;
   }
 
   add(type, id, data) {

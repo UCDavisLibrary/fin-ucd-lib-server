@@ -7,6 +7,10 @@
       "type" : "keyword"
     },
 
+    "applicationId" : {
+      "type" : "keyword"
+    },
+
     "identifier" : {
       "type":  "keyword"
     },

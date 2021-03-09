@@ -4,6 +4,8 @@ FROM ucdlib/fin-server:${CORE_SERVER_REPO_TAG}
 COPY transforms /etc/fin/transforms
 COPY core-services.js /etc/fin/core-services.js
 
+ENV FIN_APP_NAME 'ucd-lib-client'
+
 ARG UCD_LIB_SERVER_REPO_HASH
 ARG UCD_LIB_SERVER_REPO_TAG
 ENV UCD_LIB_SERVER_REPO_HASH ${UCD_LIB_SERVER_REPO_HASH}

@@ -192,7 +192,7 @@ class EsIndexer {
         alias : recordIndex || config.elasticsearch.record.alias
       });
     
-    } else if ( this.isApplication(jsonld['@type']) ) {
+    } else if ( this.isApplication(jsonld['@id']) ) {
 
       logger.info(`ES Indexer updating application container: ${jsonld['@id']}`);
 
@@ -263,6 +263,28 @@ class EsIndexer {
         logger.error('Failed to remove record container from elasticsearch: '+path, e);
       }
     }
+
+    // check application
+    exists = await this.esClient.exists({
+      index : config.elasticsearch.application.alias,
+      type: config.elasticsearch.application.schemaType,
+      id : path
+    });
+    if( exists ) {
+      logger.info(`ES Indexer removing application container: ${path}`);
+      
+      try {
+        await this.esClient.delete({
+          index : config.elasticsearch.application.alias,
+          type: config.elasticsearch.application.schemaType,
+          id : path
+        });
+  
+        logger.info(`ES Indexer removed application container: ${path}`);
+      } catch(e) {
+        logger.error('Failed to remove application container from elasticsearch: '+path, e);
+      }
+    }
   }
 
   async removeCollection(collectionId) {
@@ -314,12 +336,16 @@ class EsIndexer {
     let svc = '';
     if( this.isCollection(types) ) svc = config.essync.transformServices.collection;
     else if( this.isRecord(path, types) ) svc = config.essync.transformServices.record;
+    else if( this.isApplication(path, types) ) svc = config.essync.transformServices.application;
 
     // we don't have a frame service for this
     // if( !svc ) return null;
 
     if( !svc ) {
-      return await this.getContainer(path);
+      let resp = await this.getContainer(path, true);
+      if( Array.isArray(resp) ) resp = resp[0];
+      if( resp['@context'] ) delete resp['@context'];
+      return resp;
     }
 
     let response = await this._requestSvcContainer(path, svc);
@@ -341,12 +367,12 @@ class EsIndexer {
    * 
    * @returns {Promise}
    */
-  async getContainer(path='') {
+  async getContainer(path='', compact=false) {
     if( path.match(/fcr:metadata$/) ) {
       path = path.replace(/\/fcr:metadata$/, '');
     }
 
-    let response = await this._requestContainer(path);
+    let response = await this._requestContainer(path, compact);
     if( !response ) return null;
 
     try {
@@ -398,7 +424,7 @@ class EsIndexer {
    * 
    * @return {Promise} resolves to null or response object
    */
-  async _requestContainer(path) {
+  async _requestContainer(path, compact=false) {
     // make a head request for access and container type info
     let response = await api.head({path});
         
@@ -422,7 +448,7 @@ class EsIndexer {
       type : 'GET',
       uri : path,
       headers : {
-        accept : 'application/ld+json'
+        accept : 'application/ld+json'+(compact ? '; profile="http://www.w3.org/ns/json-ld#compacted"' : '')
       }
     });
     

@@ -44,12 +44,17 @@ class EsSyncMessageServer extends MessageServer {
     let path = this.getPath(msg);
 
     // walk path and register all containers in buffer
-    let parts = path.replace(/\/collection\/?/, '').split('/');
+
+
+    // let parts = path.replace(/\/collection\/?/, '').split('/');
+    let parts = path.replace(/\//, '').split('/');
+    let root = parts.shift();
+
     for( let i = parts.length; i >= 0; i-- ) {
       path = parts.slice(0, i).join('/').trim();
       if( !path ) continue;
 
-      path = '/collection/'+path;
+      path = '/'+root+'/'+path;
 
       // we don't want anything in a dot path
       if( this.isDotPath(path) ) continue;
