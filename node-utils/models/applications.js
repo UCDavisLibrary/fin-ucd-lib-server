@@ -5,10 +5,10 @@ const ElasticSearchModel = require('./elasticsearch');
 class ApplicationsModel extends ElasticSearchModel {
 
   /**
-   * @method all
-   * @description get all application
+   * @method get
+   * @description get application
    * 
-   * @returns {Promise} resolves to array of application objects
+   * @returns {Promise} resolves to array for application graph
    */
   async get(appname) {
     let results = await this.esSearch({
@@ -24,7 +24,39 @@ class ApplicationsModel extends ElasticSearchModel {
 
     results = results.hits.hits.map(item => item._source);
 
-    return results;
+    let tmp = [];
+    for( let container of results ) {
+      if( !container['@type'].includes('http://digital.ucdavis.edu/schema#ApplicationContainer') ) {
+        continue;
+      }
+
+      let items = asArray(container.featuredCollection)
+        .filter(item => !item['@id'].match(/^\/application/));
+      
+      for( let featured of items ) {
+        let result = await es.get({
+          index : config.elasticsearch.collection.alias,
+          type: '_all',
+          id : featured['@id']
+        });
+
+        tmp.push(result._source);
+      }
+
+      items = asArray(container.featuredImage)
+        .filter(item => !item['@id'].match(/^\/application/));
+      
+      for( let featured of items ) {
+        let result = await es.get({
+          index : config.elasticsearch.record.alias,
+          type: '_all',
+          id : featured['@id']
+        });
+
+        tmp.push(result._source);
+      }
+    }
+    return [...results, ...tmp];
   }
 
     /**
@@ -43,6 +75,12 @@ class ApplicationsModel extends ElasticSearchModel {
     });
   }
 
+}
+
+function asArray(val) {
+  if( val === undefined ) return [];
+  if( Array.isArray(val) ) return val;
+  return [...val];
 }
 
 module.exports = new ApplicationsModel();

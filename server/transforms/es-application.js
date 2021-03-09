@@ -32,6 +32,17 @@ module.exports = async function(path, graph, utils) {
     value : ['schema', 'name'],
     default : ''
   });
+
+  await utils.add({
+    attr : 'label',
+    value : ['schema', 'label'],
+    default : ''
+  });
+
+  await utils.add({
+    attr : 'filename',
+    value : ['ebucore', 'filename']
+  });
   
   await utils.add({
     attr : 'alternativeHeadline',
