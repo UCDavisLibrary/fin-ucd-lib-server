@@ -2,6 +2,7 @@ import { LitElement } from 'lit-element';
 import render from "./app-components.tpl.js";
 
 import "../../components/graphics/dams-watercolor";
+import "../../components/graphics/dams-watercolor-overlay";
 
 
 /**

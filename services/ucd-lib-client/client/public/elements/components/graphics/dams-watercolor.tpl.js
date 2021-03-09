@@ -1,14 +1,23 @@
 import { html } from 'lit-element';
+import { styleMap } from 'lit-html/directives/style-map';
 
 export default function render() { 
 return html`
 
 <style>
   :host {
-    display: block;
+    display: inline-block;
+  }
+  img {
+    object-fit: contain;
   }
 </style> 
-<p>Hello World</p>
-<img src="${this.getImageSrc()}" alt="">
+<img 
+  src="${this.getImgSrc()}" 
+  srcset="${this.getImgSrcSet()}"
+  height="${this.height}"
+  width="${this.width}"
+  alt="" 
+  style="${styleMap(this.getImgStyles())}">
 
 `;}
