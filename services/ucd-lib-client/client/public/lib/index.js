@@ -7,4 +7,4 @@ module.exports = {
   CitationModel : require('./models/CitationsModel'),
   SeoModel : require('./models/SeoModel'),
   FiltersModel : require('./models/FiltersModel')
-}
+};

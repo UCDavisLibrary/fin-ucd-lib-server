@@ -11,7 +11,6 @@ import "../../components/nav-bar";
 import "../../components/filterButton";
 
 import render from './app-home.tpl.js';
-//import "../../styles/shared-styles";
 
 import RecordInterface from "../../interfaces/RecordInterface"; 
 import AppStateInterface from "../../interfaces/AppStateInterface";

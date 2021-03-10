@@ -1,11 +1,14 @@
 import { html } from 'lit-element';
-import sharedStylesCss from "../../styles/shared-styles";
+import { styles } from "../../styles/shared-styles";
+
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';
 
 export default function render() { 
 return html`
 <style>
+  ${styles()}
+
   :host {
     display: block;
     position: relative;
@@ -17,9 +20,7 @@ return html`
     text-decoration: none;
   }
 
-  h2 {
-    margin: 0px;
-  }
+
 
   input {
     padding: 15px;
@@ -140,8 +141,8 @@ return html`
     background: linear-gradient(0deg, rgba(111,207,235,0.8), rgba(2, 40, 81, 0.8) 100%);
     background-size: cover;
     background-position: center;
-    height: 500px;
-    padding:2rem 4rem;
+    height: auto;
+    padding:2rem 4rem 0 4rem;
 
   }
 
@@ -155,9 +156,6 @@ return html`
     display: flex;
     justify-content: center;
     align-items: center;
-
-
-
   }
 
   #option{
@@ -177,39 +175,25 @@ return html`
     text-decoration: underline;
   }
   #watercolor{
-    background-color:red;
+    background-color:transparent;
     height: 8rem;
     margin-left:0px;
   }
-  h1{
-    margin-top: 4rem;
-    margin-bottom: 1rem; 
-    color:white;
-    font-size: 2.94rem;
-  }
-  h4{
-    margin-top: .5rem; 
-    margin-bottom: 2.5rem; 
-    color:white; 
-    font-weight: normal;
-    font-size: 1.68rem;
-
-  }
 
 
-  ${sharedStylesCss}
+
 
 
 </style>
 
 <div id="sample">
   <div id="top-header">  
-    <img style="all:unset; height: 1.5rem;" src="/images/ucd-lib-logo-white.png">
-    <p style="all:unset; float:right; color:white;font-size: 1.45rem; float:right">About <span>&#9679;</span> FAQ</p>
+    <img style="all:unset; height: 1.5rem; " src="/images/ucd-lib-logo-white.png">
+    <p style="all:unset; float:right; color:white; font-weight:var(--fw-extra-bold); float:right">About <span>&#9679;</span> FAQ</p>
   </div>
 
-  <h1 >Digital Collections</h1>
-  <h4 >Explore digitized items from the <a style="text-decoration:underline;color:var(--color-aggie-gold);">UC Davis Library</a> collections.</h4>
+  <h1 style="color:var(--color-h1-light); margin-top:4rem; margin-bottom:1rem;" >Digital Collections</h1>
+  <h4 style="color:var(--color-h4-light); font-weight:var(--fw-regular); margin-top:0;" >Explore digitized items from the <a style="text-decoration:underline;color:var(--color-aggie-gold);">UC Davis Library</a> collections.</h4>
 
   <app-search-box 
     id="searchBox" 
@@ -221,6 +205,7 @@ return html`
   <div style="color:white; margin-top:.75rem; margin-bottom: 2rem; font-size:.75rem;font-weight: 800;">
     Featured Image:  <a id="subtext">Annual Winter Sale 1952</a>  |  <a id="subtext">Sherry Lehmann Wine Catalogs</a>
   </div>
+  <div id="watercolor"></div>
 </div>
 <div id="options">
   <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
@@ -245,5 +230,8 @@ return html`
       `
       )}
   </div>
+  
 </div>
+
+
 `;}
