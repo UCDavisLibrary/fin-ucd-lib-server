@@ -35,6 +35,7 @@ export default class DamsWatercolorOverlay extends LitElement {
     this.overlayLeft = "";
     this.imgPosition = "center center";
     this.icon = "";
+    this.iconColor = "#ffffff";
   }
 
   /**
@@ -53,6 +54,18 @@ export default class DamsWatercolorOverlay extends LitElement {
       left: this.overlayLeft ? this.overlayLeft : `calc(50% - ${this.overlayHeight/2}px)`
     };
     return styles;
+  }
+
+  getIconStyles(){
+    if ( !this.icon ) return {};
+    let styles = {
+      width: `${this.overlayWidth}px`,
+      height: `${this.overlayHeight}px`,
+      top: this.overlayTop ? this.overlayTop : `calc(50% - ${this.overlayWidth/2}px)`,
+      left: this.overlayLeft ? this.overlayLeft : `calc(50% - ${this.overlayHeight/2}px)`,
+      color: this.iconColor
+    };
+    return styles
   }
 
 }

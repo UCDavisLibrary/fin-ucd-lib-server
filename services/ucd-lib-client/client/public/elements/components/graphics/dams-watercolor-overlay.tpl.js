@@ -17,6 +17,9 @@ return html`
     background-size: cover;
     position: absolute;
   }
+  iron-icon {
+    position: absolute;
+  }
 </style>
 <dams-watercolor
   rotate="${this.wcRotation}"
@@ -27,7 +30,7 @@ ${this.imgSrc ? html`
   <div class="img-container" style="${styleMap(this.getImgStyles())}"></div>
 ` : html``}
 ${this.icon ? html`
-  <iron-icon icon="${this.icon}"></iron-icon>
+  <iron-icon icon="${this.icon}" style="${styleMap(this.getIconStyles())}"></iron-icon>
 ` : html``}
 
 
