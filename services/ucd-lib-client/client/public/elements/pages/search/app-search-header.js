@@ -7,6 +7,7 @@ import "@ucd-lib/fin-search-box";
 import "../../components/search-box";
 import "../../components/nav-bar";
 import "../../components/icon";
+import "../../components/filterButton";
 
 import RecordInterface from '../../interfaces/RecordInterface';
 import CollectionInterface from '../../interfaces/CollectionInterface';
@@ -60,7 +61,6 @@ class AppSearchHeader extends Mixin(PolymerElement)
       browse[item['@id']] = item.name;
     });
 
-    this.$.searchInput.browse = browse;
   }
 
   /**

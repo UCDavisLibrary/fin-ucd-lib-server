@@ -9,9 +9,9 @@ import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";
 import "../../components/filterButton";
+import "../../components/radioButton";
 
-import render from './app-home.tpl.js';
-//import "../../styles/shared-styles";
+import render from './app-collections.tpl.js';
 
 import RecordInterface from "../../interfaces/RecordInterface"; 
 import AppStateInterface from "../../interfaces/AppStateInterface";
@@ -21,19 +21,16 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
  * @class AppHome
  * @description home page is rendered to the DAMS v2
  */
-class AppHome extends Mixin(LitElement)
+class AppCollections extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
-  
-  // static get template() {
-  //   let tag = document.createElement('template');
-  //   tag.innerHTML = template;
-  //   return tag;
-  // }
 
   static get properties() {
     return {
       highlightedCollections : {type : Array},
-      count : {type : String}
+      count : {type : String},
+      choices: {
+        type: Array
+      },
     };
   }
 
@@ -42,8 +39,7 @@ class AppHome extends Mixin(LitElement)
     this.render = render.bind(this);
     this.active = true;
     this.highlightedCollections = [];
-    this._injectModel('FcAppConfigModel');
-    console.log(this.FcAppConfigModel.getFeaturedImages());
+
   }
 
   /**
@@ -150,4 +146,4 @@ class AppHome extends Mixin(LitElement)
   
 }
 
-customElements.define('app-home', AppHome);
+customElements.define('app-collections', AppCollections);

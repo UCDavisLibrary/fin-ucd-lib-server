@@ -17,7 +17,7 @@ return html`
   input {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 1rem;
     background: white;
     border: none;
     height: 45px;
@@ -25,6 +25,7 @@ return html`
     font-size: var(--font-size);
 
   }
+
   button {
     background: var(--color-aggie-gold);
     height: 45px;
@@ -34,7 +35,13 @@ return html`
     border-radius: 0;
     cursor: pointer;
   }
+  button:hover {
+    background: var(--color-aggie-blue);
+  }
 
+  button:hover > ::slotted(*) {
+    fill: var(--color-aggie-gold);
+  } 
 
 
 </style>

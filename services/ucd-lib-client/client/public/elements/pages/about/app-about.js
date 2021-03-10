@@ -1,9 +1,9 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
+import {PolymerElement} from "@polymer/polymer/polymer-element";
 
-import template from "./app-about.html"
-import "../../utils/app-header-colorbar"
+import template from "./app-about.html";
+import "../../utils/app-header-colorbar";
 
-import AppStateInterface from "../../interfaces/AppStateInterface"
+import AppStateInterface from "../../interfaces/AppStateInterface";
 
 class AppAbout extends Mixin(PolymerElement) 
       .with(EventInterface, AppStateInterface) {
@@ -17,7 +17,7 @@ class AppAbout extends Mixin(PolymerElement)
   static get properties() {
     return {
     
-    }
+    };
   }
 
   constructor() {

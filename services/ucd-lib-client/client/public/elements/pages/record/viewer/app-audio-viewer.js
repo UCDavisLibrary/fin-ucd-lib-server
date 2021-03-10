@@ -2,26 +2,26 @@
 // https://github.com/google/shaka-player/
 // https://github.com/google/shaka-player/tree/master/docs/tutorials
 
-import { LitElement } from "lit-element"
-import render from "./app-audio-viewer.tpl.js"
+import { LitElement } from "lit-element";
+import render from "./app-audio-viewer.tpl.js";
 
-import "@ucd-lib/cork-app-utils"
-import config from "../../../../lib/config"
-import utils from "../../../../lib/utils"
-import videoLibs from "../../../../lib/utils/video-lib-loader"
+import "@ucd-lib/cork-app-utils";
+import config from "../../../../lib/config";
+import utils from "../../../../lib/utils";
+import videoLibs from "../../../../lib/utils/video-lib-loader";
 
-import plyrCss from "plyr/dist/plyr.css"
-import shakaCss from "shaka-player/dist/controls.css"
+import plyrCss from "plyr/dist/plyr.css";
+import shakaCss from "shaka-player/dist/controls.css";
 let AUDIO_STYLES = plyrCss+shakaCss;
 
-import spriteSheet from "plyr/dist/plyr.svg"
-let SPRITE_SHEET = spriteSheet
+import spriteSheet from "plyr/dist/plyr.svg";
+let SPRITE_SHEET = spriteSheet;
 
 export default class AppAudioViewer extends Mixin(LitElement)
   .with(LitCorkUtils) {
   
   static get properties() {
-    return {}
+    return {};
   }
 
   constructor() {

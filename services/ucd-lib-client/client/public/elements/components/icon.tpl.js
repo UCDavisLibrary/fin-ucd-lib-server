@@ -11,10 +11,12 @@ return html`
     }
 
     .container {
-      display: block;
+      display: inline-block;
       background-color: transparent;
       text-align:center;
       padding:0 30px;
+      width: 100px;
+      
 
     }
     .circle-icon{
@@ -22,7 +24,7 @@ return html`
         height:45px;
         border-radius:50%;
         background-color:white;
-        border:3px solid var(--color-aggie-gold);
+        border:4px solid var(--color-aggie-gold);
         transition: 0.1s;
         display: flex;
         align-items: center;
@@ -34,9 +36,8 @@ return html`
         height:50px;
         border-radius:50%;
         background-clip:content-box;
-               
-        background-color: var(--color-aggie-gold);
         padding: 5px;
+        background-color: var(--color-aggie-gold);
         border:5px dotted var(--color-aggie-gold);
     }
     .icon{
@@ -55,8 +56,10 @@ return html`
      }
      #padding{
        padding-top: 10px;
+       margin: 0 auto;
        color: var(--default-primary-color);
        font-weight: bold;
+       text-align:center;
      }
 
     
