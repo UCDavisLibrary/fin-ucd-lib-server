@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const spaMiddleware = require('@ucd-lib/spa-router-middleware');
 const config = require('../config');
+const fetch = require('node-fetch');
 const authUtils = require('../lib/auth');
 
 const {seo, records, collections} = require('@ucd-lib/fin-ucd-lib-node-utils');
@@ -46,6 +47,8 @@ module.exports = (app) => {
         user = {loggedIn: false};
       }
 
+      let fcAppConfig = await (await fetch(config.api.host+'/api/applications/'+config.server.appName)).json();
+
       return {
         collections : await collections.overview(),
         user : user,
@@ -59,7 +62,8 @@ module.exports = (app) => {
           UCD_LIB_SERVER_REPO_TAG: process.env.UCD_LIB_SERVER_REPO_TAG || '',
           CORE_SERVER_REPO_HASH: process.env.CORE_SERVER_REPO_HASH || '',
           CORE_SERVER_REPO_TAG: process.env.CORE_SERVER_REPO_TAG || ''
-        }
+        },
+        fcAppConfig
       };
     },
     template : async (req, res) => {

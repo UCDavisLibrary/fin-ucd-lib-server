@@ -1,6 +1,7 @@
 const {logger, jwt} = require('@ucd-lib/fin-node-utils');
 const schemaRecord = require('../schemas/record');
 const schemaCollection = require('../schemas/collection');
+const schemaApplication = require('../schemas/application');
 const indexer = require('./indexer');
 const api = require('@ucd-lib/fin-node-api');
 const config = require('./config');
@@ -33,18 +34,21 @@ class EsReindexer {
 
     let recordConfig = config.elasticsearch.record;
     let colConfig = config.elasticsearch.collection;
+    let appConfig = config.elasticsearch.application;
 
     // grab the current indexes being used for records and collections
     logger.info('Grabbing current indexes')
     var oldRecordIndexes = await this.getCurrentIndexes(recordConfig.alias);
     var oldCollectionIndexes = await this.getCurrentIndexes(colConfig.alias);
-    logger.info('Found indexes', oldRecordIndexes, oldCollectionIndexes);
+    var oldApplicationIndexes = await this.getCurrentIndexes(appConfig.alias);
+    logger.info('Found indexes', oldRecordIndexes, oldCollectionIndexes, oldApplicationIndexes);
 
     // create new indexes to insert into during the crawl
     logger.info('Creating new index');
     var newRecordIndexName = await indexer.createIndex(recordConfig.alias, recordConfig.schemaType, schemaRecord);
     var newCollectionIndexName = await indexer.createIndex(colConfig.alias, colConfig.schemaType, schemaCollection);
-    logger.info('New index created', newRecordIndexName, newCollectionIndexName);
+    var newApplicationIndexName = await indexer.createIndex(appConfig.alias, appConfig.schemaType, schemaApplication);
+    logger.info('New index created', newRecordIndexName, newCollectionIndexName, newApplicationIndexName);
 
     // now crawl collections
     logger.info('Crawling fin collections and populating Index');
@@ -58,19 +62,23 @@ class EsReindexer {
     
     // crawl all collections
     for( var i = 0; i < collections.length; i++ ) {
-      await this.crawl(collections[i], newRecordIndexName, newCollectionIndexName);
+      await this.crawl(collections[i], newRecordIndexName, newCollectionIndexName, newApplicationIndexName);
     }
+    await this.crawl('/application/', newRecordIndexName, newCollectionIndexName, newApplicationIndexName);
 
     // for any currently active index, remove the alias name.  Set the alias name to the new indexes
     logger.info('Updating aliases');
     await this.updateAliases(oldRecordIndexes, newRecordIndexName, recordConfig.alias);
     await this.updateAliases(oldCollectionIndexes, newCollectionIndexName, colConfig.alias);
+    await this.updateAliases(oldApplicationIndexes, newApplicationIndexName, appConfig.alias);
 
     // finally, drop all old indexes (the indexes that were active until the lines above)
     logger.info('Removing old record indexes', oldRecordIndexes);
     await this.dropIndexes(oldRecordIndexes);
     logger.info('Removing old collection indexes', oldCollectionIndexes);
     await this.dropIndexes(oldCollectionIndexes);
+    logger.info('Removing old application indexes', oldApplicationIndexes);
+    await this.dropIndexes(oldApplicationIndexes);
   }
 
   async getRootCollections() {

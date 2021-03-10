@@ -2,6 +2,7 @@ const elasticsearch = require('elasticsearch');
 const request = require('request');
 const schemaRecord = require('../schemas/record');
 const schemaCollection = require('../schemas/collection');
+const schemaApplication = require('../schemas/application');
 const {logger, jwt, waitUntil} = require('@ucd-lib/fin-node-utils');
 const api = require('@ucd-lib/fin-node-api');
 const {URL} = require('url');
@@ -68,9 +69,11 @@ class EsIndexer {
 
     let recordConfig = config.elasticsearch.record;
     let colConfig = config.elasticsearch.collection;
+    let appConfig = config.elasticsearch.application;
 
     await this.ensureIndex(recordConfig.alias, recordConfig.schemaType, schemaRecord);
     await this.ensureIndex(colConfig.alias, colConfig.schemaType, schemaCollection);
+    await this.ensureIndex(appConfig.alias, appConfig.schemaType, schemaApplication);
   }
 
   /**
@@ -159,7 +162,7 @@ class EsIndexer {
    * 
    * @returns {Promise}
    */
-  async update(jsonld, recordIndex, collectionIndex) {
+  async update(jsonld, recordIndex, collectionIndex, applicationIndex) {
     if( !jsonld ) return;
 
     // only index binary and collections
@@ -187,6 +190,17 @@ class EsIndexer {
       this.attributeReducer.onRecordUpdate({
         record: jsonld,
         alias : recordIndex || config.elasticsearch.record.alias
+      });
+    
+    } else if ( this.isApplication(jsonld['@id']) ) {
+
+      logger.info(`ES Indexer updating application container: ${jsonld['@id']}`);
+
+      await this.esClient.index({
+        index : applicationIndex || config.elasticsearch.application.alias,
+        type: config.elasticsearch.application.schemaType,
+        id : jsonld['@id'],
+        body: jsonld
       });
 
     } else {
@@ -249,6 +263,28 @@ class EsIndexer {
         logger.error('Failed to remove record container from elasticsearch: '+path, e);
       }
     }
+
+    // check application
+    exists = await this.esClient.exists({
+      index : config.elasticsearch.application.alias,
+      type: config.elasticsearch.application.schemaType,
+      id : path
+    });
+    if( exists ) {
+      logger.info(`ES Indexer removing application container: ${path}`);
+      
+      try {
+        await this.esClient.delete({
+          index : config.elasticsearch.application.alias,
+          type: config.elasticsearch.application.schemaType,
+          id : path
+        });
+  
+        logger.info(`ES Indexer removed application container: ${path}`);
+      } catch(e) {
+        logger.error('Failed to remove application container from elasticsearch: '+path, e);
+      }
+    }
   }
 
   async removeCollection(collectionId) {
@@ -300,9 +336,17 @@ class EsIndexer {
     let svc = '';
     if( this.isCollection(types) ) svc = config.essync.transformServices.collection;
     else if( this.isRecord(path, types) ) svc = config.essync.transformServices.record;
+    else if( this.isApplication(path, types) ) svc = config.essync.transformServices.application;
 
     // we don't have a frame service for this
-    if( !svc ) return null;
+    // if( !svc ) return null;
+
+    if( !svc ) {
+      let resp = await this.getContainer(path, true);
+      if( Array.isArray(resp) ) resp = resp[0];
+      if( resp['@context'] ) delete resp['@context'];
+      return resp;
+    }
 
     let response = await this._requestSvcContainer(path, svc);
     if( !response ) return null;
@@ -323,12 +367,12 @@ class EsIndexer {
    * 
    * @returns {Promise}
    */
-  async getContainer(path='') {
+  async getContainer(path='', compact=false) {
     if( path.match(/fcr:metadata$/) ) {
       path = path.replace(/\/fcr:metadata$/, '');
     }
 
-    let response = await this._requestContainer(path);
+    let response = await this._requestContainer(path, compact);
     if( !response ) return null;
 
     try {
@@ -380,7 +424,7 @@ class EsIndexer {
    * 
    * @return {Promise} resolves to null or response object
    */
-  async _requestContainer(path) {
+  async _requestContainer(path, compact=false) {
     // make a head request for access and container type info
     let response = await api.head({path});
         
@@ -404,7 +448,7 @@ class EsIndexer {
       type : 'GET',
       uri : path,
       headers : {
-        accept : 'application/ld+json'
+        accept : 'application/ld+json'+(compact ? '; profile="http://www.w3.org/ns/json-ld#compacted"' : '')
       }
     });
     
@@ -515,6 +559,10 @@ class EsIndexer {
   // }
   isRecord(path, types=[]) {
     return path.match(/^\/collection\/.*\/.*/);
+  }
+
+  isApplication(path) {
+    return path.match(/^\/application\//);
   }
 
   /**

@@ -24,6 +24,13 @@ module.exports = [
     transform : '/etc/fin/transforms/es-collection.js'
   },
   {
+    id : 'es-application-transform',
+    title : 'Elastic Search - Application Transform',
+    description : 'Used for updating Elastic Search indexes when fedora updates',
+    type : 'TransformService',
+    transform : '/etc/fin/transforms/es-application.js'
+  },
+  {
     id : 'ucd-lib-client',
     description : 'UCD Library DAMS Client UI',
     type : 'ClientService',
