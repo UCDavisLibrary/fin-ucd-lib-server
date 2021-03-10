@@ -162,7 +162,10 @@ export class FinApp extends Mixin(PolymerElement)
       return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record");
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
+    } else if( page === 'components' ) {
+      return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");
     }
+    
   }
 
   /**
