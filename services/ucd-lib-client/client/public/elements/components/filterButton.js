@@ -1,10 +1,10 @@
-import { LitElement, html } from 'lit-element';
+import { LitElement} from 'lit-element';
 // import "/../node_modules/@polymer/iron-dropdown/iron-dropdown";
 import render from './filterButton.tpl.js';
 import "./icon";
 
 /**
- * @class AppButton
+ * @class AppFilterButton
  * @description Styleized UI component for button. Wrapper around polymer's options.
  */
 export class AppFilterButton extends LitElement {
@@ -12,28 +12,15 @@ export class AppFilterButton extends LitElement {
     return {
       themeColor: {type: String, attribute: 'theme-color'},
       choices: {type: Array},
-      chosen: {type: Number, reflect: true},
-      opened: {type: Boolean},
-      toUpperCase: {type: Boolean, attribute: 'to-upper-case'},
-      noPadding: {type: Boolean, attribute: "no-padding"},
-      stickyTitle: {type: String, attribute: "sticky-title"},
-      filterIcon: {type: Boolean, attribute: "filter-icon"},
-      useLinks: {type: Boolean, attribute: "use-links"}
     };
   }
 
   constructor() {
     super();
     this.render = render.bind(this);
-    this.toUpperCase = false;
-    this.chosen = 0;
     this.choices = [];
     this.themeColor = "outline-primary";
-    this.opened = false;
-    this.noPadding = false;
-    this.stickyTitle = "";
-    this.filterIcon = false;
-    this.useLinks = false;
+
   }
 
   /**
@@ -54,19 +41,6 @@ export class AppFilterButton extends LitElement {
    */
   _constructClasses() {
     let classes = {};
-    classes.opened = this.opened;
-    if (this._parseChoices().length === 0) {
-      classes.hidden = true;
-    }
-    if ( this.noPadding ) {
-      classes.nopadding = true;
-    }
-    if ( this.stickyTitle ) {
-      classes.stickytitle = true;
-    }
-    if ( this.toUpperCase ) {
-      classes.upper = true;
-    }
     if ( this.filterIcon ) {
       classes['has-filter-icon'] = true;
     }
@@ -78,27 +52,15 @@ export class AppFilterButton extends LitElement {
   }
 
   /**
-   * @method _renderChoice
-   * @description Renders a single list item for dropdown
-   * @param {Object} choice 
+   * @method _deleteFilter
+   * @description delete the filter button for filters
+   * @param {Event} e  
    * 
-   * @returns {TemplateResult}
    */
-  _renderChoice(choice) {
-    if ( choice.href && this.useLinks ) {
-      return html`
-      <li ?selected="${choice.index == this.chosen && !this.stickyTitle}">
-        <a href="${choice.href}">${choice.text}</a>
-      </li>
-      `;
-    } 
-
-    return html`
-    <li index="${choice.index}"
-      ?selected="${choice.index == this.chosen && !this.stickyTitle}"
-      @click="${this._handleClick}">${choice.text}</li>`;
+  _deleteFilter(e){
+    e.target.parentNode.parentNode.remove();
+    this.requestUpdate();
   }
-
   /**
    * @method _handleClick
    * @description Attached to list item click if no href present. Dispatches 'new-selection' event.
@@ -119,39 +81,6 @@ export class AppFilterButton extends LitElement {
       }
     }));
   }
-
-  /**
-   * @method _parseChoices
-   * @description Formats choices property into a standardized array of objects.
-   * 
-   * @returns {Object[]}
-   */
-  _parseChoices(){
-    let choices = [];
-    let i = 0;
-    for (let c of this.choices) {
-      if (typeof c === 'string') {
-        choices.push({index: i, text: c});
-      }
-      else if (typeof c === 'object') {
-        if (c.text) {
-          choices.push({index: i, text: c.text, href: c.href});
-        }
-      }
-      i += 1;
-    }
-    return choices;
-  }
-
-  /**
-   * @method openDropdown
-   * @description Opens the dropdown.
-   */
-  openDropdown(){
-    this.opened = true;
-    this.shadowRoot.getElementById('dropdown').open();
-  }
-
 }
 
 customElements.define('app-filter-button', AppFilterButton);

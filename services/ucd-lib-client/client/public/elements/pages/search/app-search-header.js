@@ -60,6 +60,7 @@ class AppSearchHeader extends Mixin(PolymerElement)
     overview.forEach(item => {
       browse[item['@id']] = item.name;
     });
+
   }
 
   /**

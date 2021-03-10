@@ -10,14 +10,14 @@ return html`
   }
   .nav {
     display: flex;
-    background-image: linear-gradient( 115deg, var(--default-primary-color) 85%, var(--color-aggie-blue-80) 85% 87%, var(--color-aggie-blue-70) 87%);
+    background-image: linear-gradient( 110deg, var(--default-primary-color) 85%, var(--color-aggie-blue-80) 85% 86%, var(--color-aggie-blue-70) 86%);
     /*background-image: url(${this.background}); */
     background-size: cover;
     background-position: center;
     height: 50px;
   }
   #header{
-    font-size: 2.05rem;
+    font-size: 1.68rem;
     padding:5px 30px;
     color: var(--color-aggie-gold);
   }
@@ -43,6 +43,7 @@ return html`
         color: white;
         transform: skew(20deg); /* UNSKEW */
         text-decoration: none;
+        font-size: .84rem;
 
     }
 </style>

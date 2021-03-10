@@ -69,8 +69,8 @@ export class FinApp extends Mixin(PolymerElement)
     super();
     this.active = true;
 
-    this.SEARCH_HEADER_PAGES = ['about', 'record', 'search'];
-    this.BREADCRUMB_PAGES = ['record', 'search'];
+    this.SEARCH_HEADER_PAGES = ['about', 'record', 'search', 'collections', 'components'];
+    this.BREADCRUMB_PAGES = ['record', 'search', 'collections'];
 
     this.loadedPages = {};
   }
@@ -105,6 +105,7 @@ export class FinApp extends Mixin(PolymerElement)
       this.page = 'loading';
       this.loadedPages[page] = this.loadPage(page);
     }
+    console.log(this.loadedPages[page]);
     await this.loadedPages[page];
 
     this.page = page;
@@ -126,6 +127,11 @@ export class FinApp extends Mixin(PolymerElement)
       return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record");
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
+    } else if( page === 'collections' ) {
+      return import(/* webpackChunkName: "page-collections" */ "./pages/collections/app-collections");
+    } else if( page === 'components' ) {
+      console.log("Hello");
+      return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");     
     }
     return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
 

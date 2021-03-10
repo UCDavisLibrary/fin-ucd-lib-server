@@ -53,7 +53,12 @@ export default function render() {
 
   </style>
   <div class="container">
-    <div class="icon-container"><iron-icon icon="icons:close"></iron-icon></div><span style="padding-left:.2rem"><slot name="filter-button-text"></slot></span>
+    <div class="icon-container">
+      <iron-icon @click=${this._deleteFilter} icon="icons:close"></iron-icon>
+    </div>
+    <span style="padding-left:.2rem">
+      <slot name="filter-button-text"></slot>
+    </span>
   </div>
   `;
 }

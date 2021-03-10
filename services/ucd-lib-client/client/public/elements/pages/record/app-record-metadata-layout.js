@@ -1,11 +1,11 @@
-import {PolymerElement} from "@polymer/polymer/polymer-element"
-import template from "./app-record-metadata-layout.html"
+import {PolymerElement} from "@polymer/polymer/polymer-element";
+import template from "./app-record-metadata-layout.html";
 
 // import "@polymer/paper-tabs/paper-tabs"
 // import "@polymer/paper-tabs/paper-tab"
-import "../../utils/app-tabs"
-import "@polymer/iron-pages/iron-pages"
-import "@polymer/iron-media-query/iron-media-query"
+import "../../utils/app-tabs";
+import "@polymer/iron-pages/iron-pages";
+import "@polymer/iron-media-query/iron-media-query";
 
 export default class AppRecordMetadataLayout extends PolymerElement {
 
@@ -42,7 +42,7 @@ export default class AppRecordMetadataLayout extends PolymerElement {
           {label : 'Cite Item', value: 'cite'}
         ]
       }
-    }
+    };
   }
 
   /**
