@@ -6,5 +6,6 @@ module.exports = {
   MediaModel : require('./models/MediaModel'),
   CitationModel : require('./models/CitationsModel'),
   SeoModel : require('./models/SeoModel'),
-  FiltersModel : require('./models/FiltersModel')
-}
+  FiltersModel : require('./models/FiltersModel'),
+  FcAppConfigModel : require('./models/FcAppConfigModel')
+};

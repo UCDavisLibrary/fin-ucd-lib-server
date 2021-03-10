@@ -44,6 +44,9 @@ class AppHome extends Mixin(PolymerElement)
   constructor() {
     super();
     this.active = true;
+
+    this._injectModel('FcAppConfigModel');
+    console.log(this.FcAppConfigModel.getFeaturedImages());
   }
 
   /**
