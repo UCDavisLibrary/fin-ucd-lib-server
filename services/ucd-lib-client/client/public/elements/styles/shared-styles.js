@@ -16,3 +16,19 @@ dmEle.id = 'shared-styles';
 dmEle.appendChild(templateEle);
 document.head.appendChild(dmEle);
 
+/**
+ * @function styles
+ * @description Include this function in your Lit template to include site styles
+ * <style>
+ *   ${styles()}
+ *   :host {
+ *     display: block;
+ *   }
+ * </style>
+ * 
+ * @returns Css string
+ */
+export function styles() {
+  return `${ucdCss + damsCss}`;
+}
+
