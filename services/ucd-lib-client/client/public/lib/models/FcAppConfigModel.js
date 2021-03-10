@@ -13,7 +13,7 @@ class FcAppConfigModel extends BaseModel {
     
     this.TYPES = {
       APPLICATION_CONTAINER : 'http://digital.ucdavis.edu/schema#ApplicationContainer'
-    }
+    };
 
     this.byId = {};
     (APP_CONFIG.fcAppConfig || []).forEach(item => this.byId[item['@id']] = item);
