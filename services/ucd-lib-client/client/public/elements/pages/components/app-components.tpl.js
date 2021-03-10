@@ -31,8 +31,8 @@ return html`
   }
 </style>
 
-<h1>Dams Site Components</h1>
-<p>These are site components.</p>
+<h1 style="text-align:center;">Dams Site Components</h1>
+<p style="text-align:center;">These are site components.</p>
 
 <div class="sections">
   <section>
