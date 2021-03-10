@@ -43,7 +43,7 @@ class AppHome extends Mixin(LitElement)
     this.active = true;
     this.highlightedCollections = [];
     this._injectModel('FcAppConfigModel');
-    console.log(this.FcAppConfigModel.getFeaturedImages());
+    // console.log(this.FcAppConfigModel.getFeaturedImages());
   }
 
   /**
