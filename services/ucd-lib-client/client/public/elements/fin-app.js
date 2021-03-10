@@ -19,13 +19,13 @@ import "./styles/shared-styles";
 import '../lib';
 
 // app elements
-import "./pages/search/app-search-header"
-import "./pages/search/app-search-breadcrumb"
-import "./app-footer"
+import "./pages/search/app-search-header";
+import "./pages/search/app-search-breadcrumb";
+import "./app-footer";
 import "./auth/app-auth-footer";
 import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
-import "./utils/app-header-colorbar"
+import "./utils/app-header-colorbar";
 
 
 import AppStateInterface from "./interfaces/AppStateInterface";
@@ -164,21 +164,12 @@ export class FinApp extends Mixin(PolymerElement)
       return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record");
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
-<<<<<<< HEAD
-    } else if( page === 'collections' ) {
+    }  else if( page === 'collections' ) {
       return import(/* webpackChunkName: "page-collections" */ "./pages/collections/app-collections");
-    } else if( page === 'components' ) {
-      console.log("Hello");
-      return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");     
-    }
-    return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
-
-=======
-    } else if( page === 'components' ) {
+    }  else if( page === 'components' ) {
       return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");
     }
-    
->>>>>>> v2.0-sandbox
+    return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
   }
 
   /**
