@@ -19,10 +19,13 @@ import "./styles/shared-styles";
 import '../lib';
 
 // app elements
-import "./pages/search/app-search-header";
-import "./pages/search/app-search-breadcrumb";
-import "./app-footer";
-import "./utils/app-header-colorbar";
+import "./pages/search/app-search-header"
+import "./pages/search/app-search-breadcrumb"
+import "./app-footer"
+import "./auth/app-auth-footer";
+import "./components/site/ucdlib-site-footer";
+import "./components/site/ucdlib-site-footer-column";
+import "./utils/app-header-colorbar"
 
 
 import AppStateInterface from "./interfaces/AppStateInterface";
@@ -61,6 +64,27 @@ export class FinApp extends Mixin(PolymerElement)
       drawerOpen : {
         type : Boolean,
         value : false
+      },
+      localBuildTime : {
+        type: String
+      },
+      appVersion : {
+        type: String
+      },
+      clientTag : {
+        type: String
+      },
+      clientHash : {
+        type: String
+      },
+      coreTag : {
+        type: String
+      },
+      coreHash : {
+        type: String
+      },
+      showVersion : {
+        type: Boolean
       }
     };
   }
@@ -73,6 +97,19 @@ export class FinApp extends Mixin(PolymerElement)
     this.BREADCRUMB_PAGES = ['record', 'search', 'collections'];
 
     this.loadedPages = {};
+
+    // App Version variables
+    this.showVersion = APP_CONFIG.env.APP_VERSION.match(/(alpha|beta|rc)/) ? true : false;
+    this.appVersion = APP_CONFIG.env.APP_VERSION;
+    this.clientTag = APP_CONFIG.env.UCD_LIB_SERVER_REPO_TAG;
+    this.clientHash = APP_CONFIG.env.UCD_LIB_SERVER_REPO_HASH;
+    this.coreTag = APP_CONFIG.env.CORE_SERVER_REPO_TAG;
+    this.coreHash = APP_CONFIG.env.CORE_SERVER_REPO_HASH;
+    if( APP_CONFIG.env.BUILD_TIME ) {
+      this.localBuildTime = new Date(APP_CONFIG.env.BUILD_TIME).toISOString().replace('T', ' ');
+    } else {
+      this.localBuildTime = 'Not set';
+    }  
   }
 
   ready() {
@@ -127,6 +164,7 @@ export class FinApp extends Mixin(PolymerElement)
       return import(/* webpackChunkName: "page-record" */ "./pages/record/app-record");
     } else if( page === 'about' ) {
       return import(/* webpackChunkName: "page-about" */ "./pages/about/app-about");
+<<<<<<< HEAD
     } else if( page === 'collections' ) {
       return import(/* webpackChunkName: "page-collections" */ "./pages/collections/app-collections");
     } else if( page === 'components' ) {
@@ -135,6 +173,12 @@ export class FinApp extends Mixin(PolymerElement)
     }
     return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
 
+=======
+    } else if( page === 'components' ) {
+      return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");
+    }
+    
+>>>>>>> v2.0-sandbox
   }
 
   /**

@@ -22,30 +22,30 @@ html {
   --color-aggie-gold-10     : #FFFBED;
 
   /* SECONDARY COLORS */
-  --color-rec-pool          : #6FCFEB;
-  --color-tahoe             : #00B2E3;
-  --color-gunrock           : #0047BA;
-  --color-bodega            : #003A5D;
-  --color-rain              : #03F9E6;
   --color-arboretum         : #00C4B3;
-  --color-putah-creek       : #008EAA;
-  --color-delta             : #00524C;
-  --color-farmers-market    : #AADA91;
-  --color-sage              : #6CCA98;
-  --color-quad              : #3DAE2B;
-  --color-redwood           : #266041;
-  --color-golden-state      : #FFFF3B;
-  --color-sunflower         : #FFDC00;
-  --color-poppy             : #F18A00;
-  --color-california        : #8A532F;
-  --color-rose              : #FF8189;
-  --color-strawberry        : #F93549;
-  --color-double-decker     : #C10230;
-  --color-merlot            : #79242F;
-  --color-thiebaud-icing    : #F09FCD;
-  --color-redbud            : #C6007E;
-  --color-pinot             : #76236C;
+  --color-bodega            : #003A5D;
   --color-cabernet          : #481268;
+  --color-california        : #8A532F;
+  --color-delta             : #00524C;
+  --color-double-decker     : #C10230;
+  --color-farmers-market    : #AADA91;
+  --color-golden-state      : #FFFF3B;
+  --color-gunrock           : #0047BA;
+  --color-merlot            : #79242F;
+  --color-pinot             : #76236C;
+  --color-poppy             : #F18A00;
+  --color-putah-creek       : #008EAA;
+  --color-quad              : #3DAE2B;
+  --color-rain              : #03F9E6;
+  --color-rec-pool          : #6FCFEB;
+  --color-redbud            : #C6007E;
+  --color-redwood           : #266041;
+  --color-rose              : #FF8189;
+  --color-sage              : #6CCA98;
+  --color-strawberry        : #F93549;
+  --color-sunflower         : #FFDC00;
+  --color-tahoe             : #00B2E3;
+  --color-thiebaud-icing    : #F09FCD;
 
   /* BLACK TONES */
   --color-black             : #000000;

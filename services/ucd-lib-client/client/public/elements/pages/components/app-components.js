@@ -1,6 +1,7 @@
 import { LitElement } from 'lit-element';
 import render from "./app-components.tpl.js";
 
+<<<<<<< HEAD
 import "../../utils/app-collection-card";
 
 import "@polymer/iron-icons";
@@ -56,3 +57,29 @@ export class AppPageComponents extends Mixin(LitElement)
 
 }
 customElements.define('app-page-components', AppPageComponents);
+=======
+import "../../components/graphics/dams-watercolor";
+import "../../components/graphics/dams-watercolor-overlay";
+
+
+/**
+ * @class AppComponents
+ * @description Page for showcasing site components
+ */
+export default class AppComponents extends LitElement {
+
+  static get properties() {
+    return {
+      
+    };
+  }
+
+  constructor() {
+    super();
+    this.render = render.bind(this);
+  }
+
+}
+
+customElements.define('app-components', AppComponents);
+>>>>>>> v2.0-sandbox

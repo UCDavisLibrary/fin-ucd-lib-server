@@ -4,7 +4,12 @@ let env = process.env.FIN_ENV || 'dev';
 
 let clientPackage = require('./client/public/package.json');
 
+<<<<<<< HEAD
 config.server.appRoutes = ['about', 'collection', 'record', 'search', 'collections', 'components'];
+=======
+config.server.appName = process.env.FIN_APP_NAME || 'ucd-lib-client';
+config.server.appRoutes = ['about', 'collection', 'record', 'search', 'components'];
+>>>>>>> v2.0-sandbox
 config.server.assets = (env === 'prod') ? 'dist' : 'public';
 config.server.title = 'UC Davis Library Digital Collections';
 config.server.description = 'The UC Davis Digital Collections is a locally developed digital repository that was designed to store and manage the digital assets of UC Davis. These Digital Collections are intended to increase access to previously undiscoverable digital assets held by the University Library.';
@@ -13,6 +18,10 @@ let clientPackageVersion = clientPackage.version;
 if( process.env.BUILD_NUM && process.env.BUILD_NUM !== '-1' ) {
   clientPackageVersion = (process.env.UCD_LIB_SERVER_REPO_TAG || '') + '.' + process.env.BUILD_NUM;
 }
+
+config.api = {
+  host : process.env.API_HOST || 'http://api:3000'
+};
 
 config.client = {
   versions : {
