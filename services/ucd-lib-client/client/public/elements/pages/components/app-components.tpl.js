@@ -38,14 +38,18 @@ return html`
   <section>
     <h2>Water Color</h2>
     ${ SharedHtml.headerDots() }
-    <p>Use <code>dams-watercolor</code> element to display raster watercolor images.</p>
+    <p>Use <code>dams-watercolor</code> element to display raster watercolor images. You can use 
+    properties to change the watercolor pattern, color, size, and rotation.
+    </p>
     <dams-watercolor></dams-watercolor>
   </section>
 
   <section>
     <h2>Water Color<br> <span class="fw-light">with Image</span></h2>
     ${ SharedHtml.headerDots() }
-    <p>Use <code>dams-watercolor-overlay</code> element with the <code>img-src</code> attribute to overlay an image on the watercolor.</p>
+    <p>Use <code>dams-watercolor-overlay</code> element with the <code>img-src</code> attribute to overlay an image on the watercolor.
+      In addition to customizing the watercolor, you can adjust the image size and position using element properties.
+    </p>
     <dams-watercolor-overlay 
       wc-rotation="30"
       img-position="50% 20%"
@@ -55,7 +59,9 @@ return html`
   <section>
     <h2>Water Color<br> <span class="fw-light">with Icon</span></h2>
     ${ SharedHtml.headerDots() }
-    <p>Use <code>dams-watercolor-overlay</code> element with the <code>icon</code> attribute to overlay an iron-icon on the watercolor.</p>
+    <p>Use <code>dams-watercolor-overlay</code> element with the <code>icon</code> attribute to overlay an iron-icon on the watercolor.
+    In addition to customizing the watercolor, you can adjust the icon color, size, and position using element properties.
+   </p>
     <dams-watercolor-overlay 
       icon="star"></dams-watercolor-overlay>
   </section>

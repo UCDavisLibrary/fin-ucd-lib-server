@@ -4,6 +4,16 @@ import render from "./dams-watercolor-overlay.tpl.js";
 /**
  * @class DamsWatercolorOverlay
  * @description UI component class that overlays an image or icon over watercolor artwork
+ * 
+ * @prop wcPattern - Watercolor pattern to use
+ * @prop wcColor - Color of background watercolor
+ * @prop wcRotation - Rotation (in degrees) of background watercolor
+ * @prop imgSrc - Path to the overlay image
+ * @prop icon - Iron Icon to overlay over watercolor (use this OR imgSrc)
+ * @prop overlayWidth - The width of the overlayed asset in pixels
+ * @prop overlayHeight - The height of the overlayed asset in pixels
+ * @prop overlayTop - Where the overlayed asset should be placed on the Y axis
+ * @prop overlayLeft - Where the overlayed asset should be placed on the X axis
  */
 export default class DamsWatercolorOverlay extends LitElement {
 
@@ -56,6 +66,11 @@ export default class DamsWatercolorOverlay extends LitElement {
     return styles;
   }
 
+  /**
+   * @method getIconStyles
+   * @description Constructs styles for the overlay icon. Bound to iron-icon
+   * @returns {Object}
+   */
   getIconStyles(){
     if ( !this.icon ) return {};
     let styles = {
@@ -65,7 +80,7 @@ export default class DamsWatercolorOverlay extends LitElement {
       left: this.overlayLeft ? this.overlayLeft : `calc(50% - ${this.overlayHeight/2}px)`,
       color: this.iconColor
     };
-    return styles
+    return styles;
   }
 
 }
