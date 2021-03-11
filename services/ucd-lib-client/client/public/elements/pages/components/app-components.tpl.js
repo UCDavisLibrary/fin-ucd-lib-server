@@ -1,12 +1,10 @@
 import { html } from 'lit-element';
-import { styles } from "../../styles/shared-styles";
 import SharedHtml from '../../utils/shared-html';
 
 export default function render() { 
 return html`
 
 <style>
-  ${styles()}
   :host {
     display: block;
     background-color: var(--color-white);
