@@ -224,10 +224,46 @@ return html`
 </div>
 <div id="options">
   <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
-  <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
-  <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Creators</div></app-icons>
-  <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
-  <app-icons id="option" icon="fin-search" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
+  
+  <a href="/search">
+    <app-icons id="option" 
+      icon="iron-dashboard" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">All Items</div>
+    </app-icons>
+  </a>
+  
+  <a href="/browse/creator">
+    <app-icons id="option" 
+      icon="iron-account-box" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Creators</div>
+    </app-icons>
+  </a>
+
+  <a href="/browse/format">
+    <app-icons id="option" 
+      icon="iron-create" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Formats</div>
+    </app-icons>
+  </a>
+
+  <a href="/browse/subject">
+    <app-icons id="option" 
+      icon="fin-search" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Subjects</div>
+    </app-icons>
+  </a>
 
 </div>
 

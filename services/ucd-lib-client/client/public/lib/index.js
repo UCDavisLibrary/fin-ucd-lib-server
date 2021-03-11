@@ -7,5 +7,6 @@ module.exports = {
   CitationModel : require('./models/CitationsModel'),
   SeoModel : require('./models/SeoModel'),
   FiltersModel : require('./models/FiltersModel'),
-  FcAppConfigModel : require('./models/FcAppConfigModel')
+  FcAppConfigModel : require('./models/FcAppConfigModel'),
+  BrowseByModel : require('./models/BrowseByModel')
 };

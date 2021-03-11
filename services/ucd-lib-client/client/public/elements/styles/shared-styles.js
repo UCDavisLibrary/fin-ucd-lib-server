@@ -28,7 +28,7 @@ document.head.appendChild(dmEle);
  * 
  * @returns Css string
  */
-export function styles() {
+export default function styles() {
   return `${ucdCss + damsCss}`;
 }
 

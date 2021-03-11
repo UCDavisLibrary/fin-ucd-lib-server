@@ -1,7 +1,7 @@
 <style include="shared-styles">
   :host {
     display: block;
-    background: var(--default-primary-color);
+    /* background: var(--default-primary-color); */
   }
 
   #loading {
@@ -138,6 +138,18 @@
       <app-record id="record"></app-record>
       <app-about id="about"></app-about>
       <app-collections id="collections"></app-collections>
+      <app-browse-by id="subject" 
+        label="Subject" 
+        facet-query-name="abouts.raw">
+      </app-browse-by>
+      <app-browse-by id="creator" 
+        label="Creator" 
+        facet-query-name="creators">
+      </app-browse-by>
+      <app-browse-by id="format" 
+      label="Format" 
+      facet-query-name="fileFormats">
+    </app-browse-by>
       <app-components id="components"></app-components>
     </iron-pages>
     <div class="footer">
