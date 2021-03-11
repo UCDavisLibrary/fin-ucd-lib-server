@@ -9,6 +9,7 @@ import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";
 import "../../components/filterButton";
+import "../../components/cards/dams-collection-card";
 
 import render from './app-home.tpl.js';
 //import "../../styles/shared-styles";

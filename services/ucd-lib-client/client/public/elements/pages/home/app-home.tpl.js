@@ -1,11 +1,12 @@
 import { html } from 'lit-element';
-import sharedStylesCss from "../../styles/shared-styles";
+import { styles } from "../../styles/shared-styles";
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';
 
 export default function render() { 
 return html`
 <style>
+  ${styles()}
   :host {
     display: block;
     position: relative;
@@ -107,26 +108,28 @@ return html`
     color: var(--default-secondary-color);
   }
 
-  .collection-outer {
-    display: flex;
-    justify-content: center;
+  .featured-collections {
+    background-color: var(--color-aggie-blue-20);
+    padding: var(--spacing-md) 0;
   }
 
-  .collections {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    max-width: var(--max-width);    
-    border-bottom: 1px solid var(--light-background-color);
+  .featured-collections h1 {
+    text-align: center;
+    color: var(--color-aggie-blue);
   }
 
-  .collections > div:hover {
-    cursor: pointer;
-    margin: 13px;
-    border: 2px solid var(--default-primary-color);
+  .featured-collections .card-grid {
+    margin: 0 auto;
+    padding: 20px 0;
   }
+
+  .card-grid {
+    max-width: var(--max-width);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: var(--spacing-default);
+  }
+
 
   iron-icon.search-icon {
     color: var(--default-primary-color);
@@ -197,9 +200,6 @@ return html`
   }
 
 
-  ${sharedStylesCss}
-
-
 </style>
 
 <div id="sample">
@@ -232,16 +232,13 @@ return html`
 </div>
 
 
-<div class="collection-outer">
-  <div class="collections" id="collections-home">
-    ${this.highlightedCollections.map((item) => 
+<div class="featured-collections">
+  <h1>Featured Collections</h1>
+  <div class="card-grid">
+    ${this.highlightedCollections.map((collection) => 
       html`
-      <app-collection-card 
-        data-id="${item._id}" 
-        .collection="${item}" 
-        @keyup="${this._onCollectionClicked}"
-        @click="${this._onCollectionClicked}">
-      </app-collection-card>
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+
       `
       )}
   </div>
