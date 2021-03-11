@@ -29,6 +29,11 @@ return html`
     color: var(--color-dams-primary);
     background-color: var(--color-black-10);
   }
+  .collection-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: var(--spacing-default);
+  }
 </style>
 
 <h1 style="text-align:center;">Dams Site Components</h1>
@@ -64,6 +69,31 @@ return html`
    </p>
     <dams-watercolor-overlay 
       icon="star"></dams-watercolor-overlay>
+  </section>
+
+  <section>
+    <h2>Collections Preview Card</h2>
+    ${ SharedHtml.headerDots() }
+    <div class="collection-cards">
+      <dams-collection-card
+        href="https://google.com"
+        item-ct="1"
+        card-title="A Collection">
+      </dams-collection-card>
+      <dams-collection-card
+        href="#"
+        item-ct="45" 
+        card-title="Pioneering Punjabis"
+        img-src="/images/dev/everest.jpg">
+      </dams-collection-card>
+      <dams-collection-card 
+        href="#"
+        item-ct="809"
+        card-title="Sherry Lehmann"
+        img-src="/images/dev/lehmann.jpg">
+      </dams-collection-card>
+    </div>
+
   </section>
 
   <section>
