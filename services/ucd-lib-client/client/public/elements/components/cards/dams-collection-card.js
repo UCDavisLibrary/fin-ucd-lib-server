@@ -5,12 +5,12 @@ import render from "./dams-collection-card.tpl.js";
  * @class DamsCollectionCard
  * @description UI component class for displaying a collection preview card
  * 
- * @prop collection - An object describing a DAMS collection. 
+ * @prop {Object} collection - An object describing a DAMS collection. 
  * If used, element will set all subsequent properties with data from collections object.
- * @prop imgSrc - The collection thumbnail src.
- * @prop cardTitle - The title of the collection.
- * @prop itemCt - The total number of items in the collections.
- * @prop href - Link to the collection landing page.
+ * @prop {String} imgSrc - The collection thumbnail src.
+ * @prop {String} cardTitle - The title of the collection.
+ * @prop {Number} itemCt - The total number of items in the collections.
+ * @prop {String} href - Link to the collection landing page.
  */
 export default class DamsCollectionCard extends LitElement {
 
