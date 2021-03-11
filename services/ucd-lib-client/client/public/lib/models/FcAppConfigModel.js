@@ -16,7 +16,14 @@ class FcAppConfigModel extends BaseModel {
     };
 
     this.byId = {};
-    (APP_CONFIG.fcAppConfig || []).forEach(item => this.byId[item['@id']] = item);
+    
+    APP_CONFIG.fcAppConfig = {error: true};
+
+    this.enabled = Array.isArray(APP_CONFIG.fcAppConfig);
+
+    if( this.enabled ) {
+      APP_CONFIG.fcAppConfig.forEach(item => this.byId[item['@id']] = item);
+    }
 
     this.register('FcAppConfigModel');
   }
@@ -28,6 +35,7 @@ class FcAppConfigModel extends BaseModel {
    * @returns {Array}
    */
   getFeaturedCollections() {
+    if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
     return asArray(appContainer.featuredCollection)
       .map(item => {
@@ -42,6 +50,7 @@ class FcAppConfigModel extends BaseModel {
    * @returns {Array}
    */
   getFeaturedImages() {
+    if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
     return asArray(appContainer.featuredImage)
       .map(item => {
@@ -56,7 +65,7 @@ class FcAppConfigModel extends BaseModel {
    * @returns {Object}
    */
   getApplicationContainer() {
-    return (APP_CONFIG.fcAppConfig || [])
+    return APP_CONFIG.fcAppConfig
       .find(item => item['@type'].includes(this.TYPES.APPLICATION_CONTAINER));
   }
 
