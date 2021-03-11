@@ -52,9 +52,12 @@ return html`
       ${this.sortByOptions.map((item, index) => html`
         <div>
           <input type="radio" 
-            name="browse-by-${label}" 
-            index="${index}" />
-          <label for="browse-by-${label}">${item.label}</label> 
+            id="browse-by-${this.facetQueryName}-${item.label}"
+            name="browse-by-${this.facetQueryName}" 
+            index="${index}"
+            .checked="${item.selected}"
+            @change="${this._onSortChange}" />
+          <label for="browse-by-${this.facetQueryName}-${item.label}">${item.label}</label> 
         </div>
       `)}
     </div>
@@ -63,7 +66,7 @@ return html`
 
 <div class="body">
   <div style="flex: 1">
-
+    <slot name="left-image"></slot>
   </div>
   <div class="results">
     <h5>
@@ -78,14 +81,14 @@ return html`
     `)}
   </div>
   <div style="flex: 1">
-
+    <slot name="right-image"></slot>
   </div>
 </div>
 
 <cork-pagination 
   total-results="${this.totalResults}" 
   items-per-page="${this.resultsPerPage}"
-  current-index="${this.currentPage}"
+  current-index="${this.currentIndex}"
   @nav="${this._onPaginationNav}">
 </cork-pagination>
 
