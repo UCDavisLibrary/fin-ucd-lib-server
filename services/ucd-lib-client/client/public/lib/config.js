@@ -112,4 +112,4 @@ module.exports = {
     // max number of facets filter options
     maxFacetCount : 50
   }
-}
+};

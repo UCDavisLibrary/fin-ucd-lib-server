@@ -23,7 +23,7 @@ class FiltersModel extends BaseModel {
 
     this.events = {
       FILTER_BUCKETS_UPDATE : 'filter-buckets-update'
-    }
+    };
 
     this.register('FiltersModel');
   }

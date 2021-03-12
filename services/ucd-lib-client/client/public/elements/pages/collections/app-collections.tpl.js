@@ -44,7 +44,6 @@ return html`
   }
   .headerText {
     text-align: center;
-    margin: 1rem 0;
     font-size: 2.94rem;
     color: var(--color-aggie-blue);
   }
@@ -54,6 +53,27 @@ return html`
   .radioMenu {
     text-align:center;
   }
+  .icon{
+    text-align:center;
+  }
+
+  .collection-grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    background-color: transparent;
+    padding: 10px;
+  }
+  .collection-grid-item {
+    padding: 20px;
+    font-size: 30px;
+  }
+  .content {
+    background-color:pink;
+    margin:20px;
+    width:fixed;
+    padding: 0px 60px;
+    text-align: left;
+  }
 
   ${sharedStylesCss}
 
@@ -61,11 +81,53 @@ return html`
 </style>
 
 <div class="text-container">  
-  <div class="rasterImage"></div>
+  <div class=icon>
+    <dams-watercolor-overlay 
+      icon="star">
+    </dams-watercolor-overlay>
+  </div>
   <div class="headerText"> Browse <b>Collections</b></div>
   
   <app-radio-button choices='[{"text": "Title"},
                               {"text": "Recent"},
                               {"text": "Item Quantity"}]'></app-radio-button>
+  
+    <!-- <div class="collection-grid-container">
+      <div class="collection-outer">
+        <div class="collections" id="collections-home">
+          ${this.highlightedCollections.map((item) => 
+            html`
+            <div class="grid-item">
+              <app-collection-card 
+                data-id="${item._id}" 
+                .collection="${item}" 
+                @keyup="${this._onCollectionClicked}"
+                @click="${this._onCollectionClicked}">
+              </app-collection-card>
+            </div>
+            `
+            )}
+        </div>
+    </div>
+  </div> -->
+
+  <div class="collection-grid-container">
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
+  </div>
+
 </div>
 `;}
