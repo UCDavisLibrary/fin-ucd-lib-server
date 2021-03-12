@@ -46,12 +46,44 @@ return html`
         font-size: .84rem;
 
     }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      width: inherit;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .parallelogram:hover .dropdown-content {
+      display: block;
+    }
 </style>
 <div class="nav">
     <div id="header">Digital Collections</div>
-
     ${this.choices.map((choice) => html`
+      <div class="dropdown">
         <div class="parallelogram"><a>${choice.text}</a></div>
+        <div class="dropdown-content">
+          ${choice.dropdown ? 
+              choice.dropdown.map((option) => 
+                html `<a href="${option.href}">${option.text}</a>`
+              ): 
+                html ``
+           }
+        </div>
+      </div>
     `)}
 </div>
 `;}

@@ -5,6 +5,8 @@ import "../../utils/app-collection-card";
 
 import "@polymer/iron-icons";
 
+import "../../components/graphics/dams-watercolor";
+import "../../components/graphics/dams-watercolor-overlay";
 import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";

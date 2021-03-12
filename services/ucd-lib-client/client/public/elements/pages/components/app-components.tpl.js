@@ -27,6 +27,10 @@ return html`
     color: var(--color-dams-primary);
     background-color: var(--color-black-10);
   }
+  .search {
+    text-align:center;
+    margin: 0 auto;
+  }
   .collection-cards {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -96,6 +100,7 @@ return html`
 
   <section>
   <h2>Filter Button</h2>
+  ${ SharedHtml.headerDots() }
   <p>Attach a listener to activate filter button appearence and can be exited out once attached.</p>
       <app-filter-button><div slot="filter-button-text">Filter1</div></app-filter-button> 
       <app-filter-button><div slot="filter-button-text">Filter2</div></app-filter-button> 
@@ -105,6 +110,7 @@ return html`
 
   <section>
   <h2>Icon</h2>
+  ${ SharedHtml.headerDots() }
   <p>A specific icon for DAMS creation.</p>
   <p>Size Icon for an extra large size with <code>size-icon-svg='extralg' size="extralg"</code></p>
   <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
@@ -117,6 +123,7 @@ return html`
 
   <section>
   <h2>Navigation Bar</h2>
+  ${ SharedHtml.headerDots() }
   <p>Entire Navagation Bar where you can add elements with keyword <code>choices</code>.</p>
   <app-nav-bar choices='[{"text": "Browse"},
                         {"text": "About"},
@@ -126,6 +133,7 @@ return html`
 
   <section>
   <h2>Radio Button</h2>
+  ${ SharedHtml.headerDots() }
   <p>Radio button list where you can add elements with keyword <code>choices</code>.</p>
   <p>Radio button list is horizontal but can be made vertical.</p>
 
@@ -136,12 +144,15 @@ return html`
 
   <section>
   <h2>Search Box</h2>
-  <app-search-box 
-      id="searchBox" 
-      @search="${this._onSearch}" 
-      placeholder="search">
-      <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
-    </app-search-box>
+  ${ SharedHtml.headerDots() }
+    <div class="search">
+      <app-search-box 
+        id="searchBox" 
+        @search="${this._onSearch}" 
+        placeholder="search">
+        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+      </app-search-box>
+    </div>
   </section>
 </div>
 
