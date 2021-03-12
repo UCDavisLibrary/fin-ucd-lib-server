@@ -72,6 +72,13 @@ return html`
   </section>
 
   <section>
+    <h2>Hero Image</h2>
+    ${ SharedHtml.headerDots() }
+    <p>Displays a hero image.</p>
+    <dams-hero></dams-hero>
+  </section>
+
+  <section>
     <h2>Collections Preview Card</h2>
     ${ SharedHtml.headerDots() }
     <p>Use the <code>.collection</code> property to populate the card.</p>
