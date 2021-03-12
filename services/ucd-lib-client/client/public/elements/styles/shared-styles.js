@@ -1,4 +1,3 @@
-import { css, unsafeCSS } from 'lit-element';
 import ucdCssProps from "./campus-theme-properties.css";
 import ucdCss from "./campus-theme.css";
 import damsCssProps from "./dams-styles-properties.css";
@@ -17,4 +16,4 @@ dmEle.id = 'shared-styles';
 dmEle.appendChild(templateEle);
 document.head.appendChild(dmEle);
 
-export const sharedStyles = css`${unsafeCSS(ucdCss + damsCss)}`;
+export const sharedStyles = `${ucdCss + damsCss}`;

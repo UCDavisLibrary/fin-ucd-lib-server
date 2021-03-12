@@ -1,10 +1,12 @@
 import { html } from 'lit-element';
+import { sharedStyles } from "../../styles/shared-styles";
 import SharedHtml from '../../utils/shared-html';
 
 export default function render() { 
 return html`
 
 <style>
+  ${sharedStyles}
   :host {
     display: block;
     background-color: var(--color-white);
@@ -72,6 +74,7 @@ return html`
   <section>
     <h2>Collections Preview Card</h2>
     ${ SharedHtml.headerDots() }
+    <p>Use the <code>.collection</code> property to populate the card.</p>
     <div class="collection-cards">
       <dams-collection-card
         href="https://google.com"

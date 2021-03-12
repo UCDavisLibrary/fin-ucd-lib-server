@@ -1,10 +1,12 @@
 import { html } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';
+import { sharedStyles } from "../../styles/shared-styles";
 
 export default function render() { 
 return html`
 <style>
+  ${sharedStyles}
   :host {
     display: block;
     position: relative;
