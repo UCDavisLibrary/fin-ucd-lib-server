@@ -9,6 +9,8 @@ import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";
 import "../../components/filterButton";
+import "../../components/graphics/dams-watercolor";
+import "../../components/graphics/dams-watercolor-overlay";
 
 import render from './app-home.tpl.js';
 

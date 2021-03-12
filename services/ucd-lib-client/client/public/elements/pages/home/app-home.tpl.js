@@ -1,6 +1,7 @@
 import { html } from 'lit-element';
 import { styles } from "../../styles/shared-styles";
 
+import SharedHtml from '../../utils/shared-html';
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';
 
@@ -149,7 +150,7 @@ return html`
   #options {
     height: 150px;
     background-color:white;
-    width: 100%;
+    width: auto;
     padding: 2rem 4rem;
     vertical-align: middle;
     text-align: center;
@@ -179,8 +180,63 @@ return html`
     height: 8rem;
     margin-left:0px;
   }
-
-
+  .recent{
+    text-align: center;
+    background-color: var(--color-white);
+  }
+  .featured{
+    margin: 0;
+    text-align: center;
+    background-color: var(--color-aggie-blue-20);
+  }
+  .about{
+    text-align: center;
+    background-color: var(--color-aggie-blue-40);
+  }
+  section {
+    padding: 40px;
+  }
+  
+  .featured-grid-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background-color: transparent;
+    padding: 10px;
+  }
+  .featured-grid-item {
+    padding: 20px;
+    font-size: 30px;
+    text-align:left;
+    
+  }
+  .about-grid-container {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    background-color: transparent;
+    padding: 10px;
+  }
+  .about-grid-item {
+    padding: 20px;
+    font-size: 30px;
+    
+  }
+  .collection-grid-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    background-color: transparent;
+    padding: 10px;
+  }
+  .collection-grid-item {
+    padding: 20px;
+    font-size: 30px;
+  }
+  .content {
+    background-color:pink;
+    margin:20px;
+    width:fixed;
+    padding: 0px 60px;
+    text-align: left;
+  }
 
 
 
@@ -213,25 +269,90 @@ return html`
   <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Creators</div></app-icons>
   <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
   <app-icons id="option" icon="fin-search" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
-
 </div>
 
-
-<div class="collection-outer">
-  <div class="collections" id="collections-home">
-    ${this.highlightedCollections.map((item) => 
-      html`
-      <app-collection-card 
-        data-id="${item._id}" 
-        .collection="${item}" 
-        @keyup="${this._onCollectionClicked}"
-        @click="${this._onCollectionClicked}">
-      </app-collection-card>
-      `
-      )}
+<section class="recent">
+  <h2 style="margin-bottom:0;">Recently Digitized</h2> 
+  <h2 style="margin-bottom:0; margin-top:0; font-weight:var(--fw-regular)">Collections</h2>
+  ${ SharedHtml.headerDots() }
+  <div class="collection-grid-container">
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div> 
   </div>
+
+</section>
+
+<section class="featured">
+  <h1 style="margin-bottom:0;">Featured Collections</h1>
+  <dams-watercolor-overlay 
+      icon="star">
+  </dams-watercolor-overlay>
   
-</div>
+  <div class="featured-grid-container">
+    <div class="featured-grid-item"><h3>The Greatest <br/> Wine Library</h3>
+
+    </div>
+    <div class="featured-grid-item"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                    Aliquam suscipit interdum dolor, vitae mattis odio convallis 
+                                    vitae. Etiam erat arcu, condimentum sed sagittis id, malesuada 
+                                    sit amet libero. Nullam blandit mollis commodo. Nunc in 
+                                    ipsum vitae felis venenatis tristique. Donec id orci id purus 
+                                    bibendum auctor. Etiam porta mi ut sem finibus, nec pellentesque 
+                                    erat ultrices. Fusce et massa nec turpis pretium convallis sed ut 
+                                    mi. Curabitur in dolor non justo volutpat sagittis ac ut quam.</p>
+    </div>
+
+  </div>
+
+  <div class="collection-grid-container">
+      <div class="collection-outer">
+        <div class="collections" id="collections-home">
+          ${this.highlightedCollections.map((item) => 
+            html`
+            <div class="grid-item">
+              <app-collection-card 
+                data-id="${item._id}" 
+                .collection="${item}" 
+                @keyup="${this._onCollectionClicked}"
+                @click="${this._onCollectionClicked}">
+              </app-collection-card>
+            </div>
+            `
+            )}
+        </div>
+    </div>
+    <!-- <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>
+    <div class="grid-item"><div class="content">d</div></div>  -->
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-grid-container">
+    <div class="grid-item">
+      <div class="content">
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="content"> 
+        <h2 style="margin:0; ">About</h2>
+        <h1 style="margin:0; font-weight:var(--fw-regular)">Digital Collections</h1>
+        <div style="height:10px;float:left;">${ SharedHtml.headerDots() }         </div>
+        <br />
+        <br />
+
+        <p style="margin:0; ">The UC Davis Digital Collections is a locally developed digital 
+                              repository that was designed to store and manage the digital assets
+                              of UC Davis.  These Digital Collections are intended to increase 
+                              access to previously undiscoverable digital assets held by the 
+                              University Library. </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 `;}
