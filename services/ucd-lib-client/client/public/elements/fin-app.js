@@ -26,6 +26,7 @@ import "./auth/app-auth-footer";
 import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
 import "./utils/app-header-colorbar";
+import "./utils/app-browse-by";
 
 
 import AppStateInterface from "./interfaces/AppStateInterface";
@@ -142,8 +143,13 @@ export class FinApp extends Mixin(PolymerElement)
       this.page = 'loading';
       this.loadedPages[page] = this.loadPage(page);
     }
-    console.log(this.loadedPages[page]);
     await this.loadedPages[page];
+
+    // handle browse by pages
+    if( page === 'browse' && e.location.path.length > 1 ) {
+      page = e.location.path[1];
+    }
+
 
     this.page = page;
   }
@@ -169,7 +175,7 @@ export class FinApp extends Mixin(PolymerElement)
     }  else if( page === 'components' ) {
       return import(/* webpackChunkName: "page-components" */ "./pages/components/app-components");
     }
-    return import(/* webpackChunkName: "page-home" */ "./pages/home/app-home");
+    return page;
   }
 
   /**

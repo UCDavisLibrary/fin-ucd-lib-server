@@ -12,11 +12,15 @@ import "../../components/filterButton";
 import "../../components/graphics/dams-watercolor";
 import "../../components/graphics/dams-watercolor-overlay";
 
+import "../../components/cards/dams-collection-card";
+
 import render from './app-home.tpl.js';
 
 import RecordInterface from "../../interfaces/RecordInterface"; 
 import AppStateInterface from "../../interfaces/AppStateInterface";
 import CollectionInterface from "../../interfaces/CollectionInterface";
+
+import { sharedStyles } from "../../styles/shared-styles";
 
 /**
  * @class AppHome
@@ -45,6 +49,10 @@ class AppHome extends Mixin(LitElement)
     this.highlightedCollections = [];
     this._injectModel('FcAppConfigModel');
     // console.log(this.FcAppConfigModel.getFeaturedImages());
+  }
+
+  static get styles() {
+    return [sharedStyles];
   }
 
   /**

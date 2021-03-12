@@ -1,12 +1,10 @@
 import { html } from 'lit-element';
-import { styles } from "../../styles/shared-styles";
 import SharedHtml from '../../utils/shared-html';
 
 export default function render() { 
 return html`
 
 <style>
-  ${styles()}
   :host {
     display: block;
     background-color: var(--color-white);
@@ -32,6 +30,11 @@ return html`
   .search {
     text-align:center;
     margin: 0 auto;
+  }
+  .collection-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: var(--spacing-default);
   }
 </style>
 
@@ -68,6 +71,31 @@ return html`
    </p>
     <dams-watercolor-overlay 
       icon="star"></dams-watercolor-overlay>
+  </section>
+
+  <section>
+    <h2>Collections Preview Card</h2>
+    ${ SharedHtml.headerDots() }
+    <div class="collection-cards">
+      <dams-collection-card
+        href="https://google.com"
+        item-ct="1"
+        card-title="A Collection">
+      </dams-collection-card>
+      <dams-collection-card
+        href="#"
+        item-ct="45" 
+        card-title="Pioneering Punjabis"
+        img-src="/images/dev/everest.jpg">
+      </dams-collection-card>
+      <dams-collection-card 
+        href="#"
+        item-ct="809"
+        card-title="Sherry Lehmann"
+        img-src="/images/dev/lehmann.jpg">
+      </dams-collection-card>
+    </div>
+
   </section>
 
   <section>

@@ -10,7 +10,7 @@ class RecordService extends BaseService {
   constructor() {
     super();
     this.store = RecordStore;
-    this.baseUrl = '/api/records'
+    this.baseUrl = '/api/records';
   }
 
   setModel(model) {

@@ -2,6 +2,7 @@ import { html } from 'lit-element';
 import { styles } from "../../styles/shared-styles";
 
 import SharedHtml from '../../utils/shared-html';
+
 import { classMap } from 'lit-html/directives/class-map';
 import { styleMap } from 'lit-html/directives/style-map';
 
@@ -109,26 +110,28 @@ return html`
     color: var(--default-secondary-color);
   }
 
-  .collection-outer {
-    display: flex;
-    justify-content: center;
+  .featured-collections {
+    background-color: var(--color-aggie-blue-20);
+    padding: var(--spacing-md) 0;
   }
 
-  .collections {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    max-width: var(--max-width);    
-    border-bottom: 1px solid var(--light-background-color);
+  .featured-collections h1 {
+    text-align: center;
+    color: var(--color-aggie-blue);
   }
 
-  .collections > div:hover {
-    cursor: pointer;
-    margin: 13px;
-    border: 2px solid var(--default-primary-color);
+  .featured-collections .card-grid {
+    margin: 0 auto;
+    padding: 20px 0;
   }
+
+  .card-grid {
+    max-width: var(--max-width);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: var(--spacing-default);
+  }
+
 
   iron-icon.search-icon {
     color: var(--default-primary-color);
@@ -239,7 +242,6 @@ return html`
   }
 
 
-
 </style>
 
 <div id="sample">
@@ -270,6 +272,46 @@ return html`
   <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Formats</div></app-icons>
   <app-icons id="option" icon="fin-search" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Subjects</div></app-icons>
 </div>
+  
+  <a href="/search">
+    <app-icons id="option" 
+      icon="iron-dashboard" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">All Items</div>
+    </app-icons>
+  </a>
+  
+  <a href="/browse/creator">
+    <app-icons id="option" 
+      icon="iron-account-box" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Creators</div>
+    </app-icons>
+  </a>
+
+  <a href="/browse/format">
+    <app-icons id="option" 
+      icon="iron-create" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Formats</div>
+    </app-icons>
+  </a>
+
+  <a href="/browse/subject">
+    <app-icons id="option" 
+      icon="fin-search" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Subjects</div>
+    </app-icons>
+  </a>
 
 <section class="recent">
   <h2 style="margin-bottom:0;">Recently Digitized</h2> 
@@ -303,6 +345,16 @@ return html`
                                     mi. Curabitur in dolor non justo volutpat sagittis ac ut quam.</p>
     </div>
 
+
+<div class="featured-collections">
+  <h1>Featured Collections</h1>
+  <div class="card-grid">
+    ${this.highlightedCollections.map((collection) => 
+      html`
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+
+      `
+      )}
   </div>
 
   <div class="collection-grid-container">

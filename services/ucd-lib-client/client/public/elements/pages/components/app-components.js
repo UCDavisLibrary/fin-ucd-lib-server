@@ -1,8 +1,10 @@
 import { LitElement } from 'lit-element';
 import render from "./app-components.tpl.js";
+import { sharedStyles } from "../../styles/shared-styles";
 
 import "../../components/graphics/dams-watercolor";
 import "../../components/graphics/dams-watercolor-overlay";
+import "../../components/cards/dams-collection-card";
 import "../../components/filterButton";
 import "../../components/icon";
 import "../../components/nav-bar";
@@ -19,6 +21,10 @@ export default class AppComponents extends LitElement {
     return {
       
     };
+  }
+
+  static get styles() {
+    return [sharedStyles];
   }
 
   constructor() {
