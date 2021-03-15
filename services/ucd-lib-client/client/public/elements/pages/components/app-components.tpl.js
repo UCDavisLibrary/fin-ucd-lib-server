@@ -131,6 +131,19 @@ return html`
   </app-nav-bar> 
   </section>
 
+  </section>
+  <h2>Pagination</h2>
+  ${ SharedHtml.headerDots() }
+
+    <p>Attach a listener to be notified when the page changes i.e.<br /><code>@changed-page=\${(e) => console.log(e.target.currentPage)}</code></p>
+    <dams-pagination max-page=8 @changed-page=${(e) => console.log(e.target.currentPage)}></dams-pagination>
+    <p>Use the <code>max-page</code>, <code>min-page</code>, and <code>current-page</code> attributes to control the display.</p>
+    <dams-pagination max-page=15 current-page="7"></dams-pagination>
+    <p>Use the <code>pages-per-side</code> attribute to show more pages on either side of the current page<p>
+    <dams-pagination max-page=20 current-page=10 pages-per-side=3></dams-pagination>
+    </section>
+  <section>
+
   <section>
   <h2>Radio Button</h2>
   ${ SharedHtml.headerDots() }
@@ -154,7 +167,9 @@ return html`
       </app-search-box>
     </div>
   </section>
+
 </div>
+
 
 
 
