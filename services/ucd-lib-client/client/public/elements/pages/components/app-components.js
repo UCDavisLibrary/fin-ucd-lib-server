@@ -10,6 +10,7 @@ import "../../components/icon";
 import "../../components/nav-bar";
 import "../../components/radioButton";
 import "../../components/search-box";
+import "../../components/pagination";
 
 /**
  * @class AppComponents

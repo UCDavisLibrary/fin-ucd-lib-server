@@ -61,18 +61,20 @@ return html`
     display: grid;
     grid-template-columns: 33% 33% 33%;
     background-color: transparent;
-    padding: 10px;
+    padding: 20px;
+    margin-bottom: 5px;
   }
-  .collection-grid-item {
+  .grid-item {
     padding: 20px;
     font-size: 30px;
   }
-  .content {
-    background-color:pink;
-    margin:20px;
-    width:fixed;
-    padding: 0px 60px;
-    text-align: left;
+
+  .content{
+    padding-bottom: 40px;
+  }
+
+  dams-pagination {
+    margin-top: 40px;
   }
 
   ${sharedStylesCss}
@@ -80,22 +82,26 @@ return html`
 
 </style>
 
-<div class="text-container">  
-  <div class=icon>
-    <dams-watercolor-overlay 
-      icon="star">
-    </dams-watercolor-overlay>
+<div class="content">
+  <div class="text-container">  
+    <div class=icon>
+      <dams-watercolor-overlay 
+        icon="star">
+      </dams-watercolor-overlay>
+    </div>
+    <div class="headerText"> Browse <b>Collections</b></div>
+    
+    <app-radio-button choices='[{"text": "Title"},
+                                {"text": "Recent"},
+                                {"text": "Item Quantity"}]'></app-radio-button>
+    
   </div>
-  <div class="headerText"> Browse <b>Collections</b></div>
-  
-  <app-radio-button choices='[{"text": "Title"},
-                              {"text": "Recent"},
-                              {"text": "Item Quantity"}]'></app-radio-button>
-  
-    <!-- <div class="collection-grid-container">
+
+
+  <!-- <div class="collection-grid-container">
       <div class="collection-outer">
         <div class="collections" id="collections-home">
-          ${this.highlightedCollections.map((item) => 
+          ${this.items.map((item) => 
             html`
             <div class="grid-item">
               <app-collection-card 
@@ -108,26 +114,111 @@ return html`
             `
             )}
         </div>
-    </div>
-  </div> -->
-
+    </div> -->
+    
   <div class="collection-grid-container">
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div> 
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div> 
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div> 
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div> 
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div> 
+
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div> 
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div>  
+        <dams-collection-card
+          href="https://google.com"
+          item-ct="1"
+          card-title="A Collection">
+        </dams-collection-card>
+      </div>
+    </div>
+
   </div>
+
+  <div>
+    ${this.itemsTotal > 16 ? 
+        html`    
+          <dams-pagination ></dams-pagination>
+        ` : html``}
+  </div>
+
+</div>  
 
 </div>
 `;}
