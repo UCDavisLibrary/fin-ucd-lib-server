@@ -11,13 +11,25 @@ return html`
   img {
     object-fit: contain;
   }
+  .bg-img {
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    background-position: bottom;
+    width: 100%;
+    height: 100%;
+  }
 </style> 
-<img 
-  src="${this.getImgSrc()}" 
-  srcset="${this.getImgSrcSet()}"
-  height="${this.height}"
-  width="${this.width}"
-  alt="" 
-  style="${styleMap(this.getImgStyles())}">
+${this.element === 'img' ? html`
+  <img 
+    src="${this.getImgSrc()}" 
+    srcset="${this.getImgSrcSet()}"
+    height="${this.height}"
+    width="${this.width}"
+    alt="" 
+    style="${styleMap(this.getImgStyles())}">
+` : html`
+  <div class="bg-img" style="${styleMap(this.getBgImgStyles())}"></div>
+`}
+
 
 `;}

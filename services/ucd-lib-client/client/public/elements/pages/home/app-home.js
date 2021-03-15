@@ -20,8 +20,6 @@ import RecordInterface from "../../interfaces/RecordInterface";
 import AppStateInterface from "../../interfaces/AppStateInterface";
 import CollectionInterface from "../../interfaces/CollectionInterface";
 
-import { sharedStyles } from "../../styles/shared-styles";
-
 /**
  * @class AppHome
  * @description home page is rendered to the DAMS v2
@@ -49,10 +47,6 @@ class AppHome extends Mixin(LitElement)
     this.highlightedCollections = [];
     this._injectModel('FcAppConfigModel');
     // console.log(this.FcAppConfigModel.getFeaturedImages());
-  }
-
-  static get styles() {
-    return [sharedStyles];
   }
 
   /**

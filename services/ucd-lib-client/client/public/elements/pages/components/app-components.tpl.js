@@ -1,10 +1,12 @@
 import { html } from 'lit-element';
+import { sharedStyles } from "../../styles/shared-styles";
 import SharedHtml from '../../utils/shared-html';
 
 export default function render() { 
 return html`
 
 <style>
+  ${sharedStyles}
   :host {
     display: block;
     background-color: var(--color-white);
@@ -74,8 +76,20 @@ return html`
   </section>
 
   <section>
+    <h2>Hero Image</h2>
+    ${ SharedHtml.headerDots() }
+    <p>Displays a hero image with overlayed gradient and water color. Enter content using a slot. Use the <code>.srcOptions</code> property to pass an array of img srcs for
+    the hero image to randomly choose from.
+    </p>
+    <dams-hero src="/images/defaults/annual-winter-sale1952.jpg" style="height:300px;">
+      <p>Hi there! This is slotted content.</p>
+    </dams-hero>
+  </section>
+
+  <section>
     <h2>Collections Preview Card</h2>
     ${ SharedHtml.headerDots() }
+    <p>Use the <code>.collection</code> property to populate the card.</p>
     <div class="collection-cards">
       <dams-collection-card
         href="https://google.com"
