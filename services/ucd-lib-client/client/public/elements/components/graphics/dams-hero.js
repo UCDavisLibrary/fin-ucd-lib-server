@@ -1,11 +1,14 @@
 import { LitElement } from 'lit-element';
 import render from "./dams-hero.tpl.js";
 
+import "./dams-watercolor";
+
 /**
  * @class DamsHero
  * @description UI component for displaying a hero image
- * @prop {Array} srcOptions - Set of images sources to randomly display
- * @prop {String} src - Background image source
+ * @prop {Array} srcOptions - Set of image sources to randomly display
+ * @prop {String} src - Fallback background image source
+ * @prop {String} watercolor - Watercolor type
  */
 export default class DamsHero extends LitElement {
 
@@ -13,6 +16,7 @@ export default class DamsHero extends LitElement {
     return {
       src: {type: String},
       srcOptions: {type: Array, attribute: "src-options"},
+      watercolor: {type: String},
       _selectedSrc: {type: String}
     };
   }
@@ -22,6 +26,34 @@ export default class DamsHero extends LitElement {
     this.render = render.bind(this);
     this.src = "";
     this.srcOptions = [];
+    this._selectedSrc = "";
+    this.watercolor = "border-white";
+
+    this._srcChange = new CustomEvent('src-change', {
+      detail: {
+        message: 'A new image has been loaded'
+      }
+    });
+  }
+
+  /**
+   * @method firstUpdated
+   * @description Lit lifecyle method fired when element is first updated.
+   */
+  firstUpdated(){
+    this._setSrc();
+  }
+
+
+  /**
+   * @method shuffleImage
+   * @description Randomly displays a new hero image.
+   * 
+   * @returns {String} The new img src
+   */
+  shuffleImage(){
+    this._setSrc();
+    return this._selectedSrc;
   }
 
   /**
@@ -31,11 +63,28 @@ export default class DamsHero extends LitElement {
   _setSrc(){
     let src = "";
     let setCt = this.srcOptions.length;
-    if ( setCt === 0 && this.src ) src = this.src;
-    if ( !src && setCt > 0 ) {
+    if ( setCt === 0 && this.src ) {
+      src = this.src;
+    }
+    else if ( setCt > 0 ) {
       src = Math.floor(Math.random() *  setCt + 1);
     }
     this._selectedSrc = src;
+    this.dispatchEvent(this._srcChange);
+  }
+
+  /**
+   * @method getContainerStyles
+   * @description Inline styles for element's base container
+   * 
+   * @returns {Object}
+   */
+  getContainerStyles(){
+    let styles = {
+      'background-image': 'var(--gradient-ag-putah)'
+    };
+    if ( this._selectedSrc ) styles['background-image'] += `, url(${this._selectedSrc})`;
+    return styles;
   }
 
 }

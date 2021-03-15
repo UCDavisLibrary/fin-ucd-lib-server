@@ -81,6 +81,9 @@ html {
   --color-a-visited         : var(--color-pinot);
   --color-a-focus           : var(--color-tahoe);
 
+  /* COLOR GRADIENTS */
+  --gradient-ag-putah       : linear-gradient(0deg, rgba(111,207,235,0.8), rgba(2, 40, 81, 0.8) 100%);
+
   /* FONT SIZES */
   --fs-p                    : 19px;
   --fs-html                 : var(--fs-p);

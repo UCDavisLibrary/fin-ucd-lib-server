@@ -11,8 +11,6 @@ return html`
   .root {
     display: flex;
     align-items: center;
-    max-width: 325px;
-    width:325px;
   }
   input {
     width: 100%;
@@ -23,7 +21,9 @@ return html`
     height: 45px;
     outline: none;
     font-size: var(--font-size);
-
+  }
+  input::placeholder {
+    color: var(--color-aggie-blue-70);
   }
 
   button {

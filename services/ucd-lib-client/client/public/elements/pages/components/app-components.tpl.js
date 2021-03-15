@@ -78,8 +78,12 @@ return html`
   <section>
     <h2>Hero Image</h2>
     ${ SharedHtml.headerDots() }
-    <p>Displays a hero image.</p>
-    <dams-hero></dams-hero>
+    <p>Displays a hero image with overlayed gradient and water color. Enter content using a slot. Use the <code>.srcOptions</code> property to pass an array of img srcs for
+    the hero image to randomly choose from.
+    </p>
+    <dams-hero src="/images/defaults/annual-winter-sale1952.jpg" style="height:300px;">
+      <p>Hi there! This is slotted content.</p>
+    </dams-hero>
   </section>
 
   <section>
