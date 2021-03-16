@@ -130,10 +130,6 @@ return html`
     display: inline-block;
     width: 100%;
   }
-  span {
-    color:var(--color-aggie-gold);
-  }
-
   #subtext{
     color:white;
     text-decoration: underline;
@@ -142,10 +138,6 @@ return html`
     background-color:transparent;
     height: 8rem;
     margin-left:0px;
-  }
-  .recent{
-    text-align: center;
-    background-color: var(--color-white);
   }
   .featured{
     margin: 0;
@@ -276,6 +268,26 @@ return html`
   .browse-buttons app-icons {
     margin: 0 10px;
   }
+  .recent{
+    background-color: var(--color-white);
+  }
+  .recent h2 {
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 0;
+  }
+  .card-trio {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-trio dams-collection-card {
+    flex-grow: 1;
+    margin-bottom: var(--spacing-default);
+  }
+  .card-trio dams-collection-card:nth-child(2) {
+    margin-left: 0;
+    margin-right: 0;
+  }
   @media (min-width: 767px) {
     .hero-top {
       margin-bottom: 60px;
@@ -283,6 +295,13 @@ return html`
     }
     .hero-top-left img {
       height: 30px;
+    }
+    .card-trio {
+      flex-flow: row nowrap;
+    }
+    .card-trio dams-collection-card:nth-child(2) {
+      margin-left: var(--spacing-default);
+      margin-right: var(--spacing-default);
     }
   }
 
@@ -389,6 +408,22 @@ return html`
     </a>
 
   </div>
+</section>
+
+<section class="recent site-frame">
+  <h2>Recently Digitized<br><span class="fw-light">Collections</span></h2> 
+  ${ SharedHtml.headerDots() } 
+  <div class="card-trio">
+  ${this.highlightedCollections.map((collection) => 
+      html`
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+      `
+      )}
+    
+  </div>
+
 </section>
 
 <!--

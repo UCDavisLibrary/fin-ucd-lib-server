@@ -17,7 +17,6 @@ class FcAppConfigModel extends BaseModel {
 
     this.byId = {};
     
-    APP_CONFIG.fcAppConfig = {error: true};
 
     this.enabled = Array.isArray(APP_CONFIG.fcAppConfig);
 
