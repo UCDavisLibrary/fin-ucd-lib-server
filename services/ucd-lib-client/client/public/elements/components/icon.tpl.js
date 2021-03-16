@@ -14,7 +14,6 @@ return html`
       display: inline-block;
       background-color: transparent;
       text-align:center;
-      padding:0 30px;
       width: 100px;
       
 
