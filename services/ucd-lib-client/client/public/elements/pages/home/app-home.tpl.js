@@ -286,10 +286,13 @@ return html`
   .featured {
     background-color: var(--color-aggie-blue-20);
   }
-  .featured h2 {
-    margin-bottom: 0;
+  .featured h1 {
+    margin-bottom: var(--spacing-default);
     text-align: center;
     margin-top: 0;
+  }
+  .featured dams-watercolor-overlay {
+    height: 100px;
   }
   @media (min-width: 767px) {
     .hero-top {
@@ -429,10 +432,13 @@ return html`
 </section>
 
 <section class="featured site-frame">
-  <h2>Featured Collections</h2>
-  <dams-watercolor-overlay 
-      icon="star">
-  </dams-watercolor-overlay>
+  <h1>Featured Collections</h1>
+  <div style="text-align:center;">
+    <dams-watercolor-overlay 
+        overlay-template="stars">
+    </dams-watercolor-overlay>
+  </div>
+
 </section>
 
 <!--

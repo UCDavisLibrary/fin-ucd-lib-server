@@ -24,6 +24,12 @@ return html`
     height: 100%;
     width: 100%;
   }
+  .gold {
+    color: var(--color-aggie-gold);
+  }
+  .white {
+    color: var(--color-white);
+  }
 </style>
 <dams-watercolor
   rotate="${this.wcRotation}"
@@ -35,6 +41,11 @@ ${this.imgSrc ? html`
 ` : html``}
 ${this.icon ? html`
   <iron-icon icon="${this.icon}" style="${styleMap(this.getIconStyles())}"></iron-icon>
+` : html``}
+${this.overlayTemplate === "stars" ? html`
+  <iron-icon style="width:50px;height:50px;top:35%;left:30%;" icon="star" class="gold"></iron-icon>
+  <iron-icon style="width:25px;height:25px;top:20%;left:50%;" icon="star" class="white"></iron-icon>
+  <iron-icon style="width:25px;height:25px;top:40%;left:60%;" icon="star" class="white"></iron-icon>
 ` : html``}
 
 

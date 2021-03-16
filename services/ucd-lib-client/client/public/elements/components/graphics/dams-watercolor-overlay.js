@@ -10,6 +10,7 @@ import render from "./dams-watercolor-overlay.tpl.js";
  * @prop {Number} wcRotation - Rotation (in degrees) of background watercolor
  * @prop {String} imgSrc - Path to the overlay image
  * @prop {String} icon - Iron Icon to overlay over watercolor (use this OR imgSrc)
+ * @prop {String} overlayTemplate - A predefined overlay (used for more complicated designs)
  * @prop {Number} overlayWidth - The width of the overlayed asset in pixels
  * @prop {Number} overlayHeight - The height of the overlayed asset in pixels
  * @prop {String} overlayTop - Where the overlayed asset should be placed on the Y axis
@@ -22,6 +23,7 @@ export default class DamsWatercolorOverlay extends LitElement {
       wcPattern: {type: String, attribute: "wc-pattern"},
       wcColor: {type: String, attribute: "wc-color"},
       wcRotation: {type: Number, attribute: "wc-rotation"},
+      overlayTemplate: {type: String, attribute: "overlay-template"},
       overlayWidth: {type: Number, attribute: "overlay-width"},
       overlayHeight: {type: Number, attribute: "overlay-height"},
       imgSrc: {type: String, attribute: "img-src"},
@@ -46,6 +48,7 @@ export default class DamsWatercolorOverlay extends LitElement {
     this.imgPosition = "center center";
     this.icon = "";
     this.iconColor = "#ffffff";
+    this.overlayTemplate = "";
   }
 
   /**
