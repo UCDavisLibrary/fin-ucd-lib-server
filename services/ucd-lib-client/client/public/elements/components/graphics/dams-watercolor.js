@@ -4,14 +4,14 @@ import render from "./dams-watercolor.tpl.js";
 /**
  * @class DamsWatercolor
  * @description UI component class for displaying decorative watercolor images
- * @prop srcDir - Server directory containing watercolor assets
- * @prop srcFilePrefix - The requested watercolor pattern
- * @prop srcExt - The watercolor image extension type
- * @prop color - The watercolor image. See CSS custom variables for accepted values
- * @prop rotate - Degree to rotate watercolor
- * @prop width - Watercolor width
- * @prop height - Watercolor height
- * 
+ * @prop {String} srcDir - Server directory containing watercolor assets
+ * @prop {String} srcFilePrefix - The requested watercolor pattern
+ * @prop {String} srcExt - The watercolor image extension type
+ * @prop {String} color - The watercolor image. See CSS custom variables for accepted values
+ * @prop {Number} rotate - Degree to rotate watercolor
+ * @prop {String} width - Watercolor width
+ * @prop {String} height - Watercolor height
+ * @prop {String} element - Type of element to use: img or div
  */
 export default class DamsWatercolor extends LitElement {
 
@@ -23,7 +23,8 @@ export default class DamsWatercolor extends LitElement {
       color: {type: String},
       rotate: {type: Number},
       width: {type: String},
-      height: {type: String}
+      height: {type: String},
+      element: {type: String}
     };
   }
 
@@ -34,6 +35,7 @@ export default class DamsWatercolor extends LitElement {
     this.height = "";
     this.width = "";
     this.rotate = 0;
+    this.element = "img";
   }
 
   /**
@@ -83,6 +85,22 @@ export default class DamsWatercolor extends LitElement {
   getImgStyles() {
     let styles = {};
     styles.transform = `rotate(${this.rotate}deg)`;
+    return styles;
+  }
+
+  /**
+   * @method getBgImgStyles
+   * @description Constructs inline styles for watercolor background-image div
+   * 
+   * @returns {Object}
+   */
+  getBgImgStyles(){
+    let styles = {
+      "background-image": `url(${this.getImgSrc()})`
+    };
+    if (this.rotate) styles.transform = `rotate(${this.rotate}deg)`;
+    //if (this.width) styles.width = this.width;
+    //if (this.height) styles.height = this.height;
     return styles;
   }
 

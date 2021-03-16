@@ -5,11 +5,16 @@ import "../../utils/app-collection-card";
 
 import "@polymer/iron-icons";
 
+import "../../components/graphics/dams-watercolor";
+import "../../components/graphics/dams-watercolor-overlay";
+import "../../components/cards/dams-collection-card";
 import "../../components/icon";
 import "../../components/search-box";
 import "../../components/nav-bar";
 import "../../components/filterButton";
 import "../../components/radioButton";
+import "../../components/pagination";
+
 
 import render from './app-collections.tpl.js';
 
@@ -26,7 +31,12 @@ class AppCollections extends Mixin(LitElement)
 
   static get properties() {
     return {
-      highlightedCollections : {type : Array},
+      hasPagination: {type: Boolean},
+      pgPer: {type: Number},
+      pgCurrent: {type: Number},
+      items: {type: Array},
+      itemsStatus: {type: String},
+      itemsTotal: {type: Number},
       count : {type : String},
       choices: {
         type: Array
@@ -38,8 +48,8 @@ class AppCollections extends Mixin(LitElement)
     super();
     this.render = render.bind(this);
     this.active = true;
-    this.highlightedCollections = [];
-
+    this.items = [];
+    this.itemsTotal = 17;
   }
 
   /**
@@ -105,7 +115,7 @@ class AppCollections extends Mixin(LitElement)
     });
 
     //this.$.searchBox.browse = browse;
-    this.highlightedCollections = overview;
+    this.items = overview;
 
   }
 
