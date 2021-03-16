@@ -20,6 +20,10 @@ return html`
   iron-icon {
     position: absolute;
   }
+  dams-watercolor {
+    height: 100%;
+    width: 100%;
+  }
 </style>
 <dams-watercolor
   rotate="${this.wcRotation}"

@@ -139,11 +139,6 @@ return html`
     height: 8rem;
     margin-left:0px;
   }
-  .featured{
-    margin: 0;
-    text-align: center;
-    background-color: var(--color-aggie-blue-20);
-  }
   .about{
     text-align: center;
     background-color: var(--color-aggie-blue-40);
@@ -288,6 +283,14 @@ return html`
     margin-left: 0;
     margin-right: 0;
   }
+  .featured {
+    background-color: var(--color-aggie-blue-20);
+  }
+  .featured h2 {
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 0;
+  }
   @media (min-width: 767px) {
     .hero-top {
       margin-bottom: 60px;
@@ -423,7 +426,13 @@ return html`
       )}
     
   </div>
+</section>
 
+<section class="featured site-frame">
+  <h2>Featured Collections</h2>
+  <dams-watercolor-overlay 
+      icon="star">
+  </dams-watercolor-overlay>
 </section>
 
 <!--
