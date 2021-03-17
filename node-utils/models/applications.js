@@ -30,20 +30,25 @@ class ApplicationsModel extends ElasticSearchModel {
         continue;
       }
 
-      let items = asArray(container.featuredCollection)
-        .filter(item => !item['@id'].match(/^\/application/));
-      
-      for( let featured of items ) {
-        let result = await es.get({
-          index : config.elasticsearch.collection.alias,
-          type: '_all',
-          id : featured['@id']
-        });
+      let featuredProperties = Object.keys(container)
+        .filter(key => key.match(/http:\/\/digital\.ucdavis\.edu\/schema#\/featured.*/));
 
-        tmp.push(result._source);
+      for( let prop of featuredProperties ) {
+        let items = asArray(container[prop])
+          .filter(item => !item['@id'].match(/^\/application/));
+      
+        for( let featured of items ) {
+          let result = await es.get({
+            index : config.elasticsearch.collection.alias,
+            type: '_all',
+            id : featured['@id']
+          });
+
+          tmp.push(result._source);
+        }
       }
 
-      items = asArray(container.featuredImage)
+      items = asArray(container.applicationText)
         .filter(item => !item['@id'].match(/^\/application/));
       
       for( let featured of items ) {

@@ -76,14 +76,14 @@ module.exports = async function(path, graph, utils) {
   });
 
   await utils.add({
-    attr : 'featuredCollection',
-    value : ['ucdlib', 'featuredCollection'],
+    value : ['ucdlib', '(featured.*)$'],
+    regex : true,
     type : 'id'
   });
 
   await utils.add({
-    attr : 'featuredImage',
-    value : ['ucdlib', 'featuredImage'],
+    attr : 'applicationText',
+    value : ['ucdlib', 'applicationText'],
     type : 'id'
   });
 
