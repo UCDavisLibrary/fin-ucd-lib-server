@@ -7,8 +7,8 @@ body, html {
   font-size        : var(--fs-html);
   font-weight      : var(--fw-html);
   line-height      : var(--lh-html);
-  margin           : var(--spacing-html);
-  padding          : var(--spacing-html);
+  margin           : 0;
+  padding          : 0;
   background-color : var(--color-white);
   color            : var(--color-html);
   max-width        : 100vw;

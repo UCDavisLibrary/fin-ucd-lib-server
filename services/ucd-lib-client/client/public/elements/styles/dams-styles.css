@@ -101,6 +101,17 @@ fin-search-box > iron-icon {
 
 /** EVERYTHING BELOW HERE IS BEING USED. NEED TO AUDIT ABOVE RULES **/
 
+cork-pagination {
+  --cork-color : var(--color-dams-primary);
+  --cork-background-color : var(--color-dams-secondary);
+}
+
+.solid-line-break {
+  margin: 1rem 0;
+  height: 2px;
+  background-color: var(--color-aggie-blue-40);
+}
+
 .header-dots {
   display: flex;
   align-items: center;
