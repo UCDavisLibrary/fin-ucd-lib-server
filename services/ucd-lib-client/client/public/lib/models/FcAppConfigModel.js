@@ -24,7 +24,13 @@ class FcAppConfigModel extends BaseModel {
     this.enabled = Array.isArray(APP_CONFIG.fcAppConfig);
 
     if( this.enabled ) {
-      APP_CONFIG.fcAppConfig.forEach(item => this.byId[item['@id']] = item);
+      APP_CONFIG.fcAppConfig.forEach(item => {
+        if ( item.associatedMedia && Array.isArray(APP_CONFIG.collections) ) {
+          let collectionData = APP_CONFIG.collections.find(c => c['@id'] === item.associatedMedia['@id']);
+          if ( collectionData ) Object.assign(item['associatedMedia'], collectionData);
+        }
+        this.byId[item['@id']] = item;
+      });
     }
 
     this.register('FcAppConfigModel');
@@ -95,12 +101,26 @@ class FcAppConfigModel extends BaseModel {
 
 }
 
+/**
+ * @func asArray
+ * @description Always returns an array given a (possibly non-array) value
+ * @param {*} val 
+ * 
+ * @returns {Array}
+ */
 function asArray(val) {
   if( val === undefined ) return [];
   if( Array.isArray(val) ) return val;
   return [val];
 }
 
+/**
+ * @func sortArray
+ * @description Sorts array by position property
+ * @param {*} arr 
+ * 
+ * @returns sorted array
+ */
 function sortArray(arr) {
   arr.forEach(container => {
     if( container && typeof container.position !== 'number' ) {

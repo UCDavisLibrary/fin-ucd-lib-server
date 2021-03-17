@@ -13,6 +13,8 @@ import "../../components/graphics/dams-watercolor";
 import "../../components/graphics/dams-watercolor-overlay";
 
 import "../../components/cards/dams-collection-card";
+import "../../components/graphics/dams-hero";
+import "../../components/sections/dams-highlighted-collection";
 
 import render from './app-home.tpl.js';
 
@@ -46,7 +48,7 @@ class AppHome extends Mixin(LitElement)
     this.active = true;
     this.highlightedCollections = [];
     this._injectModel('FcAppConfigModel');
-    // console.log(this.FcAppConfigModel.getFeaturedImages());
+    console.log("collections:", this.FcAppConfigModel.getFeaturedCollections());
   }
 
   /**

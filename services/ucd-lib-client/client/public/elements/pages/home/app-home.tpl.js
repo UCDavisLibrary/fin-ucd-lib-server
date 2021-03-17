@@ -3,8 +3,6 @@ import { html } from 'lit-element';
 import SharedHtml from '../../utils/shared-html';
 import { sharedStyles } from "../../styles/shared-styles";
 
-import "../../components/graphics/dams-hero";
-
 export default function render() { 
 return html`
 <style>
@@ -438,6 +436,7 @@ return html`
         overlay-template="stars">
     </dams-watercolor-overlay>
   </div>
+  <dams-highlighted-collection></dams-highlighted-collection>
 
 </section>
 
