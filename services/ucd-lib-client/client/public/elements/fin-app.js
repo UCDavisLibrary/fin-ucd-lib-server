@@ -27,6 +27,7 @@ import "./components/site/ucdlib-site-footer";
 import "./components/site/ucdlib-site-footer-column";
 import "./utils/app-header-colorbar";
 import "./utils/app-browse-by";
+import "./components/graphics/dams-watercolor-overlay";
 
 
 import AppStateInterface from "./interfaces/AppStateInterface";
@@ -94,7 +95,7 @@ export class FinApp extends Mixin(PolymerElement)
     super();
     this.active = true;
 
-    this.SEARCH_HEADER_PAGES = ['about', 'record', 'search', 'collections', 'components'];
+    this.SEARCH_HEADER_PAGES = ['about', 'record', 'search', 'collections', 'components', 'browse'];
     this.BREADCRUMB_PAGES = ['record', 'search', 'collections'];
 
     this.loadedPages = {};

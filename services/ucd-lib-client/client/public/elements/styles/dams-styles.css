@@ -99,6 +99,19 @@ fin-search-box > iron-icon {
   color: var(--default-secondary-color);
 }
 
+/** EVERYTHING BELOW HERE IS BEING USED. NEED TO AUDIT ABOVE RULES **/
+
+cork-pagination {
+  --cork-color : var(--color-dams-primary);
+  --cork-background-color : var(--color-dams-secondary);
+}
+
+.solid-line-break {
+  margin: 1rem 0;
+  height: 2px;
+  background-color: var(--color-aggie-blue-40);
+}
+
 .header-dots {
   display: flex;
   align-items: center;
@@ -114,7 +127,22 @@ fin-search-box > iron-icon {
   width: 12px;
   height: 12px;
 }
-
 h2 .fw-light {
   font-weight: var(--fw-regular);
+}
+.site-frame {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+@media (min-width: 767px) {
+
+}
+@media (min-width: 1060px) {
+  .site-frame {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+@media (min-width: 1601px) {
+
 }

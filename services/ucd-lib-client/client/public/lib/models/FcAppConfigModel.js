@@ -17,7 +17,9 @@ class FcAppConfigModel extends BaseModel {
 
     this.byId = {};
     
-    APP_CONFIG.fcAppConfig = {error: true};
+    if( !APP_CONFIG.fcAppConfig ) {
+      APP_CONFIG.fcAppConfig = {error: true};
+    }
 
     this.enabled = Array.isArray(APP_CONFIG.fcAppConfig);
 
@@ -52,10 +54,32 @@ class FcAppConfigModel extends BaseModel {
   getFeaturedImages() {
     if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
-    return asArray(appContainer.featuredImage)
-      .map(item => {
-        return this.byId[item['@id']];
-      });
+    let results = asArray(appContainer.featuredImage)
+      .map(item => this.byId[item['@id']]);
+    
+    
+
+    return results;
+  }
+
+  /**
+   * @method getAppText
+   * @description get application text by the provided identified.  id should be the sort
+   * name without the text- prefix.  example: featured-collection for id:
+   * /application/ucd-lib-client/text-featured-collection
+   * 
+   * @param {String} id 
+   * 
+   * @returns {null|Object} {text: String, label: string}
+   */
+  getAppText(id) {
+    id = '/application/ucd-lib-client/text-'+id;
+    let container = this.byId[id];
+    if( !container ) return null;
+    return {
+      text : container.description || '',
+      label : container.label || ''
+    };
   }
 
   /**
@@ -75,6 +99,16 @@ function asArray(val) {
   if( val === undefined ) return [];
   if( Array.isArray(val) ) return val;
   return [val];
+}
+
+function sortArray(arr) {
+  arr.forEach(container => {
+    if( container && typeof container.position !== 'number' ) {
+      container.position = container.position ? parseInt(container.position) : 9999;
+    }
+  });
+  arr.sort((a, b) => a.position < b.position ? -1 : 1);
+  return arr;
 }
 
 module.exports = new FcAppConfigModel();

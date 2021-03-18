@@ -1,28 +1,23 @@
 import { html } from 'lit-element';
-import { styles } from "../../styles/shared-styles";
 
 import SharedHtml from '../../utils/shared-html';
+import { sharedStyles } from "../../styles/shared-styles";
 
-import { classMap } from 'lit-html/directives/class-map';
-import { styleMap } from 'lit-html/directives/style-map';
+import "../../components/graphics/dams-hero";
 
 export default function render() { 
 return html`
 <style>
-
+  ${sharedStyles}
   :host {
     display: block;
     position: relative;
     background: var(--super-light-background-color);
 
   }
-
   a {
     text-decoration: none;
   }
-
-
-
   input {
     padding: 15px;
     display: block;
@@ -41,40 +36,6 @@ return html`
     height: 30px;
     width: 30px;
   }
-
-  #hero {
-    height: 750px; /** IE 11 hack **/
-    min-height: 750px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-image: url('/images/default-home-background.jpg');
-    background-size: cover;
-    background-position: center;
-    
-  }
-
-  .gradient {    
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: .7;
-    background-image: url('/images/home-gradient.png');
-    background-size: cover;
-    background-position: center;
-  }
-
-  img {
-    position: absolute;
-    z-index: 5;
-    height: 50px;
-    top: 25px;
-    left: 25px;    
-  }
-
   .container {    
     padding: 25px 10px;
     background: white;
@@ -239,10 +200,127 @@ return html`
     padding: 0px 60px;
     text-align: left;
   }
+  
+  /* STYLES BELOW ARE ACTUALLY USED. NEED TO AUDIT ANYTHING ABOVE */
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
+  .hero-top-left img {
+    height: 24px;
+  }
+
+  .hero-top-right {
+    display: inline-flex;
+    align-items: center;
+    font-weight: var(--fw-extrabold);
+    font-size: .82rem;
+  }
+  .hero-top-right a {
+    color: var(--color-white);
+  }
+  .hero-top-right a:hover {
+    color: var(--color-a-hover);
+  }
+  .hero-top-right .dot {
+    margin: 0 20px;
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    min-height: 8px;
+  }
+  .hero-main h1 {
+    margin-bottom: 20px;
+  }
+  .hero-main .sub-heading {
+    font-weight: var(--fw-p);
+    margin-bottom: 40px;
+  }
+  .hero-main .sub-heading a {
+    color: var(--color-dams-secondary);
+  }
+  .hero-main .sub-heading a:hover, .hero-main .sub-heading a:focus {
+    color: var(--color-a-hover);
+  }
+  .hero-main app-search-box {
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  .hero-main .sub-search {
+    color: var(--color-white);
+    font-weight: var(--fw-extrabold);
+    font-size: .82rem;
+    margin-bottom: 60px;
+  }
+  .hero-main .sub-search a {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
+  @media (min-width: 767px) {
+    .hero-top {
+      margin-bottom: 60px;
+      margin-top: 40px;
+    }
+    .hero-top-left img {
+      height: 30px;
+    }
+  }
+
+  @media (min-width: 1060px) {
+    .hero-top {
+      margin-bottom: 80px;
+      margin-top: 40px;
+    }
+    .hero-main .sub-search {
+      margin-bottom: 80px;
+    }
+  }
+
+  @media (min-width: 1601px) {
+    .hero-top {
+      margin-bottom: 200px;
+      margin-top: 40px;
+    }
+    .hero-main .sub-search {
+      margin-bottom: 150px;
+    }
+  }
 
 
 </style>
 
+<dams-hero src="/images/defaults/annual-winter-sale1952.jpg" .src-options="${[]}">
+  <div class="hero-content">
+    <div class="hero-top site-frame">
+      <div class="hero-top-left"><a href="https://ucdavis.edu"><img src="/images/logos/ucdavis_logo_gold.png"></a></div>
+      <div class="hero-top-right">
+        <a href="/about">About</a>
+        <span class="dot"></span>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="hero-main site-frame">
+      <h1 class="color-light">Digital Collections</h1>
+      <div class="sub-heading h4 color-light">Explore digitized items from the <a href="">UC Davis Library</a> collections.</div>
+      <app-search-box 
+        id="searchBox" 
+        @search="${this._onSearch}" 
+        placeholder="search">
+        <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
+      </app-search-box>
+      <div class="sub-search">
+        Featured Image: <a href="https://digital.ucdavis.edu/collection/sherry-lehmann/D-202/d7hg6v">Annual Winter Sale 1952</a> | 
+        <a href="https://digital.ucdavis.edu/collection/sherry-lehmann">Sherry Lehmann Wine Catalogs</a>
+      </div>
+    </div>
+  </div>
+</dams-hero>
+
+<!--
 <div id="sample">
   <div id="top-header">  
     <img style="all:unset; height: 1.5rem; " src="/images/ucd-lib-logo-white.png">
@@ -264,6 +342,9 @@ return html`
   </div>
   <div id="watercolor"></div>
 </div>
+-->
+
+<!--
 <div id="options">
   <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
 
@@ -307,8 +388,9 @@ return html`
     </app-icons>
   </a>
   </div>
+-->
 
-
+<!--
 <section class="recent">
   <h2 style="margin-bottom:0;">Recently Digitized</h2> 
   <h2 style="margin-bottom:0; margin-top:0; font-weight:var(--fw-regular)">Collections</h2>
@@ -320,7 +402,9 @@ return html`
   </div>
 
 </section>
+-->
 
+<!--
 <section class="featured">
   <h1 style="margin-bottom:0;">Featured Collections</h1>
   <dams-watercolor-overlay 
@@ -370,12 +454,11 @@ return html`
             )}
         </div>
     </div>
-    <!-- <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>
-    <div class="grid-item"><div class="content">d</div></div>  -->
   </div>
 </section>
+-->
 
+<!--
 <section class="about">
   <div class="about-grid-container">
     <div class="grid-item">
@@ -400,6 +483,7 @@ return html`
     </div>
   </div>
 </section>
+-->
 
 
 

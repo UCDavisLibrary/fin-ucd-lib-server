@@ -16,6 +16,9 @@ html {
   --color-dams-wc-3             : var(--color-pinot);
   --color-dams-wc-4             : var(--color-strawberry);
 
+  /* DAMS GRADIENTS */
+  --gradient-dams-blue          : linear-gradient(0deg, rgba(111,207,235,0.8), rgba(2, 40, 81, 0.8) 100%);
+
   /* CAMPUS STYLE OVERRIDES */
   --color-a-hover               : var(--color-dams-alt);
 

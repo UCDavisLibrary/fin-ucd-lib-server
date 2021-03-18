@@ -27,6 +27,7 @@
   .footer {
     display: flex; 
     justify-content: center;
+    background-color: var(--color-dams-primary);
   }
 
   .mobile-filters-layout {
@@ -141,15 +142,27 @@
       <app-browse-by id="subject" 
         label="Subject" 
         facet-query-name="abouts.raw">
+        <dams-watercolor-overlay 
+          icon="star"
+          slot="header-icon">
+        </dams-watercolor-overlay>
       </app-browse-by>
       <app-browse-by id="creator" 
         label="Creator" 
         facet-query-name="creators">
+        <dams-watercolor-overlay 
+          icon="star"
+          slot="header-icon">
+        </dams-watercolor-overlay>
       </app-browse-by>
       <app-browse-by id="format" 
-      label="Format" 
-      facet-query-name="fileFormats">
-    </app-browse-by>
+        label="Format" 
+        facet-query-name="fileFormats">
+        <dams-watercolor-overlay 
+          icon="star"
+          slot="header-icon">
+        </dams-watercolor-overlay>
+      </app-browse-by>
       <app-components id="components"></app-components>
     </iron-pages>
     <div class="footer">
