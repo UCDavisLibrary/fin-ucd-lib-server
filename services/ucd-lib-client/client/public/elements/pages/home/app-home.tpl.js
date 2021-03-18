@@ -308,6 +308,7 @@ return html`
   </a>
   </div>
 
+
 <section class="recent">
   <h2 style="margin-bottom:0;">Recently Digitized</h2> 
   <h2 style="margin-bottom:0; margin-top:0; font-weight:var(--fw-regular)">Collections</h2>

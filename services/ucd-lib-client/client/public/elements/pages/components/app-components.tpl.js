@@ -36,6 +36,9 @@ return html`
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-gap: var(--spacing-default);
   }
+  .container {
+    height:165px;
+  }
 </style>
 
 <h1 style="text-align:center;">Dams Site Components</h1>
@@ -117,8 +120,8 @@ return html`
   <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
   <br />
   <p>Size Icon for a smaller size with <code>size-icon-svg='lg' size="lg"</code></p>
-  <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Creators</div></app-icons>
-  <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Formats</div></app-icons>
+    <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Creators</div></app-icons>
+    <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Formats</div></app-icons>
   </section>
 
   <section>

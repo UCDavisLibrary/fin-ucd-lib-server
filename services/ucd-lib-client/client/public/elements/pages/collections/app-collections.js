@@ -49,7 +49,7 @@ class AppCollections extends Mixin(LitElement)
     this.render = render.bind(this);
     this.active = true;
     this.items = [];
-    this.itemsTotal = 17;
+    this.itemsTotal = 0;
   }
 
   /**

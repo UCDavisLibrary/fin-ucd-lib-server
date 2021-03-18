@@ -215,7 +215,8 @@ return html`
     ${this.itemsTotal > 16 ? 
         html`    
           <dams-pagination ></dams-pagination>
-        ` : html``}
+        `: 
+        html``}
   </div>
 
 </div>  
