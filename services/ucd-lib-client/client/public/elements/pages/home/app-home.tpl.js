@@ -187,6 +187,9 @@ return html`
   }
   
   /* STYLES BELOW ARE ACTUALLY USED. NEED TO AUDIT ANYTHING ABOVE */
+  [hidden] {
+    display: none;
+  }
   .hero-top {
     display: flex;
     justify-content: space-between;
@@ -270,16 +273,12 @@ return html`
     margin-top: 0;
   }
   .card-trio {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: var(--spacing-default);
   }
   .card-trio dams-collection-card {
-    flex-grow: 1;
     margin-bottom: var(--spacing-default);
-  }
-  .card-trio dams-collection-card:nth-child(2) {
-    margin-left: 0;
-    margin-right: 0;
   }
   .featured {
     background-color: var(--color-aggie-blue-20);
@@ -292,6 +291,9 @@ return html`
   .featured dams-watercolor-overlay {
     height: 100px;
   }
+  dams-highlighted-collection {
+    margin: 40px 0;
+  }
   @media (min-width: 767px) {
     .hero-top {
       margin-bottom: 60px;
@@ -301,11 +303,7 @@ return html`
       height: 30px;
     }
     .card-trio {
-      flex-flow: row nowrap;
-    }
-    .card-trio dams-collection-card:nth-child(2) {
-      margin-left: var(--spacing-default);
-      margin-right: var(--spacing-default);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
@@ -414,14 +412,12 @@ return html`
   </div>
 </section>
 
-<section class="recent site-frame">
+<section class="recent site-frame" ?hidden="${this.recentCollections.length === 0}">
   <h2>Recently Digitized<br><span class="fw-light">Collections</span></h2> 
   ${ SharedHtml.headerDots() } 
   <div class="card-trio">
-  ${this.highlightedCollections.map((collection) => 
+  ${this.recentCollections.map((collection) => 
       html`
-      <dams-collection-card .collection="${collection}"></dams-collection-card>
-      <dams-collection-card .collection="${collection}"></dams-collection-card>
       <dams-collection-card .collection="${collection}"></dams-collection-card>
       `
       )}
@@ -429,16 +425,30 @@ return html`
   </div>
 </section>
 
-<section class="featured site-frame">
-  <h1>Featured Collections</h1>
-  <div style="text-align:center;">
-    <dams-watercolor-overlay 
-        overlay-template="stars">
-    </dams-watercolor-overlay>
-  </div>
-  <dams-highlighted-collection></dams-highlighted-collection>
+${this.featuredCollectionsCt > 0 ? html`
 
-</section>
+  <section class="featured site-frame">
+    <h1>Featured Collections</h1>
+    <div style="text-align:center;">
+      <dams-watercolor-overlay 
+          overlay-template="stars">
+      </dams-watercolor-overlay>
+    </div>
+    <dams-highlighted-collection .collection="${this.featuredCollections[0]}"></dams-highlighted-collection>
+    <div class="featured-group" ?hidden="${!this.showCollectionGroup}">
+    <div class="card-trio">
+      ${[1,2,3].map(i => html`
+        ${this.featuredCollectionsCt > i ? html`
+          <dams-collection-card .collection="${this.featuredCollections[i]}"></dams-collection-card>
+        ` : html``}
+      `)}
+    </div>
+
+    </div>
+  </section>
+
+` : html``}
+
 
 <!--
 <div id="sample">
@@ -521,60 +531,6 @@ return html`
     <div class="grid-item"><div class="content">d</div></div> 
   </div>
 
-</section>
--->
-
-<!--
-<section class="featured">
-  <h1 style="margin-bottom:0;">Featured Collections</h1>
-  <dams-watercolor-overlay 
-      icon="star">
-  </dams-watercolor-overlay>
-  
-  <div class="featured-grid-container">
-    <div class="featured-grid-item"><h3>The Greatest <br/> Wine Library</h3>
-
-    </div>
-    <div class="featured-grid-item"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Aliquam suscipit interdum dolor, vitae mattis odio convallis 
-                                    vitae. Etiam erat arcu, condimentum sed sagittis id, malesuada 
-                                    sit amet libero. Nullam blandit mollis commodo. Nunc in 
-                                    ipsum vitae felis venenatis tristique. Donec id orci id purus 
-                                    bibendum auctor. Etiam porta mi ut sem finibus, nec pellentesque 
-                                    erat ultrices. Fusce et massa nec turpis pretium convallis sed ut 
-                                    mi. Curabitur in dolor non justo volutpat sagittis ac ut quam.</p>
-    </div>
-
-
-<div class="featured-collections">
-  <h1>Featured Collections</h1>
-  <div class="card-grid">
-    ${this.highlightedCollections.map((collection) => 
-      html`
-      <dams-collection-card .collection="${collection}"></dams-collection-card>
-
-      `
-      )}
-  </div>
-
-  <div class="collection-grid-container">
-      <div class="collection-outer">
-        <div class="collections" id="collections-home">
-          ${this.highlightedCollections.map((item) => 
-            html`
-            <div class="grid-item">
-              <app-collection-card 
-                data-id="${item._id}" 
-                .collection="${item}" 
-                @keyup="${this._onCollectionClicked}"
-                @click="${this._onCollectionClicked}">
-              </app-collection-card>
-            </div>
-            `
-            )}
-        </div>
-    </div>
-  </div>
 </section>
 -->
 

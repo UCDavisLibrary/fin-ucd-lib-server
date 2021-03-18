@@ -10,6 +10,8 @@ import render from "./dams-watercolor.tpl.js";
  * @prop {String} color - The watercolor image. See CSS custom variables for accepted values
  * @prop {Number} rotate - Degree to rotate watercolor
  * @prop {String} element - Type of element to use: img or div
+ * NOTE: using a bg-image div doesn't have a screen density option. 
+ * might need use window.devicePixelRatio in the future
  */
 export default class DamsWatercolor extends LitElement {
 

@@ -25,20 +25,21 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
 /**
  * @class AppHome
  * @description home page is rendered to the DAMS v2
+ * 
+ * @prop {Object[]} featuredCollections - Collections to  be displayed on homepage. Retrieved by model.
+ * @prop {Number} featuredCollectionsCt - Total number of featured collections.
+ * @prop {Object[]} recentCollections - Array of recently uploaded collections.
+ * @prop {Boolean} showCollectionGroup - Displays the featured multi-collection section.
  */
 class AppHome extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
   
-  // static get template() {
-  //   let tag = document.createElement('template');
-  //   tag.innerHTML = template;
-  //   return tag;
-  // }
-
   static get properties() {
     return {
-      highlightedCollections : {type : Array},
-      count : {type : String}
+      featuredCollections: {type : Array},
+      featuredCollectionsCt: {type: Number},
+      recentCollections: {type: Array},
+      showCollectionGroup: {type: Boolean}
     };
   }
 
@@ -46,26 +47,38 @@ class AppHome extends Mixin(LitElement)
     super();
     this.render = render.bind(this);
     this.active = true;
-    this.highlightedCollections = [];
+    this.featuredCollections = [];
+    this.featuredCollectionsCt = 0;
+    this.showCollectionGroup = false;
+    this.recentCollections = [];
     this._injectModel('FcAppConfigModel');
-    console.log("collections:", this.FcAppConfigModel.getFeaturedCollections());
+    this._injectModel('CollectionModel');
   }
+
 
   /**
-   * @method ready
-   * @description It gets the model information for the Collections when 
-   * function is fired.
-   * 
+   * @method firstUpdated
+   * @description Lit lifecycle method called when element is first updated
    */
-  // async ready() {
-  //   super.ready();
-  //   this._setCollections(await this.CollectionModel.overview());
-  // }
-
   async firstUpdated() {
-    this._setCollections(await this.CollectionModel.overview());
+    this.featuredCollections = this.FcAppConfigModel.getFeaturedCollections();
+    this.featuredCollectionsCt = this.featuredCollections.length;
 
+    // todo: set if we have featured text and more than one featured collection
+    this.showCollectionGroup = true;
+    console.log(this.featuredCollections);
+
+    let d = await this.CollectionModel.getRecentCollections();
+    if ( d.response.ok && Array.isArray(APP_CONFIG.collections) ) {
+      d.body.results.forEach(item => {
+        let collectionData = APP_CONFIG.collections.find(c => c['@id'] === item['@id']);
+        if ( collectionData ) this.recentCollections.push(collectionData);
+      });
+    }
+    this.requestUpdate();
+    
   }
+
   /**
    * @method _onAppStateUpdate
    * @description on the App update, the state is determined and by checking
@@ -81,43 +94,6 @@ class AppHome extends Mixin(LitElement)
       }, 25);
     }
   }
-
-  /**
-   * @method _setCollections
-   * @description when the element is ready, the collection model is called 
-   * for the collection list.  this renders is.
-   * 
-   * @param {Object} e 
-   */
-  _setCollections(e) {
-    if( e.state !== 'loaded' ) return;
-    let overview = e.payload;
-    let browse = {};
-
-    overview.sort((a,b) => {
-      if( a.name > b.name ) return 1;
-      if( a.name < b.name ) return -1;
-      return 0;
-    });
-
-    overview.forEach(item => {
-      browse[item['@id']] = item.name;
-      if( !item.thumbnailUrl ) {
-        item.thumbnailUrl = '/images/logos/logo-white-512.png';
-      }
-
-      if( item.workExample ) {
-        item.thumbnail = '/fcrepo/rest'+item.workExample['@id']+'/svc:iiif/full/,320/0/default.jpg';
-      } else {
-        item.thumbnail = '/images/logos/logo-white-512.png';
-      }
-    });
-
-    //this.$.searchBox.browse = browse;
-    this.highlightedCollections = overview;
-
-  }
-
 
   /**
    * @method _onSearch

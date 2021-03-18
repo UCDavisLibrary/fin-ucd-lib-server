@@ -72,6 +72,18 @@ class CollectionModel extends BaseModel {
       return this.service.search(searchDocument);
     }
 
+    getRecentCollections() {
+      //TODO: change to 'uploadDate'
+      let searchDocument = {
+        limit: 3,
+        sort: [{
+          lastModified: {order : "desc"} 
+        }]
+      };
+      searchDocument = {limit: 3};
+      return this.service.search(searchDocument);
+    }
+
     /**
      * @method _onSearchDocumentUpdate
      * @description listen to search document updates, if we have isPartOf filter,
