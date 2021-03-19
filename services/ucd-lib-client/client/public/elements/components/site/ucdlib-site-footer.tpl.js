@@ -1,7 +1,7 @@
 import { html, css } from 'lit-element';
 
 export function styles() {
-  const h2MarginBottom = css`var(--spacing-sm)`;
+  const h2MarginBottom = css`var(--spacing-half)`;
     return css`
       :host {
         display: block;
@@ -11,7 +11,7 @@ export function styles() {
       }
       a {
         color: var(--color-white);
-        text-decoration: underline;
+        text-decoration: none;
       }
       .kt {
         white-space: nowrap;
@@ -23,6 +23,7 @@ export function styles() {
         color: var(--color-white);
         margin-bottom: ${h2MarginBottom};
         margin-top: 0;
+        margin-left: var(--spacing-half);
       }
       #lib-logo {
         margin-bottom: ${h2MarginBottom};
@@ -45,19 +46,29 @@ export function styles() {
       }
       ucdlib-site-footer-column li {
         display: block;
-        margin-bottom: var(--spacing-default);
+        margin-bottom: 0;
         text-transform: lowercase;
+      }
+      ucdlib-site-footer-column a {
+        display: block;
+        padding: var(--spacing-half);
+      }
+      ucdlib-site-footer-column a:hover {
+        background-color: var(--color-aggie-blue-80);
+        border-radius: 4px;
       }
       .button {
         margin-top: 15px;
       }
       .button > a {
-        display: inline-block !important;
+        display: inline !important;
         padding: 8px !important;
         font-weight: var(--fw-bold);
         border: 1px solid white;
         text-decoration: none;
+        padding: 8px;
         white-space: normal !important;
+        text-align: center;
       }
       .button > a:hover {
         background: var(--color-a-hover);
@@ -83,6 +94,9 @@ export function styles() {
         display: flex;
         align-items: center;
         flex-flow: column wrap;
+      }
+      .campus-info a {
+        text-decoration: underline;
       }
       .campus-info .row {
         margin-bottom: var(--spacing-default);
