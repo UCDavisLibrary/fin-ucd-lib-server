@@ -37,11 +37,13 @@ export default class DamsHero extends LitElement {
   }
 
   /**
-   * @method firstUpdated
-   * @description Lit lifecyle method fired when element is first updated.
+   * @method updated
+   * @description Lit lifecyle method fired when element is updated.
+   * 
+   * @param {Map} props - Change properties
    */
-  firstUpdated(){
-    this._setSrc();
+  updated(props){
+    if (props.has('srcOptions')) this._setSrc();
   }
 
 
@@ -67,7 +69,8 @@ export default class DamsHero extends LitElement {
       src = this.src;
     }
     else if ( setCt > 0 ) {
-      src = Math.floor(Math.random() *  setCt + 1);
+      let i = Math.floor(Math.random() *  setCt);
+      src = this.srcOptions[i];
     }
     this._selectedSrc = src;
     this.dispatchEvent(this._srcChange);

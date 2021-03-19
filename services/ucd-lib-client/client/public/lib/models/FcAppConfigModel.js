@@ -24,8 +24,22 @@ class FcAppConfigModel extends BaseModel {
     this.enabled = Array.isArray(APP_CONFIG.fcAppConfig);
 
     if( this.enabled ) {
-      APP_CONFIG.fcAppConfig.forEach(item => this.byId[item['@id']] = item);
+      APP_CONFIG.fcAppConfig.forEach(item => {
+        if ( item.associatedMedia && Array.isArray(APP_CONFIG.collections) ) {
+          let collectionData = APP_CONFIG.collections.find(c => c['@id'] === item.associatedMedia['@id']);
+          if ( collectionData ) Object.assign(item['associatedMedia'], collectionData);
+        }
+        this.byId[item['@id']] = item;
+      });
     }
+
+    this.defaultHomepageHero = {
+      imgSrc: "/images/defaults/annual-winter-sale1952.jpg",
+      itemName: "Annual Winter Sale 1952",
+      itemLink: "/collection/sherry-lehmann/D-202/d7hg6v",
+      collectionName: "Sherry Lehmann Wine Catalogs",
+      collectionLink: "/collection/sherry-lehmann"
+    };
 
     this.register('FcAppConfigModel');
   }
@@ -39,10 +53,10 @@ class FcAppConfigModel extends BaseModel {
   getFeaturedCollections() {
     if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
-    return asArray(appContainer.featuredCollection)
+    return sortArray(asArray(appContainer.featuredCollection)
       .map(item => {
         return this.byId[item['@id']];
-      });
+      }));
   }
 
   /**
@@ -54,12 +68,26 @@ class FcAppConfigModel extends BaseModel {
   getFeaturedImages() {
     if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
-    let results = asArray(appContainer.featuredImage)
-      .map(item => this.byId[item['@id']]);
-    
-    
-
+    let results = sortArray(asArray(appContainer.featuredImage)
+      .map(item => this.byId[item['@id']]));
     return results;
+  }
+
+  /**
+   * @method getHomepageHeroOptions
+   * @description get options for rotating homepage hero image.
+   * @returns {Object} Object with properties:
+   * imgSrc, itemName, itemLink, collectionName, collectionLink
+   */
+  getHomepageHeroOptions() {
+    let out = {};
+    out[this.defaultHomepageHero.imgSrc] = this.defaultHomepageHero;
+    if( !this.enabled ) return out;
+
+    //TODO: set up image loading other than default
+    // this.getFeaturedImages.forEach(img => {});
+    console.warn("Featured images not set up. Currently serving default hero image!");
+    return out;
   }
 
   /**
@@ -95,12 +123,26 @@ class FcAppConfigModel extends BaseModel {
 
 }
 
+/**
+ * @func asArray
+ * @description Always returns an array given a (possibly non-array) value
+ * @param {*} val 
+ * 
+ * @returns {Array}
+ */
 function asArray(val) {
   if( val === undefined ) return [];
   if( Array.isArray(val) ) return val;
   return [val];
 }
 
+/**
+ * @func sortArray
+ * @description Sorts array by position property
+ * @param {*} arr 
+ * 
+ * @returns sorted array
+ */
 function sortArray(arr) {
   arr.forEach(container => {
     if( container && typeof container.position !== 'number' ) {

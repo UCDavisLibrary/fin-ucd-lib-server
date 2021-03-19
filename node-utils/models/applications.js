@@ -48,7 +48,7 @@ class ApplicationsModel extends ElasticSearchModel {
         }
       }
 
-      items = asArray(container.applicationText)
+      let items = asArray(container.applicationText)
         .filter(item => !item['@id'].match(/^\/application/));
       
       for( let featured of items ) {

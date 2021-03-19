@@ -3,8 +3,6 @@ import { html } from 'lit-element';
 import SharedHtml from '../../utils/shared-html';
 import { sharedStyles } from "../../styles/shared-styles";
 
-import "../../components/graphics/dams-hero";
-
 export default function render() { 
 return html`
 <style>
@@ -130,10 +128,6 @@ return html`
     display: inline-block;
     width: 100%;
   }
-  span {
-    color:var(--color-aggie-gold);
-  }
-
   #subtext{
     color:white;
     text-decoration: underline;
@@ -142,15 +136,6 @@ return html`
     background-color:transparent;
     height: 8rem;
     margin-left:0px;
-  }
-  .recent{
-    text-align: center;
-    background-color: var(--color-white);
-  }
-  .featured{
-    margin: 0;
-    text-align: center;
-    background-color: var(--color-aggie-blue-20);
   }
   .about{
     text-align: center;
@@ -202,6 +187,9 @@ return html`
   }
   
   /* STYLES BELOW ARE ACTUALLY USED. NEED TO AUDIT ANYTHING ABOVE */
+  [hidden] {
+    display: none;
+  }
   .hero-top {
     display: flex;
     justify-content: space-between;
@@ -209,7 +197,6 @@ return html`
     margin-bottom: 40px;
     margin-top: 20px;
   }
-
   .hero-top-left img {
     height: 24px;
   }
@@ -260,6 +247,74 @@ return html`
     color: var(--color-white);
     text-decoration: underline;
   }
+  .browse-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background-color: var(--color-white);
+  }
+  .browse-buttons > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .browse-buttons app-icons {
+    margin: 0 10px;
+  }
+  .recent{
+    background-color: var(--color-white);
+  }
+  .recent h2 {
+    margin-bottom: 0;
+    text-align: center;
+    margin-top: 0;
+  }
+  .card-trio {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: var(--spacing-sm);
+  }
+  .card-trio dams-collection-card {
+    margin-bottom: var(--spacing-default);
+  }
+  .featured {
+    background-color: var(--color-aggie-blue-20);
+  }
+  .featured h1 {
+    margin-bottom: var(--spacing-default);
+    text-align: center;
+    margin-top: 0;
+  }
+  .featured dams-watercolor-overlay {
+    height: 100px;
+  }
+  dams-highlighted-collection {
+    margin: 40px 0;
+  }
+  .fg-header {
+    display: grid;
+    grid-gap: var(--spacing-default);
+    grid-template-columns: auto;
+    margin-bottom: var(--spacing-sm);
+  }
+  .fg-header h3 {
+    margin: 0;
+  }
+  .featured-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--spacing-default) 0;
+  }
+  @media (min-width: 480px) {
+    .featured-group .card-trio {
+      margin-right: var(--spacing-sm);
+      margin-left: var(--spacing-sm);
+    }
+  }
   @media (min-width: 767px) {
     .hero-top {
       margin-bottom: 60px;
@@ -267,6 +322,19 @@ return html`
     }
     .hero-top-left img {
       height: 30px;
+    }
+    .card-trio {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .fg-header {
+      grid-template-columns: 33% 66%;
+    }
+    .featured-group .card-trio {
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .fg-header h3 {
+      text-align: center;
     }
   }
 
@@ -293,7 +361,7 @@ return html`
 
 </style>
 
-<dams-hero src="/images/defaults/annual-winter-sale1952.jpg" .src-options="${[]}">
+<dams-hero .srcOptions="${Object.keys(this.heroImgOptions)}" @src-change="${this._onHeroChange}">
   <div class="hero-content">
     <div class="hero-top site-frame">
       <div class="hero-top-left"><a href="https://ucdavis.edu"><img src="/images/logos/ucdavis_logo_gold.png"></a></div>
@@ -313,12 +381,109 @@ return html`
         <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
       </app-search-box>
       <div class="sub-search">
-        Featured Image: <a href="https://digital.ucdavis.edu/collection/sherry-lehmann/D-202/d7hg6v">Annual Winter Sale 1952</a> | 
-        <a href="https://digital.ucdavis.edu/collection/sherry-lehmann">Sherry Lehmann Wine Catalogs</a>
+        Featured Image: <a href="${this.heroImgCurrent.itemLink}">${this.heroImgCurrent.itemName}</a> | 
+        <a href="${this.heroImgCurrent.collectionLink}">${this.heroImgCurrent.collectionName}</a>
       </div>
     </div>
   </div>
 </dams-hero>
+
+<section class="browse-buttons site-frame">
+  <div>
+    <app-icons 
+      id="option" 
+      icon="iron-archive" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Collections</div>
+    </app-icons>
+
+    <a href="/search">
+      <app-icons id="option" 
+        icon="iron-dashboard" 
+        theme-color='secondary' 
+        size-icon-svg='extralg' 
+        size="extralg">
+        <div slot="icon-text">All Items</div>
+      </app-icons>
+    </a>
+
+    <a href="/browse/creator">
+      <app-icons id="option" 
+        icon="iron-account-box" 
+        theme-color='secondary' 
+        size-icon-svg='extralg' 
+        size="extralg">
+        <div slot="icon-text">Creators</div>
+      </app-icons>
+    </a>
+  </div>
+  <div>
+    <a href="/browse/format">
+      <app-icons id="option" 
+        icon="iron-create" 
+        theme-color='secondary' 
+        size-icon-svg='extralg' 
+        size="extralg">
+        <div slot="icon-text">Formats</div>
+      </app-icons>
+    </a>
+
+    <a href="/browse/subject">
+      <app-icons id="option" 
+        icon="fin-search" 
+        theme-color='secondary' 
+        size-icon-svg='extralg' 
+        size="extralg">
+        <div slot="icon-text">Subjects</div>
+      </app-icons>
+    </a>
+
+  </div>
+</section>
+
+<section class="recent site-frame" ?hidden="${this.recentCollections.length === 0}">
+  <h2>Recently Digitized<br><span class="fw-light">Collections</span></h2> 
+  ${ SharedHtml.headerDots() } 
+  <div class="card-trio">
+  ${this.recentCollections.map((collection) => 
+      html`
+      <dams-collection-card .collection="${collection}"></dams-collection-card>
+      `
+      )}
+    
+  </div>
+</section>
+
+${this.featuredCollectionsCt > 0 ? html`
+
+  <section class="featured site-frame">
+    <h1>Featured Collections</h1>
+    <div style="text-align:center;">
+      <dams-watercolor-overlay 
+          overlay-template="stars">
+      </dams-watercolor-overlay>
+    </div>
+    <dams-highlighted-collection .collection="${this.featuredCollections[0]}"></dams-highlighted-collection>
+    <div class="featured-group" ?hidden="${!this.showCollectionGroup}">
+      <div class="fg-header">
+        <h3>${this.textTrio.label}</h3>
+        <div>${this.textTrio.text}</div>
+      </div>
+      <div class="card-trio">
+        ${[1,2,3].map(i => html`
+          ${this.featuredCollectionsCt > i ? html`
+            <dams-collection-card .collection="${this.featuredCollections[i]}"></dams-collection-card>
+          ` : html``}
+        `)}
+      </div>
+      <div class="featured-more"><a href="/collections">Placeholder for button</a></div>
+    </div>
+  </section>
+
+` : html``}
+
 
 <!--
 <div id="sample">
@@ -401,60 +566,6 @@ return html`
     <div class="grid-item"><div class="content">d</div></div> 
   </div>
 
-</section>
--->
-
-<!--
-<section class="featured">
-  <h1 style="margin-bottom:0;">Featured Collections</h1>
-  <dams-watercolor-overlay 
-      icon="star">
-  </dams-watercolor-overlay>
-  
-  <div class="featured-grid-container">
-    <div class="featured-grid-item"><h3>The Greatest <br/> Wine Library</h3>
-
-    </div>
-    <div class="featured-grid-item"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Aliquam suscipit interdum dolor, vitae mattis odio convallis 
-                                    vitae. Etiam erat arcu, condimentum sed sagittis id, malesuada 
-                                    sit amet libero. Nullam blandit mollis commodo. Nunc in 
-                                    ipsum vitae felis venenatis tristique. Donec id orci id purus 
-                                    bibendum auctor. Etiam porta mi ut sem finibus, nec pellentesque 
-                                    erat ultrices. Fusce et massa nec turpis pretium convallis sed ut 
-                                    mi. Curabitur in dolor non justo volutpat sagittis ac ut quam.</p>
-    </div>
-
-
-<div class="featured-collections">
-  <h1>Featured Collections</h1>
-  <div class="card-grid">
-    ${this.highlightedCollections.map((collection) => 
-      html`
-      <dams-collection-card .collection="${collection}"></dams-collection-card>
-
-      `
-      )}
-  </div>
-
-  <div class="collection-grid-container">
-      <div class="collection-outer">
-        <div class="collections" id="collections-home">
-          ${this.highlightedCollections.map((item) => 
-            html`
-            <div class="grid-item">
-              <app-collection-card 
-                data-id="${item._id}" 
-                .collection="${item}" 
-                @keyup="${this._onCollectionClicked}"
-                @click="${this._onCollectionClicked}">
-              </app-collection-card>
-            </div>
-            `
-            )}
-        </div>
-    </div>
-  </div>
 </section>
 -->
 

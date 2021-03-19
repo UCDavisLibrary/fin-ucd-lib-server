@@ -23,8 +23,8 @@ ${this.element === 'img' ? html`
   <img 
     src="${this.getImgSrc()}" 
     srcset="${this.getImgSrcSet()}"
-    height="${this.height}"
-    width="${this.width}"
+    height="100%"
+    width="100%"
     alt="" 
     style="${styleMap(this.getImgStyles())}">
 ` : html`

@@ -9,9 +9,9 @@ import render from "./dams-watercolor.tpl.js";
  * @prop {String} srcExt - The watercolor image extension type
  * @prop {String} color - The watercolor image. See CSS custom variables for accepted values
  * @prop {Number} rotate - Degree to rotate watercolor
- * @prop {String} width - Watercolor width
- * @prop {String} height - Watercolor height
  * @prop {String} element - Type of element to use: img or div
+ * NOTE: using a bg-image div doesn't have a screen density option. 
+ * might need use window.devicePixelRatio in the future
  */
 export default class DamsWatercolor extends LitElement {
 
@@ -22,8 +22,6 @@ export default class DamsWatercolor extends LitElement {
       srcExt: {type: String, attribute: 'src-ext'},
       color: {type: String},
       rotate: {type: Number},
-      width: {type: String},
-      height: {type: String},
       element: {type: String}
     };
   }
@@ -99,8 +97,6 @@ export default class DamsWatercolor extends LitElement {
       "background-image": `url(${this.getImgSrc()})`
     };
     if (this.rotate) styles.transform = `rotate(${this.rotate}deg)`;
-    //if (this.width) styles.width = this.width;
-    //if (this.height) styles.height = this.height;
     return styles;
   }
 
