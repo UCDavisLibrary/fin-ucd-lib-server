@@ -45,10 +45,10 @@ class FcAppConfigModel extends BaseModel {
   getFeaturedCollections() {
     if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
-    return asArray(appContainer.featuredCollection)
+    return sortArray(asArray(appContainer.featuredCollection)
       .map(item => {
         return this.byId[item['@id']];
-      });
+      }));
   }
 
   /**
@@ -61,7 +61,7 @@ class FcAppConfigModel extends BaseModel {
     if( !this.enabled ) return [];
     let appContainer = this.getApplicationContainer();
     let results = asArray(appContainer.featuredImage)
-      .map(item => this.byId[item['@id']]);
+      .map(item => this.byId[item['@id']]); // temporary hack. remove split when fixed!
     
     
 

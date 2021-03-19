@@ -275,7 +275,7 @@ return html`
   .card-trio {
     display: grid;
     grid-template-columns: auto;
-    grid-gap: var(--spacing-default);
+    grid-gap: var(--spacing-sm);
   }
   .card-trio dams-collection-card {
     margin-bottom: var(--spacing-default);
@@ -294,6 +294,21 @@ return html`
   dams-highlighted-collection {
     margin: 40px 0;
   }
+  .fg-header {
+    display: grid;
+    grid-gap: var(--spacing-default);
+    grid-template-columns: auto;
+    margin-bottom: var(--spacing-sm);
+  }
+  .fg-header h3 {
+    margin: 0;
+  }
+  @media (min-width: 480px) {
+    .featured-group .card-trio {
+      margin-right: var(--spacing-sm);
+      margin-left: var(--spacing-sm);
+    }
+  }
   @media (min-width: 767px) {
     .hero-top {
       margin-bottom: 60px;
@@ -304,6 +319,16 @@ return html`
     }
     .card-trio {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .fg-header {
+      grid-template-columns: 33% 66%;
+    }
+    .featured-group .card-trio {
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .fg-header h3 {
+      text-align: center;
     }
   }
 
@@ -436,6 +461,10 @@ ${this.featuredCollectionsCt > 0 ? html`
     </div>
     <dams-highlighted-collection .collection="${this.featuredCollections[0]}"></dams-highlighted-collection>
     <div class="featured-group" ?hidden="${!this.showCollectionGroup}">
+    <div class="fg-header">
+      <h3>${this.textTrio.label}</h3>
+      <div>${this.textTrio.text}</div>
+    </div>
     <div class="card-trio">
       ${[1,2,3].map(i => html`
         ${this.featuredCollectionsCt > i ? html`

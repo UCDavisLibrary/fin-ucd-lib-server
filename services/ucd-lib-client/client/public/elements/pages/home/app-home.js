@@ -30,6 +30,7 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
  * @prop {Number} featuredCollectionsCt - Total number of featured collections.
  * @prop {Object[]} recentCollections - Array of recently uploaded collections.
  * @prop {Boolean} showCollectionGroup - Displays the featured multi-collection section.
+ * @prop {Object} textTrio - ApplicationTextContainer for the collection group.
  */
 class AppHome extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
@@ -39,7 +40,8 @@ class AppHome extends Mixin(LitElement)
       featuredCollections: {type : Array},
       featuredCollectionsCt: {type: Number},
       recentCollections: {type: Array},
-      showCollectionGroup: {type: Boolean}
+      showCollectionGroup: {type: Boolean},
+      textTrio: {type: Object}
     };
   }
 
@@ -51,6 +53,7 @@ class AppHome extends Mixin(LitElement)
     this.featuredCollectionsCt = 0;
     this.showCollectionGroup = false;
     this.recentCollections = [];
+    this.textTrio = {};
     this._injectModel('FcAppConfigModel');
     this._injectModel('CollectionModel');
   }
@@ -64,10 +67,6 @@ class AppHome extends Mixin(LitElement)
     this.featuredCollections = this.FcAppConfigModel.getFeaturedCollections();
     this.featuredCollectionsCt = this.featuredCollections.length;
 
-    // todo: set if we have featured text and more than one featured collection
-    this.showCollectionGroup = true;
-    console.log(this.featuredCollections);
-
     let d = await this.CollectionModel.getRecentCollections();
     if ( d.response.ok && Array.isArray(APP_CONFIG.collections) ) {
       d.body.results.forEach(item => {
@@ -75,6 +74,10 @@ class AppHome extends Mixin(LitElement)
         if ( collectionData ) this.recentCollections.push(collectionData);
       });
     }
+
+    let groupText = this.FcAppConfigModel.getAppText('hp-trio');
+    if ( groupText ) this.textTrio = groupText;
+    if ( this.featuredCollectionsCt > 1 && groupText ) this.showCollectionGroup = true;
     this.requestUpdate();
     
   }

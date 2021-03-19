@@ -51,7 +51,7 @@ export default class DamsHighlightedCollection extends LitElement {
       } else if (this.collection.associatedMedia.description) {
         this._collectionDesc = this.collection.associatedMedia.description;
       }
-      this._imgSrc = this.collection.thumbnailUrl;
+      this._imgSrc = this.collection.thumbnailUrl ? this.collection.thumbnailUrl : this.collection.associatedMedia.thumbnailUrl;
       this._itemCt = this.collection.associatedMedia.recordCount;
       this._href = this.collection.associatedMedia['@id'];
     }
