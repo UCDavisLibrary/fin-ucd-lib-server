@@ -21,6 +21,10 @@ class AppSearchHeader extends Mixin(PolymerElement)
       selectedCollection : {
         type : String,
         value : ''
+      },
+      navBarChoices : {
+        type : Array,
+        value : () => []
       }
     };
   }
@@ -34,6 +38,20 @@ class AppSearchHeader extends Mixin(PolymerElement)
   constructor() {
     super();
     this.active = true;
+
+    this.navBarChoices = [
+      { text: 'Browse', 
+        dropdown: [
+          {text: 'Collection', href: '/collections'},
+          {text: 'Items', href: '/search'},
+          {text: 'Creators', href: '/browse/search'},
+          {text: 'Subjects', href: '/browse/subject'},
+          {text: 'Format', href: '/browse/format'}
+        ]
+      },
+      {text: 'About', href: '/about'},
+      {text: 'FAQ', href: '/faq'}
+    ];
   }
   /**
    * @method ready
