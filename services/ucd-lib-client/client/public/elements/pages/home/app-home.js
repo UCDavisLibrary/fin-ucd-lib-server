@@ -31,6 +31,8 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
  * @prop {Object[]} recentCollections - Array of recently uploaded collections.
  * @prop {Boolean} showCollectionGroup - Displays the featured multi-collection section.
  * @prop {Object} textTrio - ApplicationTextContainer for the collection group.
+ * @prop {Object} heroImgOptions - Data options for the hero image (src, collection name, etc)
+ * @prop {Object} heroImgCurrent - The currently displayed hero image.
  */
 class AppHome extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
@@ -41,7 +43,9 @@ class AppHome extends Mixin(LitElement)
       featuredCollectionsCt: {type: Number},
       recentCollections: {type: Array},
       showCollectionGroup: {type: Boolean},
-      textTrio: {type: Object}
+      textTrio: {type: Object},
+      heroImgOptions: {type: Object},
+      heroImgCurrent: {type: Object}
     };
   }
 
@@ -54,6 +58,8 @@ class AppHome extends Mixin(LitElement)
     this.showCollectionGroup = false;
     this.recentCollections = [];
     this.textTrio = {};
+    this.heroImgOptions = {};
+    this.heroImgCurrent = {};
     this._injectModel('FcAppConfigModel');
     this._injectModel('CollectionModel');
   }
@@ -64,9 +70,15 @@ class AppHome extends Mixin(LitElement)
    * @description Lit lifecycle method called when element is first updated
    */
   async firstUpdated() {
+    
+    // Get featured collections
     this.featuredCollections = this.FcAppConfigModel.getFeaturedCollections();
     this.featuredCollectionsCt = this.featuredCollections.length;
+    let groupText = this.FcAppConfigModel.getAppText('hp-trio');
+    if ( groupText ) this.textTrio = groupText;
+    if ( this.featuredCollectionsCt > 1 && groupText ) this.showCollectionGroup = true;
 
+    // Get recent collections
     let d = await this.CollectionModel.getRecentCollections();
     if ( d.response.ok && Array.isArray(APP_CONFIG.collections) ) {
       d.body.results.forEach(item => {
@@ -75,9 +87,10 @@ class AppHome extends Mixin(LitElement)
       });
     }
 
-    let groupText = this.FcAppConfigModel.getAppText('hp-trio');
-    if ( groupText ) this.textTrio = groupText;
-    if ( this.featuredCollectionsCt > 1 && groupText ) this.showCollectionGroup = true;
+    // Get hero image options
+    this.heroImgOptions = this.FcAppConfigModel.getHomepageHeroOptions();
+
+
     this.requestUpdate();
     
   }
@@ -96,6 +109,18 @@ class AppHome extends Mixin(LitElement)
         if( ele ) ele.scrollIntoView();
       }, 25);
     }
+  }
+
+  /**
+   * @method _onHeroChange
+   * @description Listener attached to <dams-hero> image change
+   * @param {CustomEvent} e 
+   */
+  _onHeroChange(e) {
+    let img = e.target._selectedSrc;
+    if ( !img ) return;
+    this.heroImgCurrent = this.heroImgOptions[img];
+
   }
 
   /**

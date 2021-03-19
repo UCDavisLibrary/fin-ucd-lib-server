@@ -303,6 +303,12 @@ return html`
   .fg-header h3 {
     margin: 0;
   }
+  .featured-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--spacing-default) 0;
+  }
   @media (min-width: 480px) {
     .featured-group .card-trio {
       margin-right: var(--spacing-sm);
@@ -355,7 +361,7 @@ return html`
 
 </style>
 
-<dams-hero src="/images/defaults/annual-winter-sale1952.jpg" .src-options="${[]}">
+<dams-hero .srcOptions="${Object.keys(this.heroImgOptions)}" @src-change="${this._onHeroChange}">
   <div class="hero-content">
     <div class="hero-top site-frame">
       <div class="hero-top-left"><a href="https://ucdavis.edu"><img src="/images/logos/ucdavis_logo_gold.png"></a></div>
@@ -375,8 +381,8 @@ return html`
         <iron-icon icon="fin-icons:search" class="search-icon" slot="button-content"></iron-icon>
       </app-search-box>
       <div class="sub-search">
-        Featured Image: <a href="https://digital.ucdavis.edu/collection/sherry-lehmann/D-202/d7hg6v">Annual Winter Sale 1952</a> | 
-        <a href="https://digital.ucdavis.edu/collection/sherry-lehmann">Sherry Lehmann Wine Catalogs</a>
+        Featured Image: <a href="${this.heroImgCurrent.itemLink}">${this.heroImgCurrent.itemName}</a> | 
+        <a href="${this.heroImgCurrent.collectionLink}">${this.heroImgCurrent.collectionName}</a>
       </div>
     </div>
   </div>
@@ -461,18 +467,18 @@ ${this.featuredCollectionsCt > 0 ? html`
     </div>
     <dams-highlighted-collection .collection="${this.featuredCollections[0]}"></dams-highlighted-collection>
     <div class="featured-group" ?hidden="${!this.showCollectionGroup}">
-    <div class="fg-header">
-      <h3>${this.textTrio.label}</h3>
-      <div>${this.textTrio.text}</div>
-    </div>
-    <div class="card-trio">
-      ${[1,2,3].map(i => html`
-        ${this.featuredCollectionsCt > i ? html`
-          <dams-collection-card .collection="${this.featuredCollections[i]}"></dams-collection-card>
-        ` : html``}
-      `)}
-    </div>
-
+      <div class="fg-header">
+        <h3>${this.textTrio.label}</h3>
+        <div>${this.textTrio.text}</div>
+      </div>
+      <div class="card-trio">
+        ${[1,2,3].map(i => html`
+          ${this.featuredCollectionsCt > i ? html`
+            <dams-collection-card .collection="${this.featuredCollections[i]}"></dams-collection-card>
+          ` : html``}
+        `)}
+      </div>
+      <div class="featured-more"><a href="/collections">Placeholder for button</a></div>
     </div>
   </section>
 
