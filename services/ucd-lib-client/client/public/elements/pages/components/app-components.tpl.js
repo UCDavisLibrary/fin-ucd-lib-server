@@ -128,14 +128,14 @@ return html`
   <section>
   <h2>Dropdown Button</h2>
   ${ SharedHtml.headerDots() }
-  <p>Attach a listener to activate dropdown button appearence and can be exited out once attached.</p>
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="dropdown-button-text"</code> </p>
       <app-dropdown-button><div slot="dropdown-button-text">Dropdown</div></app-dropdown-button>
   </section>
 
   <section>
   <h2>Round Button</h2>
   ${ SharedHtml.headerDots() }
-  <p>Attach a listener to activate round button appearence and can be exited out once attached.</p>
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="round-button-text"</code> </p>
       <app-round-button><div slot="round-button-text">Button Rounded</div></app-round-button>
   </section>
 
