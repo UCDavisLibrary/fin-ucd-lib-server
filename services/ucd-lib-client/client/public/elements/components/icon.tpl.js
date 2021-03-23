@@ -18,6 +18,8 @@ return html`
       padding:30px 30px;
       margin: auto;
       height:160px;
+      width: 100px;
+      
 
     }
     .circle-icon{

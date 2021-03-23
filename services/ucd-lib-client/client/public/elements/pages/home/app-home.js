@@ -13,6 +13,8 @@ import "../../components/graphics/dams-watercolor";
 import "../../components/graphics/dams-watercolor-overlay";
 
 import "../../components/cards/dams-collection-card";
+import "../../components/graphics/dams-hero";
+import "../../components/sections/dams-highlighted-collection";
 
 import render from './app-home.tpl.js';
 
@@ -23,20 +25,27 @@ import CollectionInterface from "../../interfaces/CollectionInterface";
 /**
  * @class AppHome
  * @description home page is rendered to the DAMS v2
+ * 
+ * @prop {Object[]} featuredCollections - Collections to  be displayed on homepage. Retrieved by model.
+ * @prop {Number} featuredCollectionsCt - Total number of featured collections.
+ * @prop {Object[]} recentCollections - Array of recently uploaded collections.
+ * @prop {Boolean} showCollectionGroup - Displays the featured multi-collection section.
+ * @prop {Object} textTrio - ApplicationTextContainer for the collection group.
+ * @prop {Object} heroImgOptions - Data options for the hero image (src, collection name, etc)
+ * @prop {Object} heroImgCurrent - The currently displayed hero image.
  */
 class AppHome extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
   
-  // static get template() {
-  //   let tag = document.createElement('template');
-  //   tag.innerHTML = template;
-  //   return tag;
-  // }
-
   static get properties() {
     return {
-      highlightedCollections : {type : Array},
-      count : {type : String}
+      featuredCollections: {type : Array},
+      featuredCollectionsCt: {type: Number},
+      recentCollections: {type: Array},
+      showCollectionGroup: {type: Boolean},
+      textTrio: {type: Object},
+      heroImgOptions: {type: Object},
+      heroImgCurrent: {type: Object}
     };
   }
 
@@ -44,26 +53,48 @@ class AppHome extends Mixin(LitElement)
     super();
     this.render = render.bind(this);
     this.active = true;
-    this.highlightedCollections = [];
+    this.featuredCollections = [];
+    this.featuredCollectionsCt = 0;
+    this.showCollectionGroup = false;
+    this.recentCollections = [];
+    this.textTrio = {};
+    this.heroImgOptions = {};
+    this.heroImgCurrent = {};
     this._injectModel('FcAppConfigModel');
-    // console.log(this.FcAppConfigModel.getFeaturedImages());
+    this._injectModel('CollectionModel');
   }
+
 
   /**
-   * @method ready
-   * @description It gets the model information for the Collections when 
-   * function is fired.
-   * 
+   * @method firstUpdated
+   * @description Lit lifecycle method called when element is first updated
    */
-  // async ready() {
-  //   super.ready();
-  //   this._setCollections(await this.CollectionModel.overview());
-  // }
-
   async firstUpdated() {
-    this._setCollections(await this.CollectionModel.overview());
+    
+    // Get featured collections
+    this.featuredCollections = this.FcAppConfigModel.getFeaturedCollections();
+    this.featuredCollectionsCt = this.featuredCollections.length;
+    let groupText = this.FcAppConfigModel.getAppText('hp-trio');
+    if ( groupText ) this.textTrio = groupText;
+    if ( this.featuredCollectionsCt > 1 && groupText ) this.showCollectionGroup = true;
 
+    // Get recent collections
+    let d = await this.CollectionModel.getRecentCollections();
+    if ( d.response.ok && Array.isArray(APP_CONFIG.collections) ) {
+      d.body.results.forEach(item => {
+        let collectionData = APP_CONFIG.collections.find(c => c['@id'] === item['@id']);
+        if ( collectionData ) this.recentCollections.push(collectionData);
+      });
+    }
+
+    // Get hero image options
+    this.heroImgOptions = this.FcAppConfigModel.getHomepageHeroOptions();
+
+
+    this.requestUpdate();
+    
   }
+
   /**
    * @method _onAppStateUpdate
    * @description on the App update, the state is determined and by checking
@@ -81,41 +112,16 @@ class AppHome extends Mixin(LitElement)
   }
 
   /**
-   * @method _setCollections
-   * @description when the element is ready, the collection model is called 
-   * for the collection list.  this renders is.
-   * 
-   * @param {Object} e 
+   * @method _onHeroChange
+   * @description Listener attached to <dams-hero> image change
+   * @param {CustomEvent} e 
    */
-  _setCollections(e) {
-    if( e.state !== 'loaded' ) return;
-    let overview = e.payload;
-    let browse = {};
-
-    overview.sort((a,b) => {
-      if( a.name > b.name ) return 1;
-      if( a.name < b.name ) return -1;
-      return 0;
-    });
-
-    overview.forEach(item => {
-      browse[item['@id']] = item.name;
-      if( !item.thumbnailUrl ) {
-        item.thumbnailUrl = '/images/logos/logo-white-512.png';
-      }
-
-      if( item.workExample ) {
-        item.thumbnail = '/fcrepo/rest'+item.workExample['@id']+'/svc:iiif/full/,320/0/default.jpg';
-      } else {
-        item.thumbnail = '/images/logos/logo-white-512.png';
-      }
-    });
-
-    //this.$.searchBox.browse = browse;
-    this.highlightedCollections = overview;
+  _onHeroChange(e) {
+    let img = e.target._selectedSrc;
+    if ( !img ) return;
+    this.heroImgCurrent = this.heroImgOptions[img];
 
   }
-
 
   /**
    * @method _onSearch

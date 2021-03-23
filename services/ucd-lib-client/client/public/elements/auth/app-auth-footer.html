@@ -1,20 +1,30 @@
 <style include="shared-styles">
   :host {
     display: block;
-    color: var(--inverse-text-color);
+    color: var(--color-white);
   }
   a {
-    color: var(--inverse-text-color);
+    color: var(--color-white);
     cursor: pointer;
     text-decoration: none;
+    display: block;
+    padding: var(--spacing-half);
+  }
+  a:hover {
+    background-color: var(--color-aggie-blue-80);
+    border-radius: 4px;
+    color: var(--color-white);
   }
   .icon-container {
     display: flex;
     align-items: center;
   }
+  .logged-in {
+    padding-left: var(--spacing-half);
+  }
 </style>
 
-<div hidden$="[[!loggedIn]]">
+<div hidden$="[[!loggedIn]]" class="logged-in">
   <div>Logged in as:</div>
   <div class="icon-container">
     <iron-icon icon="fin-icons:account"></iron-icon>&nbsp;&nbsp;

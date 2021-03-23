@@ -40,11 +40,19 @@ export default class DamsCollectionCard extends LitElement {
    * @param {Map} props - Properties that have changed.
    */
   updated(props) {
-    if ( props.has('collection') && this.collection['_id'] ) {
-      this.imgSrc = this.collection.thumbnailUrl;
-      this.cardTitle = this.collection.name;
-      this.itemCt = this.collection.recordCount;
-      this.href = this.collection['_id'];
+    if ( props.has('collection') && this.collection['@id'] ) {
+      if ( this.collection.associatedMedia ) {
+        this.imgSrc = this.collection.thumbnailUrl ? this.collection.thumbnailUrl : this.collection.associatedMedia.thumbnailUrl;
+        this.cardTitle = this.collection.label ? this.collection.label : this.collection.associatedMedia.name;
+        this.itemCt = this.collection.associatedMedia.recordCount;
+        this.href = this.collection.associatedMedia['@id'];
+      } else {
+        this.imgSrc = this.collection.thumbnailUrl;
+        this.cardTitle = this.collection.name;
+        this.itemCt = this.collection.recordCount;
+        this.href = this.collection['@id'];
+      }
+
     }
   }
 }
