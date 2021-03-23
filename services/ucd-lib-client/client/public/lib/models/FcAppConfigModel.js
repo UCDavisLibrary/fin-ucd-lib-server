@@ -32,8 +32,6 @@ class FcAppConfigModel extends BaseModel {
         this.byId[item['@id']] = item;
       });
     }
-<<<<<<< HEAD
-=======
 
     this.defaultHomepageHero = {
       imgSrc: "/images/defaults/annual-winter-sale1952.jpg",
@@ -43,7 +41,6 @@ class FcAppConfigModel extends BaseModel {
       collectionLink: "/collection/sherry-lehmann"
     };
 
->>>>>>> v2.0-sandbox
     this.register('FcAppConfigModel');
   }
 
