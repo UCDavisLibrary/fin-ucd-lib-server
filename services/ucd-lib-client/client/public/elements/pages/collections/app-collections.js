@@ -1,4 +1,4 @@
-import { LitElement} from 'lit-element';
+import { LitElement, html} from 'lit-element';
 
 import "@ucd-lib/fin-search-box";
 import "../../utils/app-collection-card";
@@ -23,8 +23,8 @@ import AppStateInterface from "../../interfaces/AppStateInterface";
 import CollectionInterface from "../../interfaces/CollectionInterface";
 
 /**
- * @class AppHome
- * @description home page is rendered to the DAMS v2
+ * @class App Collections
+ * @description collections page is rendered to the DAMS v2
  */
 class AppCollections extends Mixin(LitElement)
   .with(EventInterface, RecordInterface, AppStateInterface, CollectionInterface) {
@@ -49,7 +49,9 @@ class AppCollections extends Mixin(LitElement)
     this.render = render.bind(this);
     this.active = true;
     this.items = [];
-    this.itemsTotal = 17;
+    this.itemsTotal = 0;
+    this.pgPer = 8;
+    this.pgCurrent = 1;
   }
 
   /**
@@ -92,7 +94,9 @@ class AppCollections extends Mixin(LitElement)
    */
   _setCollections(e) {
     if( e.state !== 'loaded' ) return;
+    console.log(e);
     let overview = e.payload;
+    this.itemsTotal = e.payload.length;
     let browse = {};
 
     overview.sort((a,b) => {
@@ -116,7 +120,28 @@ class AppCollections extends Mixin(LitElement)
 
     //this.$.searchBox.browse = browse;
     this.items = overview;
+  }
 
+  /**
+   * @method _renderPagination
+   * @description Renders the pagination element
+   * @param {Number} totalResults - Total number of results of the current query.
+   * 
+   * @returns {TemplateResult}
+   */
+  _renderPagination(totalResults) {
+    if (!totalResults || totalResults <= this.pgPer ) {
+      return html``;
+    }
+    this.hasPagination = true;
+    let maxPage = Math.ceil(totalResults / this.pgPer);
+    return html`
+    <dams-pagination max-page="${maxPage}"
+                   current-page="${this.pgCurrent}"
+                   @changed-page="${e => this._onUserAction("pagination", e.target.currentPage)}"
+                   class="mt-3"
+    ></dams-pagination>
+    `;
   }
 
 

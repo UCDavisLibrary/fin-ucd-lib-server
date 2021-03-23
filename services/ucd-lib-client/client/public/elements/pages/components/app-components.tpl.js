@@ -38,6 +38,9 @@ return html`
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-gap: var(--spacing-default);
   }
+  .container {
+    height:165px;
+  }
 </style>
 
 <h1 style="text-align:center;">Dams Site Components</h1>
@@ -110,7 +113,7 @@ return html`
       </dams-collection-card>
     </div>
 
-  </section>
+  </section> 
 
   <section>
   <h2>Filter Button</h2>
@@ -123,6 +126,33 @@ return html`
   </section>
 
   <section>
+  <h2>Dropdown Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="dropdown-button-text"</code> </p>
+      <app-dropdown-button><div slot="dropdown-button-text">Dropdown</div></app-dropdown-button>
+  </section>
+
+  <section>
+  <h2>Round Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="round-button-text"</code> </p>
+      <app-round-button><div slot="round-button-text">Button Rounded</div></app-round-button>
+  </section>
+
+  <section>
+  <h2>Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="button-text"</code> </p>
+      <p>Basic Button <code>button-type='basic'</code> </p>
+      <app-button button-type='basic'><div slot="button-text">Button Basic</div></app-button>
+      <p>Chevron Button <code>button-type='chevron'</code> </p>
+      <app-button button-type='chevron'><div style="display:inline-block" slot="button-text">Button Chevron</div></app-button>
+      <p>Secondary Button <code>button-type='secondary'</code> </p>
+      <app-button button-type='secondary'><div slot="button-text">Button Secondary</div></app-button>
+
+  </section>
+  
+  <section>
   <h2>Icon</h2>
   ${ SharedHtml.headerDots() }
   <p>A specific icon for DAMS creation.</p>
@@ -131,8 +161,8 @@ return html`
   <app-icons id="option" icon="iron-dashboard" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">All Items</div></app-icons>
   <br />
   <p>Size Icon for a smaller size with <code>size-icon-svg='lg' size="lg"</code></p>
-  <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Creators</div></app-icons>
-  <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Formats</div></app-icons>
+    <app-icons id="option" icon="iron-account-box" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Creators</div></app-icons>
+    <app-icons id="option" icon="iron-create" theme-color='secondary' size-icon-svg='lg' size="lg"><div slot="icon-text">Formats</div></app-icons>
   </section>
 
   <section>

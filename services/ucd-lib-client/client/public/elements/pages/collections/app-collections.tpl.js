@@ -77,6 +77,7 @@ return html`
     margin-top: 40px;
   }
 
+
   ${sharedStylesCss}
 
 
@@ -98,127 +99,28 @@ return html`
   </div>
 
 
-  <!-- <div class="collection-grid-container">
-      <div class="collection-outer">
-        <div class="collections" id="collections-home">
-          ${this.items.map((item) => 
-            html`
-            <div class="grid-item">
-              <app-collection-card 
-                data-id="${item._id}" 
-                .collection="${item}" 
-                @keyup="${this._onCollectionClicked}"
-                @click="${this._onCollectionClicked}">
-              </app-collection-card>
-            </div>
-            `
-            )}
-        </div>
-    </div> -->
-    
   <div class="collection-grid-container">
+    ${console.log(this.items)}
+    <div class="grid-item" ?hidden="${this.dataStatus == 'loading' || this.dataStatus == 'error' }">
+      ${this.items.map((item, i) => 
+        html`
+          <div class="grid-item">
+            <div>  
+              <dams-collection-card
+                href=${item["@id"]}
+                item-ct=${item["recordCount"]}
+                card-title=${item["name"]}
+                img-src=${item["thumbnailUrl"]}>
+              </dams-collection-card>
+            </div>
+          </div>
+        `
+      )}
+    </div>
+  </div>  
+  ${this._renderPagination(this.itemsTotal)}
+  
 
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div> 
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-    <div class="grid-item">
-      <div>  
-        <dams-collection-card
-          href="https://google.com"
-          item-ct="1"
-          card-title="A Collection">
-        </dams-collection-card>
-      </div>
-    </div>
-
-  </div>
-
-  <div>
-    ${this.itemsTotal > 16 ? 
-        html`    
-          <dams-pagination ></dams-pagination>
-        ` : html``}
-  </div>
-
-</div>  
 
 </div>
 `;}
