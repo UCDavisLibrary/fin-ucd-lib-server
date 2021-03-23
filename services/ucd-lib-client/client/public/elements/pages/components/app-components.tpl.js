@@ -113,7 +113,7 @@ return html`
       </dams-collection-card>
     </div>
 
-  </section>
+  </section> 
 
   <section>
   <h2>Filter Button</h2>
@@ -125,6 +125,33 @@ return html`
       <app-filter-button><div slot="filter-button-text">Filter4</div></app-filter-button> 
   </section>
 
+  <section>
+  <h2>Dropdown Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach a listener to activate dropdown button appearence and can be exited out once attached.</p>
+      <app-dropdown-button><div slot="dropdown-button-text">Dropdown</div></app-dropdown-button>
+  </section>
+
+  <section>
+  <h2>Round Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach a listener to activate round button appearence and can be exited out once attached.</p>
+      <app-round-button><div slot="round-button-text">Button Rounded</div></app-round-button>
+  </section>
+
+  <section>
+  <h2>Button</h2>
+  ${ SharedHtml.headerDots() }
+  <p>Attach the type of button to clarify button and define slot text with <code>slot="button-text"</code> </p>
+      <p>Basic Button <code>button-type='basic'</code> </p>
+      <app-button button-type='basic'><div slot="button-text">Button Basic</div></app-button>
+      <p>Chevron Button <code>button-type='chevron'</code> </p>
+      <app-button button-type='chevron'><div style="display:inline-block" slot="button-text">Button Chevron</div></app-button>
+      <p>Secondary Button <code>button-type='secondary'</code> </p>
+      <app-button button-type='secondary'><div slot="button-text">Button Secondary</div></app-button>
+
+  </section>
+  
   <section>
   <h2>Icon</h2>
   ${ SharedHtml.headerDots() }

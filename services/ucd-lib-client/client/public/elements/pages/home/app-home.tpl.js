@@ -346,11 +346,20 @@ return html`
 
 <!--
 <div id="options">
-  <app-icons id="option" icon="iron-archive" theme-color='secondary' size-icon-svg='extralg' size="extralg"><div slot="icon-text">Collections</div></app-icons>
+  <a href="/search">
+    <app-icons 
+      id="option" 
+      icon="fin-archive" 
+      theme-color='secondary' 
+      size-icon-svg='extralg' 
+      size="extralg">
+      <div slot="icon-text">Collections</div>
+    </app-icons>
+  </a>
 
   <a href="/search">
     <app-icons id="option" 
-      icon="iron-dashboard" 
+      icon="fin-photo-stack" 
       theme-color='secondary' 
       size-icon-svg='extralg' 
       size="extralg">
@@ -360,7 +369,7 @@ return html`
   
   <a href="/browse/creator">
     <app-icons id="option" 
-      icon="iron-account-box" 
+      icon="fin-magic" 
       theme-color='secondary' 
       size-icon-svg='extralg' 
       size="extralg">
@@ -370,7 +379,7 @@ return html`
 
   <a href="/browse/format">
     <app-icons id="option" 
-      icon="iron-create" 
+      icon="fin-photo-video" 
       theme-color='secondary' 
       size-icon-svg='extralg' 
       size="extralg">
@@ -380,7 +389,7 @@ return html`
 
   <a href="/browse/subject">
     <app-icons id="option" 
-      icon="fin-search" 
+      icon="fin-star" 
       theme-color='secondary' 
       size-icon-svg='extralg' 
       size="extralg">

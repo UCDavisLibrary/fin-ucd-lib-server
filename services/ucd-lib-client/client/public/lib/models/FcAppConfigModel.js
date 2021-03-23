@@ -26,7 +26,6 @@ class FcAppConfigModel extends BaseModel {
     if( this.enabled ) {
       APP_CONFIG.fcAppConfig.forEach(item => this.byId[item['@id']] = item);
     }
-
     this.register('FcAppConfigModel');
   }
 
