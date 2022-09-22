@@ -32,6 +32,10 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
         type : String,
         value : ''
       },
+      hrefPdf : {
+        type : String,
+        value : ''
+      },
       imageSizes : {
         type : Array,
         value : () => []
@@ -51,6 +55,14 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       fullSetSelected: {
         type : Boolean,
         value : false
+      },
+      fullSetPdfSelected : {
+        type : Boolean,
+        value : false
+      },
+      sourceCount : {
+        type : Number,
+        value : 0
       },
       downloadOptions: {
         type: Array,
@@ -100,6 +112,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       if( sourceCount > 1 ) break;
     }
 
+    this.sourceCount = sourceCount;
     this.hasMultipleDownloadMedia = (sourceCount > 1);
     if( this.hasMultipleDownloadMedia ) {
       this.$.single.checked = true;
@@ -136,30 +149,33 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
   _getDownloadSources(record, nativeImageOnly=false) {
     let sources = [];
     if( !record ) return sources;
+    const medias = [record];
 
     if( record.clientMediaDownload ) {
       if( Array.isArray(record.clientMediaDownload) ) {
         if( record.clientMediaDownload.length ) {
-          record = record.clientMediaDownload[0];
+          medias.push(record.clientMediaDownload[0]);
         }
       } else {
-        record = record.clientMediaDownload;
+        medias.push(record.clientMediaDownload);
       }
     }
 
-    if (utils.getMediaType(record) === 'VideoObject') {
-      sources = sources.concat(this._getVideoSources(record));
-    } else if (utils.getMediaType(record) === 'AudioObject') {
-      sources = sources.concat(this._getAudioSources(record));
-    } else if (utils.getMediaType(record) === 'ImageObject' ) {
-      this.showImageFormats = true;
-      sources = sources.concat(this._getImageSources(record, nativeImageOnly));
-      this._renderImgFormats(record, null, 'FR');
-    } else if (utils.getMediaType(record) === 'ImageList' ) {
-      (record.hasPart || []).forEach(img => {
-        sources = sources.concat(this._getImageSources(img, nativeImageOnly));
-      });
-    }
+    medias.forEach(media => {
+      if (utils.getMediaType(media) === 'VideoObject') {
+        sources = sources.concat(this._getVideoSources(media));
+      } else if (utils.getMediaType(media) === 'AudioObject') {
+        sources = sources.concat(this._getAudioSources(media));
+      } else if (utils.getMediaType(media) === 'ImageObject' ) {
+        this.showImageFormats = true;
+        sources = sources.concat(this._getImageSources(media, nativeImageOnly));
+        this._renderImgFormats(media, null, 'FR');
+      } else if (utils.getMediaType(media) === 'ImageList' ) {
+        (media.hasPart || []).forEach(img => {
+          sources = sources.concat(this._getImageSources(img, nativeImageOnly));
+        });
+      }
+    });
 
     return sources;
   }
@@ -303,7 +319,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
     if( !selectedFormat ) selectedFormat = originalFormat;
 
     let formats = config.imageDownload.formats.slice(0);
-    if( formats.indexOf(originalFormat) === -1 && selectedSize === 'FR' ) {
+    if( formats.indexOf(originalFormat) === -1 && selectedSize === 'FR' && selectedFormat !== 'pdf' ) {
       formats.push(originalFormat);
     }
 
@@ -312,14 +328,58 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
 
     this.formats.forEach(format => {
       let option = document.createElement('option');
-      option.innerHTML = format + ((format === originalFormat && selectedSize === 'FR') ? ' (native)' : '');
+      option.innerHTML = format + (((format === originalFormat || format === 'jpg') && selectedSize === 'FR') ? ' (native)' : '');
       option.value = format;
 
-      if (format === selectedFormat) {
+      if( format === selectedFormat || (format === 'jpg' && selectedFormat === 'pdf') ) {
         option.setAttribute('selected', 'selected');
       }
       
       this.$.format.appendChild(option);
+    });
+  }
+
+  /**
+   * @method _renderFullImgFormats
+   * @private
+   * @description render image formats select element on full set archive download
+   * full resolution.
+   */
+  _renderFullImgFormats(imageRecord, selectedFormat) {
+    // populate full set select element
+    this.$.formatFull.innerHTML = '';
+    const formats = [];
+
+    // get archive extension
+    let zipPaths = this.$.zipPaths.value;
+    if( zipPaths ) {
+      console.log('zipPaths: ' + zipPaths);
+      zipPaths = JSON.parse(zipPaths);
+      let nativeArchiveExt = Object.values(zipPaths)[0];
+      nativeArchiveExt = nativeArchiveExt.split('.')[nativeArchiveExt.split('.').length - 1];
+      formats.push(nativeArchiveExt);
+    }
+
+    // see if pdf format exists
+    if( this.rootRecord.fileFormats.filter(f => f.indexOf('pdf') > -1).length > 0 ) {
+      const pdfFormat = this.rootRecord.fileFormats.filter(f => f.indexOf('pdf') > -1)[0].split('/')[1];
+      formats.push(pdfFormat);
+    }
+
+    formats.forEach(format => {
+      const option = document.createElement('option');
+      let formatType = this._getImageFormat({ fileFormat: format });
+      if( formatType === 'tif' ) formatType = 'tiff';
+      const formatLabel = formatType === 'pdf' ? formatType : 'zip (' + formatType + 's)';
+
+      option.innerHTML = formatLabel;
+      option.value = formatType;
+
+      if( formatType === selectedFormat ) {
+        option.setAttribute('selected', 'selected');
+      }
+
+      this.$.formatFull.appendChild(option);
     });
   }
 
@@ -350,6 +410,17 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
   }
 
   /**
+   * @method _onFormatFullSelected
+   * @private
+   * @description when a format is selected on the full set download page, render the download button.
+   */
+   _onFormatFullSelected() {
+    let selectedFormat = this.$.formatFull.value.replace(/ .*/, '');
+    this.fullSetPdfSelected = selectedFormat === 'pdf';
+    this._renderFullImgFormats(this.rootRecord, selectedFormat);
+  }
+
+  /**
    * @method _toggleMultipleDownload
    * @description bound to radio buttons click event
    */
@@ -369,10 +440,15 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
     let sources = this._getAllNativeDownloadSources();
 
     for( let source of sources ) {
-      urls[source.filename] = source.src;
+      if( source.originalFormat === 'pdf' ) {
+        this.hrefPdf = source.src;
+      } else {
+        urls[source.filename] = source.src;
+      }
     }
 
     this.$.zipPaths.value = JSON.stringify(urls);
+    this._renderFullImgFormats();
   }
 
   /**
