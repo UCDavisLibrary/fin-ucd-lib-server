@@ -8,12 +8,17 @@ class CollectionService extends BaseService {
     super();
     this.store = CollectionStore;
 
-    this.baseUrl = '/api/collections';
+    this.baseUrl = 'https://sandbox.dams.library.ucdavis.edu/api/collections';
+    // this.baseUrl = '/api/collections';
   }
 
   async overview() {
     return this.request({
       url : `${this.baseUrl}/all`,
+      fetchOptions : {
+        credentials : 'omit',
+        mode : 'cors'
+      },
       checkCached : () => this.store.data.overview,
       onLoading : request => this.store.setCollectionOverviewLoading(request),
       onLoad : result => this.store.setCollectionOverviewLoaded(result.body),
@@ -38,6 +43,8 @@ class CollectionService extends BaseService {
         headers : {
           'Content-Type' : 'application/json'
         },
+        credentials : 'omit',
+        mode : 'cors',
         body : JSON.stringify(searchDocument)
       },
       onLoading : promise => this.store.setSearchLoading(searchDocument, promise),

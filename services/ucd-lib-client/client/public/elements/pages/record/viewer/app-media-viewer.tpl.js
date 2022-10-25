@@ -52,6 +52,7 @@ return html`
       <img src="${this.bagOfFilesImage}" ?hidden="${!this.bagOfFilesImage}" />
     </div>
     <app-image-viewer id="image"></app-image-viewer>
+    <app-pdf-viewer id="pdf"></app-pdf-viewer>
     <app-video-viewer id="video"></app-video-viewer>
     <app-audio-viewer id="audio"></app-audio-viewer>
   </iron-pages>

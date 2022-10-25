@@ -147,6 +147,7 @@ export default class AppImageViewer extends Mixin(PolymerElement)
    * 
    */
   async render() {
+    debugger;
     if( this.renderedMedia === this.media ) return;
 
     this.renderedMedia = this.media;

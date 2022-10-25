@@ -5,6 +5,7 @@ import '@polymer/iron-pages'
 
 import "./app-image-viewer"
 // import "./app-360-image-viewer"
+import "./app-pdf-viewer"
 import "./app-video-viewer"
 import "./app-audio-viewer"
 
@@ -65,7 +66,10 @@ export default class AppMediaViewer extends Mixin(LitElement)
       this.selectedRecordMediaId = e.selectedRecordMedia['@id'];
 
       let mediaType = utils.getMediaType(e.selectedRecordMedia).toLowerCase().replace(/object/i, '');
-      if ( mediaType === "imagelist" ) {
+
+      if( mediaType === 'image' && e.selectedRecordMedia.fileFormat && e.selectedRecordMedia.fileFormat.split('/').pop() === 'pdf' ) {
+        mediaType = 'pdf';
+      } else if ( mediaType === "imagelist" ) {
         mediaType = "image";
       } else if ( mediaType === "streamingvideo" ){
         mediaType = "video";

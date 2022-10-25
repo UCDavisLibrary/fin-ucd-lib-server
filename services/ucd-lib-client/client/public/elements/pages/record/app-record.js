@@ -353,7 +353,8 @@ export default class AppRecord extends Mixin(PolymerElement)
    * @returns {String}
    */
   _getHost() {
-    return window.location.protocol+'//'+window.location.host+'/';
+    // return window.location.protocol+'//'+window.location.host+'/';
+    return 'https://sandbox.dams.library.ucdavis.edu/';
   }
 
   /**

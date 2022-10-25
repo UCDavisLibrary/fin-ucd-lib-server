@@ -107,6 +107,18 @@ class Utils {
     let array = [];
 
     Object.keys(mediaObj).forEach(key => {
+      // if clientMediaDownload includes pdf, append to list of media
+      let record = mediaObj[key][0];
+      if( record && record.clientMediaDownload ) {
+        if( Array.isArray(record.clientMediaDownload) ) {
+          if( record.clientMediaDownload.length && record.clientMediaDownload[0].fileFormat && record.clientMediaDownload[0].fileFormat.split('/').pop() === 'pdf' ) {
+            array.push(record.clientMediaDownload[0]);
+          }
+        } else if (record.clientMediaDownload.fileFormat.split('/').pop() === 'pdf') {
+          array.push(record.clientMediaDownload);
+        }
+      }
+
       mediaObj[key].forEach(element => {
         // TODO: We don't really want to include the streaming video as a download option
         // Should we still include it on the thumbnails?
@@ -124,6 +136,8 @@ class Utils {
       });
     });
 
+    // TODO remove hack for pdf, need iiif service working
+    array[0].thumbnailUrl = array[0].thumbnailUrl.split('jpg')[0] + 'jpg';
     return array;
   }
 

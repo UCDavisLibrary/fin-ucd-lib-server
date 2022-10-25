@@ -262,14 +262,20 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
       return;
     }
 
+    let showPdf = false;
     this.mediaList = utils.flattenMediaList(record.media);
-    this.mediaList = utils.organizeMediaList(this.mediaList);
+    this.mediaList = utils.organizeMediaList(this.mediaList); 
 
     this.thumbnails = this.mediaList.map(media => {
-      let {fileType, iconType} = this._getFileAndIconType(media);
-
-      if( this.isLightbox && fileType !== 'image' ) {
+      let {fileType, fileFormat, iconType} = this._getFileAndIconType(media);
+      
+      if( showPdf || (this.isLightbox && fileType !== 'image' && fileFormat !== 'pdf') ) {
         return null;
+      }
+
+      // if pdf format, don't show other media
+      if( fileFormat === 'pdf' ) {
+        showPdf = true;
       }
 
       let thumbnailUrl = media.thumbnailUrl;
@@ -289,11 +295,11 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
 
       return thumbnail;
     })
-    .filter(item => item ? true : false)
+    .filter(item => item ? true : false);
     // TODO: Filtering out the text based files for now until we get the PDF/text viewer set up correctly
-    .filter(element => element.icon !== 'blank-round');
+    // .filter(element => element.icon !== 'blank-round');
 
-    this.singleImage = (this.thumbnails.length !== 0 && this.thumbnails.length > 1) ? false : true;
+    this.singleImage = ((this.thumbnails.length !== 0 && this.thumbnails.length > 1) || showPdf) ? false : true;
     this._resize();
 
     this.AppStateModel.set({mediaViewerNavLeftMostThumbnail: 0});
@@ -313,9 +319,9 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
       this.set(`thumbnails.${index}.selected`, (this.media['@id'] === thumbnail.id));
     });
 
-    let {fileType, iconType} = this._getFileAndIconType(media);
+    let {fileType, fileFormat, iconType} = this._getFileAndIconType(media);
     
-    this.showOpenLightbox = (fileType === 'image') ? true : false;
+    this.showOpenLightbox = (fileType === 'image' || fileFormat === 'pdf') ? true : false;
   }
 
   _getFileAndIconType(media) {
@@ -326,7 +332,6 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
 
     if (media.fileFormat || media.encodingFormat) {
       _file = (media.fileFormat ? media.fileFormat : media.encodingFormat);
-
       
       fileType   = _file.split('/').shift();
       fileFormat = _file.split('/').pop();
@@ -339,7 +344,7 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
     // TODO: Get back to this
     else if (fileType === '360')   iconType = '360-round';
 
-    return {fileType, iconType};
+    return {fileType, fileFormat, iconType};
   }
 
   /**
