@@ -40,7 +40,6 @@
     "leaflet": "^1.2.0",
     "lit-element": "^2.3.1",
     "markdown": "^0.5.0",
-    "pdfjs-dist": "^2.16.105",
     "plyr": "git://github.com/ucd-library/plyr.git#jm-webcomponents",
     "shaka-player": "^2.5.5",
     "striptags": "^3.1.1"

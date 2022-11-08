@@ -2,37 +2,6 @@ import {PolymerElement} from "@polymer/polymer/polymer-element"
 import "@polymer/paper-spinner/paper-spinner-lite"
 import template from "./app-pdf-viewer.html"
 
-// use with older version 2.6.347
-// const pdflib = require('pdfjs-dist/build/pdf.js');
-// const pdfjsViewer = require('pdfjs-dist/web/pdf_viewer.js');
-
-// import * as pdflib from 'pdfjs-dist/webpack';
-
-// try with latest version
-const pdflib = require('pdfjs-dist/legacy/build/pdf.js');
-const pdfjsViewer = require('pdfjs-dist/legacy/web/pdf_viewer.js')
-
-
-// import { AppOptions } from "../../../utils/pdfjs/app_options";
-// import { PDFViewer } from "../../../utils/pdfjs/pdf_viewer";
-import { PDFThumbnailViewer } from "../../../utils/pdfjs/pdf_thumbnail_viewer";
-import { PDFRenderingQueue } from "../../../utils/pdfjs/pdf_rendering_queue";
-// import { PDFLinkService } from "../../../utils/pdfjs/pdf_link_service";
-// import { PDFPageView } from "../../../utils/pdfjs/pdf_page_view";
-
-import { AppOptions } from "../../../utils/pdfjs/app_options";
-import { PDFViewer } from "pdfjs-dist/legacy/web/pdf_viewer.js";
-import { PDFLinkService } from "pdfjs-dist/legacy/web/pdf_viewer.js";
-
-// const PDF_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
-const PDF_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-
-// const CMAP_URL = require("pdfjs-dist/cmaps/");
-// const CMAP_URL = '../../../../../node_modules/pdfjs-dist/cmaps/';
-
-// var pdfjsWorker = require('pdfjs-dist/build/pdf.worker.js');
-// pdflib.GlobalWorkerOptions.workerPort = new pdfjsWorker();
-
 import utils from "../../../../lib/utils"
 
 import AppStateInterface from "../../../interfaces/AppStateInterface"
@@ -57,6 +26,10 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
         type : Object,
         value : () => {}
       },
+      mediaUrl : {
+        type : String,
+        value : ''
+      },
       loading: {
         type : Boolean,
         value : false
@@ -65,14 +38,14 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
         type : Number,
         value : 600
       },
-      pdfDocument : {
-        type : Object,
-        value : () => {}
-      },
-      pdfThumbnailViewer : {
-        type : Object,
-        value : () => {}
-      }
+      // pdfDocument : {
+      //   type : Object,
+      //   value : () => {}
+      // },
+      // pdfThumbnailViewer : {
+      //   type : Object,
+      //   value : () => {}
+      // }
     }
   }
 
@@ -100,18 +73,18 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     if( getMediaType !== 'ImageList' && getMediaType !== 'ImageObject' ) return;
 
     this.media = media;
-    this._renderPdf();
-    // this._renderPdfRetry();
+    this.mediaUrl = 'https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + this.media['@id'];
+    // this._renderPdf();
   }
 
   _renderPdfRetry() {
-    this.loading = true;
-    pdflib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
+    // this.loading = true;
+    // pdflib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
 
-    const loadingTask = pdflib.getDocument('https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + this.media['@id']);
-    const self = this;
-    const container = self.$.viewer;
-    this.eventBus = new pdfjsViewer.EventBus();
+    // const loadingTask = pdflib.getDocument('https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + this.media['@id']);
+    // const self = this;
+    // const container = self.$.viewer;
+    // this.eventBus = new pdfjsViewer.EventBus();
 
     // TRY #1 - using PDFPageView, seems to render just a bunch of 0x0 canvas' for each page, 
     //    even when expanded they're entirely black
@@ -184,56 +157,56 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     //    then loop over all pages to build array of promises
     //    then Promise.all() to retrieve the rest of the pages async
     //    might be out of order?
-    loadingTask.promise
-    .then(pdfDocument => {
-      this.pdfDocument = pdfDocument;
-      // let promise = Promise.resolve();
-      let promises = [];
-      for( let i = 0; i < pdfDocument.numPages; i++ ) {
-        promises.push(pdfDocument.getPage(i + 1));          
-      }
-      return Promise.all(promises).then((pdfPages) => {
-        const renderPromises = [];
-        pdfPages.forEach(pdfPage => {
-          const viewport = pdfPage.getViewport({ scale: 0.75 });
-          const viewer = self.$.viewer;
+  //   loadingTask.promise
+  //   .then(pdfDocument => {
+  //     this.pdfDocument = pdfDocument;
+  //     // let promise = Promise.resolve();
+  //     let promises = [];
+  //     for( let i = 0; i < pdfDocument.numPages; i++ ) {
+  //       promises.push(pdfDocument.getPage(i + 1));          
+  //     }
+  //     return Promise.all(promises).then((pdfPages) => {
+  //       const renderPromises = [];
+  //       pdfPages.forEach(pdfPage => {
+  //         const viewport = pdfPage.getViewport({ scale: 0.75 });
+  //         const viewer = self.$.viewer;
           
-          const canvas = document.createElement('canvas');
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-          // TODO .render() is also a promise, so it still loads page by page
-          const ctx = canvas.getContext("2d");
-          const renderTask = pdfPage.render({
-            canvasContext: ctx,
-            viewport,
-          });
-          viewer.append(canvas);
-          renderPromises.push(renderTask.promise);
-        });
-        debugger;
-        Promise.all(renderPromises);
-        self.loading = false;
+  //         const canvas = document.createElement('canvas');
+  //         canvas.width = viewport.width;
+  //         canvas.height = viewport.height;
+  //         // TODO .render() is also a promise, so it still loads page by page
+  //         const ctx = canvas.getContext("2d");
+  //         const renderTask = pdfPage.render({
+  //           canvasContext: ctx,
+  //           viewport,
+  //         });
+  //         viewer.append(canvas);
+  //         renderPromises.push(renderTask.promise);
+  //       });
+  //       debugger;
+  //       Promise.all(renderPromises);
+  //       self.loading = false;
 
-      });
-    })
-    .catch(error => {
-      console.error('Error rendering pdf: ' + error);
-    });
+  //     });
+  //   })
+  //   .catch(error => {
+  //     console.error('Error rendering pdf: ' + error);
+  //   });
   }
 
   _renderPdf() {
-    this.loading = true;
-    debugger;
-    pdflib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
+    // this.loading = true;
+    // debugger;
+    // pdflib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
 
-    const loadingTask = pdflib.getDocument('https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + this.media['@id']);
-    const self = this;
+    // const loadingTask = pdflib.getDocument('https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + this.media['@id']);
+    // const self = this;
 
 
     // TRY #1 trying to follow the example viewer.html implementation closely, 
     //    however this renders the divs for each page but doesn't draw the canvas because 
     //    the loaded callback in pdf_viewer which actually draws the canvas is never called
-    
+    /*
     loadingTask.promise
       .then(pdfDocument => {
         this.pdfDocument = pdfDocument;
@@ -338,7 +311,7 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     
 
     // TRY #2 to render just all pages
-    /*
+    
     loadingTask.promise
       .then(pdfDocument => {
         this.pdfDocument = pdfDocument;
@@ -379,7 +352,7 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
         console.error('Error rendering pdf: ' + error);
       });
 
-*/
+
 
     // TRY #3 with simpleviewer.js example
     // const eventBus = new pdfjsViewer.EventBus();
@@ -424,20 +397,20 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     //   // pdfLinkService.setDocument(pdfDocument, null);
     // })();
 
-
+      */
   }
 
   _cleanup() {
-    if (!this.pdfDocument) {
-      return; // run cleanup when document is loaded
-    }
+    // if (!this.pdfDocument) {
+    //   return; // run cleanup when document is loaded
+    // }
     // this.pdfViewer.cleanup();
-    this.pdfThumbnailViewer.cleanup();
+    // this.pdfThumbnailViewer.cleanup();
   }
 
   bindEvents() {
     // this.eventBus._on("resize", webViewerResize);
-    this.eventBus._on("pagerendered", this.webViewerPageRendered);
+    // this.eventBus._on("pagerendered", this.webViewerPageRendered);
     // this.eventBus._on("updateviewarea", webViewerUpdateViewarea);
     // this.eventBus._on("sidebarviewchanged", webViewerSidebarViewChanged);
     // this.eventBus._on("firstpage", webViewerFirstPage);
@@ -449,7 +422,7 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
 
   unbindEvents() {
     // this.eventBus._off("resize", webViewerResize);
-    this.eventBus._off("pagerendered", this.webViewerPageRendered);
+    // this.eventBus._off("pagerendered", this.webViewerPageRendered);
     // this.eventBus._off("updateviewarea", webViewerUpdateViewarea);
     // this.eventBus._off("sidebarviewchanged", webViewerSidebarViewChanged);
     // this.eventBus._off("firstpage", webViewerFirstPage);
@@ -459,7 +432,7 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     // this.eventBus._off("pagenumberchanged", webViewerPageNumberChanged);
   }
 
-  webViewerPageRendered({ pageNumber, error }) {
+  /*webViewerPageRendered({ pageNumber, error }) {
     // If the page is still visible when it has finished rendering,
     // ensure that the page number input loading indicator is hidden.
     if (pageNumber === PDFViewerApplication.page) {
@@ -469,10 +442,10 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
     // // Use the rendered page to set the corresponding thumbnail image.
     // if (PDFViewerApplication.pdfSidebar.visibleView === SidebarView.THUMBS) {
       const pageView = this.pdfViewer.getPageView(
-        /* index = */ pageNumber - 1
+        index = pageNumber - 1
       );
       const thumbnailView = this.pdfThumbnailViewer.getThumbnail(
-        /* index = */ pageNumber - 1
+        index = pageNumber - 1
       );
       if (pageView && thumbnailView) {
         thumbnailView.setImage(pageView);
@@ -487,7 +460,7 @@ export default class AppPdfViewer extends Mixin(PolymerElement)
   
     // It is a good time to report stream and font types.
     // PDFViewerApplication._reportDocumentStatsTelemetry();
-  }
+  }*/
 
 }
 

@@ -35,30 +35,13 @@
 </div>
 
 <div class="layout" hidden$="[[loading]]" style="line-height: 0">
-  <canvas id="pdfCanvas"></canvas>
-  
-  <div id="sidebarContent">
-    <div id="thumbnailView">
-    </div>
-    <!-- <div id="outlineView" class="hidden">
-    </div>
-    <div id="attachmentsView" class="hidden">
-    </div>
-    <div id="layersView" class="hidden">
-    </div> -->
-  </div>
-
-  <div id="viewerContainer">
-    <div id="viewer" class="pdfViewer"></div>
-  </div>
-
-
-
-
-
-
-
-
-
-
+  <body>
+    <iframe
+      src="[[mediaUrl]]?inline=true"
+      type="application/pdf"
+      width="800px"
+			height="600px"
+			style="border: none;"
+		></iframe>
+	</body>
 </div>

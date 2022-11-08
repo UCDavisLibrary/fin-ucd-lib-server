@@ -62,6 +62,10 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
         type : Boolean,
         value : false
       },
+      isPdf : {
+        type : Boolean,
+        value : false
+      },
       singleImage : {
         type : Boolean,
         value : false,

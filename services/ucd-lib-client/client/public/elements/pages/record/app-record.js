@@ -155,8 +155,10 @@ export default class AppRecord extends Mixin(PolymerElement)
     this.collectionName = this.record.collectionId || '';
     if( this.collectionName ) {
       let collection = await this._getCollection(this.collectionName);
-      this.collectionName = collection.name;
-      this.record.collectionName = collection.name;
+      if( collection ) {
+        this.collectionName = collection.name;
+        this.record.collectionName = collection.name;  
+      }
     }
 
     // Attach a recod to the download options
