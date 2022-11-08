@@ -9,8 +9,8 @@ class RecordService extends BaseService {
   constructor() {
     super();
     this.store = RecordStore;
-    this.baseUrl = 'https://sandbox.dams.library.ucdavis.edu/api/records'
-    // this.baseUrl = '/api/records'
+    // this.baseUrl = 'https://sandbox.dams.library.ucdavis.edu/api/records'  // dev local, point to sandbox collections
+    this.baseUrl = '/api/records'
   }
 
   setModel(model) {
@@ -20,10 +20,11 @@ class RecordService extends BaseService {
   get(id) {
     return this.request({
       url : `${this.baseUrl}${id}?root=true`,
-      fetchOptions : {
-        credentials : 'omit',
-        mode : 'cors'
-      },
+      // dev local, point to sandbox collections
+      // fetchOptions : {
+      //   credentials : 'omit',
+      //   mode : 'cors'
+      // },
       checkCached : () => this.store.getRecord(id),
       onLoading : request => this.store.setRecordLoading(id, request),
       onLoad : result => this.store.setRecordLoaded(id, this.model.createMediaObject(graphConcat(null, result.body))),
@@ -57,8 +58,9 @@ class RecordService extends BaseService {
         headers : {
           'Content-Type' : 'application/json'
         },
-        credentials : 'omit',
-        mode : 'cors',
+        // dev local, point to sandbox collections
+        // credentials : 'omit',
+        // mode : 'cors',
         body : JSON.stringify(searchDocument)
       },
       onLoading : promise => this.store.setSearchLoading(searchDocument,  promise),
@@ -92,8 +94,9 @@ class RecordService extends BaseService {
           headers : {
             'Content-Type' : 'application/json'
           },
-          credentials : 'omit',
-          mode : 'cors',
+          // dev local, point to sandbox collections
+          // credentials : 'omit',
+          // mode : 'cors',
           body : JSON.stringify(searchDocument)
         },
         qs,
@@ -119,8 +122,9 @@ class RecordService extends BaseService {
         headers : {
           'Content-Type' : 'application/json'
         },
-        credentials : 'omit',
-        mode : 'cors',
+        // dev local, point to sandbox collections
+        // credentials : 'omit',
+        // mode : 'cors',
         body : JSON.stringify(searchDocument)
       },
       onLoading : promise => this.store.setDefaultSearchLoading(id, searchDocument, promise),

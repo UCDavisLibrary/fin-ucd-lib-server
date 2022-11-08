@@ -62,9 +62,9 @@ class MediaModel extends BaseModel {
     let rotation = options.rotation || 0;
     let format = options.format || 'jpg';
 
-    // path = `${path}/svc:iiif/${region}/${size}/${rotation}/${quality}.${format}`;
-    path = `https://sandbox.dams.library.ucdavis.edu${path}/svc:iiif/${region}/${size}/${rotation}/${quality}.${format}`;
-    // if( path.indexOf(config.fcrepoBasePath) !== 0 ) path = config.fcrepoBasePath+path;
+    path = `${path}/svc:iiif/${region}/${size}/${rotation}/${quality}.${format}`;
+    // path = `https://sandbox.dams.library.ucdavis.edu${path}/svc:iiif/${region}/${size}/${rotation}/${quality}.${format}`;  // dev local, point to sandbox collections
+    if( path.indexOf(config.fcrepoBasePath) !== 0 ) path = config.fcrepoBasePath+path;
     
     return path; 
   }

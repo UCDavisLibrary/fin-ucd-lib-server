@@ -89,6 +89,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       let selectedRecordMedia = await this.AppStateModel.getSelectedRecordMedia();
       if( selectedRecordMedia ) this._onSelectedRecordMediaUpdate(selectedRecordMedia);
     }
+    this._checkPdfZip();
   }
 
   _onSelectedRecordUpdate(record) {
@@ -353,7 +354,6 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
     // get archive extension
     let zipPaths = this.$.zipPaths.value;
     if( zipPaths ) {
-      console.log('zipPaths: ' + zipPaths);
       zipPaths = JSON.parse(zipPaths);
       let nativeArchiveExt = Object.values(zipPaths)[0];
       nativeArchiveExt = nativeArchiveExt.split('.')[nativeArchiveExt.split('.').length - 1];
@@ -427,6 +427,23 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
   _toggleMultipleDownload() {
     this.fullSetSelected = this.$.fullset.checked ? true : false;
     this._setZipPaths();
+  }
+
+  /**
+   * @method _checkPdfZip
+   * @description disable single page download option if pdf exists
+   */
+  _checkPdfZip() {
+    let sources = this._getAllNativeDownloadSources();
+
+    for( let source of sources ) {
+      if( source.originalFormat === 'pdf' ) {
+        this.$.single.checked = false;
+        this.$.single.disabled = true;
+        this.$.fullset.checked = true;
+        this._toggleMultipleDownload();
+      }
+    }
   }
 
   /**
