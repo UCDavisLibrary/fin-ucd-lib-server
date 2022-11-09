@@ -1,0 +1,56 @@
+<style>
+  :host {
+    display: block;
+    background: black;
+    padding: 20px 0;
+    /* position: relative; */
+    box-sizing: border-box;
+  }
+
+  paper-spinner-lite {
+    --paper-spinner-color: var(--default-secondary-color);
+  }
+
+  #loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .layout {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  iframe {
+    display: flex;
+    max-width: var(--max-width);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<div id="loading" hidden$="[[!loading]]">
+  <paper-spinner-lite active$="[[loading]]"></paper-spinner-lite>
+</div>
+
+<div class="layout" hidden$="[[loading]]" style="line-height: 0">
+  <body>
+    <iframe
+      src="[[mediaUrl]]?inline=true"
+      type="application/pdf"
+      width="100%"
+			height="600px"
+			style="border: none;"
+		></iframe>
+	</body>
+</div>

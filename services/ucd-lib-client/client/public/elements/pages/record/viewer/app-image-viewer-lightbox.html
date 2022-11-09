@@ -60,20 +60,46 @@
     right: 0;
     bottom: 0;
   }
+
+  #pdfViewer {
+    height: 100%;
+  }
 </style>
 
 <!-- make sure background is blacked out... iOS hack -->
 <div id="safeCover" style="display:none;position:absolute;z-index:999;top:0;left:0;width:100vw;height:100vh;background-color:black;"></div>
 
-<div id="viewer" hidden$="[[loading]]"></div>
+<div hidden$="[[pdfUrl]]">
+  <div id="viewer" hidden$="[[loading]]"></div>
+</div>
+<div id="pdfViewer" hidden$="[[!pdfUrl]]">
+  <iframe
+    src="[[pdfUrl]]?inline=true"
+    type="application/pdf"
+    width="100%"
+    height="100%"
+    style="border: none;"
+  ></iframe>
+</div>
 <div class="spinner-layout" hidden$="[[!loading]]">
   <paper-spinner-lite active$="[[loading]]"></paper-spinner-lite>
 </div>
-
-<app-media-viewer-nav 
-  id="nav"
-  is-lightbox
-  on-zoom-in="_onZoomInClicked"
-  on-zoom-out="_onZoomOutClicked"
-  on-close="_onCloseClicked">
-</app-media-viewer-nav>
+<div hidden$="[[isPdf]]">
+  <app-media-viewer-nav 
+    id="nav"
+    is-lightbox
+    on-zoom-in="_onZoomInClicked"
+    on-zoom-out="_onZoomOutClicked"
+    on-close="_onCloseClicked">
+  </app-media-viewer-nav>
+</div>
+<div hidden$="[[!isPdf]]">
+  <app-media-viewer-nav 
+    id="nav"
+    is-lightbox
+    is-pdf
+    on-zoom-in="_onZoomInClicked"
+    on-zoom-out="_onZoomOutClicked"
+    on-close="_onCloseClicked">
+  </app-media-viewer-nav>
+</div>

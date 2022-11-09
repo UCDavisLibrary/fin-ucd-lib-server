@@ -145,26 +145,32 @@
   <div style="flex:1"></div>
   
   <div id="buttonWrapper" hidden$="[[breakControls]]" style="white-space: nowrap">
-    <paper-icon-button id="zoomOut1" noink tabindex="0" icon="zoom-out" hidden$="[[!isLightbox]]" on-click="_onZoomOutClicked"></paper-icon-button>
-    <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
-    
+    <span hidden$="[[isPdf]]">
+      <paper-icon-button id="zoomOut1" noink tabindex="0" icon="zoom-out" hidden$="[[!isLightbox]]" on-click="_onZoomOutClicked"></paper-icon-button>
+      <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
+    </span>
     <app-share-btn id="shareBtn" role="button"></app-share-btn>
 
     <span hidden$="[[!showOpenLightbox]]" class="zoom-btns" pad$="[[!showOpenLightbox]]">
-      <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
+      <span hidden$="[[isPdf]]">
+        <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button> 
+      </span>
       <paper-icon-button noink icon="fin-icons:close" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onCloseClicked"></paper-icon-button>
     </span>
   </div>
 </div>
 
 <div hidden$="[[!breakControls]]" style="text-align: right">
-  <paper-icon-button id="zoomOut2" noink tabindex="0" icon="zoom-out" hidden$="[[!isLightbox]]" on-click="_onZoomOutClicked"></paper-icon-button>
-  <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
-  
+  <span hidden$="[[isPdf]]">
+    <paper-icon-button id="zoomOut2" noink tabindex="0" icon="zoom-out" hidden$="[[!isLightbox]]" on-click="_onZoomOutClicked"></paper-icon-button>
+    <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
+  </span>  
   <app-share-btn></app-share-btn>
   
   <span hidden$="[[!showOpenLightbox]]" class="zoom-btns">
-    <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
+    <span hidden$="[[isPdf]]">
+      <paper-icon-button noink icon="zoom-in" tabindex="0" hidden$="[[isLightbox]]" on-click="_onZoomInClicked"></paper-icon-button>
+    </span>
     <paper-icon-button noink icon="fin-icons:close" tabindex="0" hidden$="[[!isLightbox]]" on-click="_onCloseClicked"></paper-icon-button>
   </span>
 </div>

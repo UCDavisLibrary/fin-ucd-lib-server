@@ -64,6 +64,7 @@ export default class AppSearchResult extends Mixin(PolymerElement)
     super();
 
     this.baseUrl = window.location.protocol+'//'+window.location.host+'/fcrepo/rest';
+    // this.baseUrl = 'https://sandbox.dams.library.ucdavis.edu/fcrepo/rest';  // dev local, point to sandbox collections
   }
 
   ready() {

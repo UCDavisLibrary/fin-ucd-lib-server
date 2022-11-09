@@ -39,6 +39,10 @@ export default class AppImageViewer extends Mixin(PolymerElement)
       loading : {
         type : Boolean,
         value : false
+      },
+      pdfUrl : {
+        type : String,
+        value : ''
       }
     }
   }
@@ -151,11 +155,18 @@ export default class AppImageViewer extends Mixin(PolymerElement)
 
     this.renderedMedia = this.media;
     let id = this.renderedMedia['@id'];
-    if ( this.renderedMedia.associatedMedia && this.renderedMedia.media.imageList ) {
-      id = this.renderedMedia.image.url;
-    }
+    let url;
     
-    let url = this._getImgUrl(id, '', '');
+    if( this.renderedMedia.fileFormat === 'application/pdf' ) {
+      url = `https://sandbox.dams.library.ucdavis.edu/fcrepo/rest${id}`;
+      this.pdfUrl = url;
+      this.loading = false;
+      console.log(this.pdfUrl);
+      return;
+    } else if ( this.renderedMedia.associatedMedia && this.renderedMedia.media.imageList ) {
+      id = this.renderedMedia.image.url;
+      url = this._getImgUrl(id, '', '');
+    }
 
     // used to check state below
     this.loadingUrl = url;
