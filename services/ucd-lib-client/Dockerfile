@@ -20,6 +20,12 @@ COPY controllers controllers
 COPY lib lib
 COPY models models
 
+# hack for now.  Build internal
+RUN cd /service && npm install
+RUN cd /service/client/public && rm package-lock.json
+RUN cd /service/client/public && npm install
+RUN cd /service && npm run build
+
 ARG UCD_LIB_SERVER_REPO_HASH
 ARG UCD_LIB_SERVER_REPO_TAG
 ENV UCD_LIB_SERVER_REPO_HASH ${UCD_LIB_SERVER_REPO_HASH}
