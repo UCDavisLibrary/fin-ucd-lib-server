@@ -89,6 +89,13 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       let selectedRecordMedia = await this.AppStateModel.getSelectedRecordMedia();
       if( selectedRecordMedia ) this._onSelectedRecordMediaUpdate(selectedRecordMedia);
     }
+  }
+
+  /**
+   * @method _onAppStateUpdate
+   * @description AppStateInterface
+   */
+  _onAppStateUpdate(e) {
     this._checkPdfZip();
   }
 
