@@ -158,15 +158,18 @@ export default class AppImageViewer extends Mixin(PolymerElement)
     let url;
     
     if( this.renderedMedia.fileFormat === 'application/pdf' ) {
-      url = `https://sandbox.dams.library.ucdavis.edu/fcrepo/rest${id}`;
+      url = this._getImgUrl(id, '', '');
       this.pdfUrl = url;
       this.loading = false;
-      console.log(this.pdfUrl);
+      this.$.pdfViewer.style.display = '';
+      this.$.viewer.style.display = 'none';
       return;
     } else if ( this.renderedMedia.associatedMedia && this.renderedMedia.media.imageList ) {
       id = this.renderedMedia.image.url;
-      url = this._getImgUrl(id, '', '');
     }
+    url = this._getImgUrl(id, '', '');
+    this.$.pdfViewer.style.display = 'none';
+    this.$.viewer.style.display = '';
 
     // used to check state below
     this.loadingUrl = url;

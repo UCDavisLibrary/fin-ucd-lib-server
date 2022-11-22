@@ -367,8 +367,8 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       formats.push(nativeArchiveExt);
     }
 
-    // see if pdf format exists
-    if( this.rootRecord.fileFormats.filter(f => f.indexOf('pdf') > -1).length > 0 ) {
+    // if pdf format exists, append to formats dropdown
+    if( this.hrefPdf ) {
       const pdfFormat = this.rootRecord.fileFormats.filter(f => f.indexOf('pdf') > -1)[0].split('/')[1];
       formats.push(pdfFormat);
     }
@@ -442,14 +442,26 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
    */
   _checkPdfZip() {
     let sources = this._getAllNativeDownloadSources();
+    let hasPdf = false;
 
     for( let source of sources ) {
       if( source.originalFormat === 'pdf' ) {
+        hasPdf = true;
         this.$.single.checked = false;
         this.$.single.disabled = true;
         this.$.fullset.checked = true;
+        this.$.selectedPage.style.display = 'none';
+        this.$.fullset.style.display = 'none';
         this._toggleMultipleDownload();
       }
+    }
+    if( !hasPdf ) {
+      // restore to default (ie navigating between collections with/without pdfs)
+      this.$.single.disabled = false;
+      this.$.fullset.checked = false;
+      this.$.selectedPage.style.display = '';
+      this.$.fullset.style.display = '';
+      this.hrefPdf = '';
     }
   }
 
