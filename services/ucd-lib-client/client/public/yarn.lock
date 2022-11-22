@@ -419,10 +419,10 @@
     "@polymer/iron-icons" "^3.0.0-pre.1"
     "@polymer/polymer" "^3.0.0-pre.1"
 
-"@ucd-lib/fin-icons@0.0.8":
-  "integrity" "sha512-Q8BmNGuSoeS3A6JlRJKk6BT+xg3T+1Iix+CZWLxYa3p0qZnISMoSIw8U+DE6stD13GZBPCc/XkABh3Fe23f8sg=="
-  "resolved" "https://registry.npmjs.org/@ucd-lib/fin-icons/-/fin-icons-0.0.8.tgz"
-  "version" "0.0.8"
+"@ucd-lib/fin-icons@0.0.9":
+  "integrity" "sha512-nR6M3JTeN193RNK8ZZqQJxwOnfZ+uWsBtDPWhumvP8qi8omWyMPTIwJeN61JWZ9rc4KER6LOVf4TDlavZO/NrQ=="
+  "resolved" "https://registry.npmjs.org/@ucd-lib/fin-icons/-/fin-icons-0.0.9.tgz"
+  "version" "0.0.9"
   dependencies:
     "@polymer/iron-icon" "^3.0.1"
     "@polymer/iron-iconset-svg" "^3.0.1"
