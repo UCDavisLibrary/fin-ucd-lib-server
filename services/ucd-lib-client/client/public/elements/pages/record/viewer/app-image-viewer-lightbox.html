@@ -84,20 +84,10 @@
 <div class="spinner-layout" hidden$="[[!loading]]">
   <paper-spinner-lite active$="[[loading]]"></paper-spinner-lite>
 </div>
-<div hidden$="[[isPdf]]">
+<div>
   <app-media-viewer-nav 
     id="nav"
     is-lightbox
-    on-zoom-in="_onZoomInClicked"
-    on-zoom-out="_onZoomOutClicked"
-    on-close="_onCloseClicked">
-  </app-media-viewer-nav>
-</div>
-<div hidden$="[[!isPdf]]">
-  <app-media-viewer-nav 
-    id="nav"
-    is-lightbox
-    is-pdf
     on-zoom-in="_onZoomInClicked"
     on-zoom-out="_onZoomOutClicked"
     on-close="_onCloseClicked">

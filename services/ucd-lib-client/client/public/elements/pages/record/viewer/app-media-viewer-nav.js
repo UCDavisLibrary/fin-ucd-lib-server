@@ -326,6 +326,7 @@ export default class AppMediaViewerNav extends Mixin(PolymerElement)
     let {fileType, fileFormat, iconType} = this._getFileAndIconType(media);
     
     this.showOpenLightbox = (fileType === 'image' || fileFormat === 'pdf') ? true : false;
+    this.isPdf = fileFormat === 'pdf' ? true : false;
   }
 
   _getFileAndIconType(media) {
