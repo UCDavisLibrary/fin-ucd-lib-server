@@ -156,9 +156,10 @@ export default class AppImageViewer extends Mixin(PolymerElement)
     this.renderedMedia = this.media;
     let id = this.renderedMedia['@id'];
     let url;
-    
-    if( this.renderedMedia.fileFormat === 'application/pdf' ) {
-      url = this._getImgUrl(id, '', '');
+    debugger;
+
+    if( this.renderedMedia.fileFormat === 'application/pdf' ) {      
+      url = '/fcrepo/rest' + id;
       this.pdfUrl = url;
       this.loading = false;
       this.$.pdfViewer.style.display = '';
