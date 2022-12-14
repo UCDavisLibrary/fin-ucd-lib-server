@@ -291,10 +291,14 @@ class RecordModel extends ElasticSearchModel {
    * @param {Array} records current array of found records
    */
   findRecords(ids, record, records=[], crawled={}) {
-    if (Array.isArray(record)) {
+    if( Array.isArray(record) ) {
       record.forEach(item => this.findRecords(ids, item, records, crawled));
     } else if ((typeof record === 'object') && (record !== null)) {
       
+      if( Object.keys(record).length === 1 ) {
+        return records;
+      }
+
       // check for loops
       if( crawled[record['@id']]) return records;
       crawled[record['@id']] = true;
@@ -303,8 +307,8 @@ class RecordModel extends ElasticSearchModel {
         records.push(record);
       }
 
-      for (let key in record) {
-        if ( typeof record[key] !== 'object' ) continue;
+      for( let key in record ) {
+        if( typeof record[key] !== 'object' ) continue;
         this.findRecords(ids, record[key], records, crawled);
       }
     }
