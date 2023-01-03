@@ -367,10 +367,10 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       formats.push(nativeArchiveExt);
     }
 
-    // if pdf format exists, append to formats dropdown
+    // if pdf format exists, prepend to formats dropdown
     if( this.hrefPdf ) {
       const pdfFormat = this.rootRecord.fileFormats.filter(f => f.indexOf('pdf') > -1)[0].split('/')[1];
-      formats.push(pdfFormat);
+      formats.unshift(pdfFormat);
     }
 
     formats.forEach(format => {
