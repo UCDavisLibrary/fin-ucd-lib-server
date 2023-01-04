@@ -91,13 +91,13 @@
 
 <div id="wrapper">
   <div class="layout" hidden$="[[!hasMultipleDownloadMedia]]">
-    <div class="radio" style="margin-right: 40px">
+    <div id="selectedPage" class="radio" style="margin-right: 40px">
       <input id="single" type="radio" name="set-size" checked on-click="_toggleMultipleDownload" /> 
-      <label for="single">Single</label>
+      <label for="single">Selected Page</label>
     </div>
     <div class="radio">
       <input id="fullset" type="radio" name="set-size" on-click="_toggleMultipleDownload"/> 
-      <label for="fullset">Full Set ([[fullSetCount]] files)</label>
+      <label for="fullset">All Pages ([[sourceCount]] files)</label>
     </div>
   </div>
 </div>
@@ -127,12 +127,28 @@
 
 
 <form id="downloadZip" 
-action$="/api/zip/[[zipName]]" 
-method="POST" 
-target="_blank" 
-hidden$="[[!fullSetSelected]]">    
-  <input type="text" hidden name="paths" id="zipPaths" style="display: none;">
-  <button on-click="_onDownloadFullSetClicked">
-    <iron-icon icon="file-download"></iron-icon>&nbsp;<span>Download Archive</span>
-  </button>
+  action$="/api/zip/[[zipName]]" 
+  method="POST" 
+  target="_blank" 
+  hidden$="[[!fullSetSelected]]">    
+  <div class="layout btns" style="margin-bottom: 5px;">
+    <input type="text" hidden name="paths" id="zipPaths" style="display: none;">
+    <select id="formatFull" on-change="_onFormatFullSelected" hidden$="[[!showImageFormats]]"></select>
+    
+    <a id="downloadPdfBtn" href="[[hrefPdf]]" 
+      on-click="_onDownloadClicked" 
+      download 
+      target="_blank" 
+      rel="noopener" 
+      style="white-space: nowrap; text-align: center;"
+      hidden$="[[!fullSetPdfSelected]]">
+        <span>
+          Download
+        </span>
+    </a>
+
+    <a on-click="_onDownloadFullSetClicked" hidden$="[[fullSetPdfSelected]]" style="white-space: nowrap; text-align: center;">
+      <span>Download</span>
+    </a>
+  </div>
 </form>

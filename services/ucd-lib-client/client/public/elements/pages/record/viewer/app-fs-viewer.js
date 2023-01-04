@@ -325,6 +325,7 @@ export default class AppFsViewer extends Mixin(LitElement)
 
   _getFullFileUrl(file) {
     return window.location.protocol + '//' + window.location.host + '/fcrepo/rest' + file['@id'];
+    // return 'https://sandbox.dams.library.ucdavis.edu/fcrepo/rest' + file['@id'];  // dev local, point to sandbox collections
   }
 
   _onClearSearchClicked() {

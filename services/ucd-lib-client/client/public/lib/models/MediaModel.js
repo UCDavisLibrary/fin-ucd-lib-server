@@ -64,6 +64,8 @@ class MediaModel extends BaseModel {
 
     path = `${path}/svc:iiif/${region}/${size}/${rotation}/${quality}.${format}`;
     if( path.indexOf(config.fcrepoBasePath) !== 0 ) path = config.fcrepoBasePath+path;
+
+    // path = `https://sandbox.dams.library.ucdavis.edu${path}`;  // dev local, point to sandbox collections
     
     return path; 
   }

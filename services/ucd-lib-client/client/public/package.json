@@ -28,7 +28,7 @@
     "@ucd-lib/cork-app-utils": "^4.3.2",
     "@ucd-lib/cork-pagination": "^2.2.0",
     "@ucd-lib/cork-toggle-panel": "2.1.1",
-    "@ucd-lib/fin-icons": "0.0.7",
+    "@ucd-lib/fin-icons": "0.0.9",
     "@ucd-lib/fin-search-box": "0.1.2",
     "bytes": "^3.0.0",
     "citeproc": "^2.1.200",
@@ -40,7 +40,7 @@
     "leaflet": "^1.2.0",
     "lit-element": "^2.3.1",
     "markdown": "^0.5.0",
-    "plyr": "git://github.com/ucd-library/plyr.git#jm-webcomponents",
+    "plyr": "https://github.com/ucd-library/plyr.git#jm-webcomponents",
     "shaka-player": "^2.5.5",
     "striptags": "^3.1.1"
   },
@@ -68,6 +68,5 @@
     "@ucd-lib/cork-app-utils": "4.4.0",
     "fs-extra": "7.0.1",
     "fast-deep-equal": "2.0.1"
-  },
-  "devDependencies": {}
+  }
 }

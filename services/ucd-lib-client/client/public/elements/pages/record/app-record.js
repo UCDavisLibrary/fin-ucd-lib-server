@@ -155,8 +155,10 @@ export default class AppRecord extends Mixin(PolymerElement)
     this.collectionName = this.record.collectionId || '';
     if( this.collectionName ) {
       let collection = await this._getCollection(this.collectionName);
-      this.collectionName = collection.name;
-      this.record.collectionName = collection.name;
+      if( collection ) {
+        this.collectionName = collection.name;
+        this.record.collectionName = collection.name;  
+      }
     }
 
     // Attach a recod to the download options
@@ -354,6 +356,7 @@ export default class AppRecord extends Mixin(PolymerElement)
    */
   _getHost() {
     return window.location.protocol+'//'+window.location.host+'/';
+    // return 'https://sandbox.dams.library.ucdavis.edu/'; // dev local, point to sandbox collections
   }
 
   /**

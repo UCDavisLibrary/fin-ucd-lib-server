@@ -71,7 +71,29 @@ class RecordModel extends ElasticSearchModel {
 
     // default, nothing currently selected
     if (result.payload.media.imageList && result.payload.media.imageList[0].hasPart.length ) {
-      AppStateModel.setSelectedRecordMedia(result.payload.media.imageList[0].hasPart[0]);
+      // if pdf payload, load as first item, otherwise first image in imageList
+      let record;
+      if( result.payload.clientMedia && result.payload.clientMedia[0].clientMediaDownload ) {
+        let clientMedia = result.payload.clientMedia[0];        
+
+        if( clientMedia.clientMediaDownload ) {
+          if( Array.isArray(clientMedia.clientMediaDownload) ) {
+            if( clientMedia.clientMediaDownload.length 
+                && clientMedia.clientMediaDownload[0].fileFormat 
+                && clientMedia.clientMediaDownload[0].fileFormat.split('/').pop() === 'pdf') {
+              record = clientMedia.clientMediaDownload[0];
+            }
+          } else if (clientMedia.clientMediaDownload.fileFormat && clientMedia.clientMediaDownload.fileFormat.split('/').pop() === 'pdf') {
+            record = clientMedia.clientMediaDownload;
+          }
+        }    
+      } 
+    
+      if( record ) {
+        AppStateModel.setSelectedRecordMedia(record);  
+      } else {
+        AppStateModel.setSelectedRecordMedia(result.payload.media.imageList[0].hasPart[0]);
+      }
     } else if (result.payload.media.video) {
       AppStateModel.setSelectedRecordMedia(result.payload.media.video[0]);
     } else if (result.payload.media.audio) {
@@ -269,10 +291,14 @@ class RecordModel extends ElasticSearchModel {
    * @param {Array} records current array of found records
    */
   findRecords(ids, record, records=[], crawled={}) {
-    if (Array.isArray(record)) {
+    if( Array.isArray(record) ) {
       record.forEach(item => this.findRecords(ids, item, records, crawled));
     } else if ((typeof record === 'object') && (record !== null)) {
       
+      if( Object.keys(record).length === 1 ) {
+        return records;
+      }
+
       // check for loops
       if( crawled[record['@id']]) return records;
       crawled[record['@id']] = true;
@@ -281,8 +307,8 @@ class RecordModel extends ElasticSearchModel {
         records.push(record);
       }
 
-      for (let key in record) {
-        if ( typeof record[key] !== 'object' ) continue;
+      for( let key in record ) {
+        if( typeof record[key] !== 'object' ) continue;
         this.findRecords(ids, record[key], records, crawled);
       }
     }

@@ -68,8 +68,8 @@ export default class AppImageViewer extends Mixin(PolymerElement)
     this._renderImg();
   }
 
-  _renderImg() {
-    if ( this.media.hasPart && this.media.hasPart.length > 0 ) {
+  _renderImg() { 
+    if( this.media.hasPart && this.media.hasPart.length > 0 ) {
       this.media.image = this.media.hasPart[0].image;
     }
 
