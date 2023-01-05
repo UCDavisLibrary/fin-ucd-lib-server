@@ -485,6 +485,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
 
     this.$.zipPaths.value = JSON.stringify(urls);
     this._renderFullImgFormats();
+    this._onFormatFullSelected();
   }
 
   /**
