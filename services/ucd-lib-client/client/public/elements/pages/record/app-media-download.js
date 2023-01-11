@@ -471,7 +471,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
    */
   _setZipPaths() {
     let urls = {};
-    this.zipName = this.rootRecord.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+    this.zipName = this.rootRecord.name.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_*\//).replace(/_*$\//).toLowerCase();
 
     let sources = this._getAllNativeDownloadSources();
 

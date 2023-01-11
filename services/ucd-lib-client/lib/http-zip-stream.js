@@ -21,7 +21,7 @@ class HttpZipStream {
     return new Promise(async (resolve, reject) => {
       
       res.setHeader('content-type', 'application/zip');
-      res.setHeader('content-disposition', `attachment; filename="${zipName}"`)
+      res.setHeader('content-disposition', `attachment; filename="${zipName}.zip"`)
 
       let archive = archiver('zip', {
         zlib: { level: 9 } // Sets the compression level.
