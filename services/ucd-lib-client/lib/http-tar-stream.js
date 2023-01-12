@@ -17,7 +17,7 @@ class HttpTarStream {
    * @return {Promise} resolves when after tar stream completes 
    */
   tar(res, tarName, urls) {
-    tarName = tarName.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_*\//).replace(/_*$\//).toLowerCase();
+    tarName = tarName.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_*/, '').replace(/_*$/, '').toLowerCase();
     
     return new Promise(async (resolve, reject) => {
       

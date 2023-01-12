@@ -18,7 +18,7 @@ class HttpZipStream {
    */
   zip(res, zipName, urls) {
     let resolved = false;
-    zipName = zipName.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_*\//).replace(/_*$\//).toLowerCase();
+    zipName = zipName.replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_*/, '').replace(/_*$/, '').toLowerCase();
     
     return new Promise(async (resolve, reject) => {
       
