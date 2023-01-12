@@ -1,5 +1,5 @@
 const archiver = require('archiver');
-const request = require('request');
+const fetch = require('node-fetch');
 const {logger} = require('@ucd-lib/fin-node-utils');
 
 class HttpZipStream {
@@ -29,7 +29,7 @@ class HttpZipStream {
         zlib: { level: 9 } // Sets the compression level.
       });
 
-      archive.on('close', () => {
+      archive.on('end', () => {
         if( resolved ) return;
         resolved = true;
         resolve();
@@ -57,8 +57,8 @@ class HttpZipStream {
           });
           await promise;
         } else {
-          let {promise, stream} = this.request(urls[filename]);
-          archive.append(request(stream), {name: filename});
+          let {promise, stream} = await this.request(urls[filename]);
+          archive.append(stream, {name: filename});
           await promise;
         }
       }
@@ -67,10 +67,12 @@ class HttpZipStream {
     });
   }
 
-  request(url) {
-    let stream = request(url);
+  async request(url) {
+    let response = await fetch(url);
+    let stream = response.body;
+    
     let promise = new Promise((resolve, reject) => {
-      stream.on('close', () => resolve());
+      stream.on('end', () => resolve());
     });
     return {promise, stream}
   }
