@@ -377,7 +377,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       const option = document.createElement('option');
       let formatType = this._getImageFormat({ fileFormat: format });
       if( formatType === 'tif' ) formatType = 'tiff';
-      const formatLabel = formatType === 'pdf' ? formatType : 'zip (' + formatType + 's)';
+      const formatLabel = formatType === 'pdf' ? formatType : 'zip';
 
       option.innerHTML = formatLabel;
       option.value = formatType;
