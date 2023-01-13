@@ -18,7 +18,7 @@
   "dependencies": {
     "@ucd-lib/cork-app-elastic-search": "^0.2.1",
     "@ucd-lib/spa-router-middleware": "0.0.2",
-    "archiver": "^3.1.1",
+    "archiver": "^5.3.1",
     "body-parser": "^1.18.2",
     "clone": "^2.1.1",
     "compression": "^1.7.2",
@@ -27,6 +27,7 @@
     "elasticsearch": "^16.3.0",
     "express": "^4.16.2",
     "http-proxy": "^1.17.0",
+    "node-fetch": "^3.3.0",
     "request": "^2.87.0",
     "shaka-player": "^2.5.5",
     "tar-stream": "^1.6.1"
