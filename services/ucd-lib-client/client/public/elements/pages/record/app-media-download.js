@@ -377,7 +377,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       const option = document.createElement('option');
       let formatType = this._getImageFormat({ fileFormat: format });
       if( formatType === 'tif' ) formatType = 'tiff';
-      const formatLabel = formatType === 'pdf' ? formatType : 'zip (' + formatType + 's)';
+      const formatLabel = formatType === 'pdf' ? formatType : 'zip';
 
       option.innerHTML = formatLabel;
       option.value = formatType;
@@ -471,7 +471,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
    */
   _setZipPaths() {
     let urls = {};
-    this.zipName = this.rootRecord.name.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+    this.zipName = this.rootRecord.name;
 
     let sources = this._getAllNativeDownloadSources();
 
@@ -485,6 +485,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
 
     this.$.zipPaths.value = JSON.stringify(urls);
     this._renderFullImgFormats();
+    this._onFormatFullSelected();
   }
 
   /**
