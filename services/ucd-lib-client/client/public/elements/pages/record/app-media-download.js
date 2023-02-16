@@ -71,6 +71,10 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       showImageFormats : {
         type : Boolean,
         value : false
+      },
+      nativeSources : {
+        type : Array,
+        value: () => []
       }
     }
   }
@@ -151,7 +155,31 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
       .join()
     this.$.downloadOptions.value = '0';
 
-    this._setDownloadHref(sources[0]);
+    // TODO what about tiff native ?
+    /*
+      0: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001-cm.jpg', service: '/svc:iiif/full/5438,2579/0/default.', originalFormat: 'jpg', …}
+      1: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001-cm.jpg', service: '/svc:iiif/full/4078,1934/0/default.', originalFormat: 'jpg', …}
+      2: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001-cm.jpg', service: '/svc:iiif/full/2719,1289/0/default.', originalFormat: 'jpg', …}
+      3: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001-cm.jpg', service: '/svc:iiif/full/1359,644/0/default.', originalFormat: 'jpg', …}
+      4: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001.tif', service: '/svc:iiif/full/5438,2579/0/default.', originalFormat: 'tiff', …}
+      5: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001.tif', service: '/svc:iiif/full/4078,1934/0/default.', originalFormat: 'tiff', …}
+      6: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001.tif', service: '/svc:iiif/full/2719,1289/0/default.', originalFormat: 'tiff', …}
+      7: {record: {…}, type: 'image', src: '/fcrepo/rest/collection/robinson/D-612/D-612_47_27_001/D-612_47_27_001.tif', service: '/svc:iiif/full/1359,644/0/default.', originalFormat: 'tiff', …}
+    */
+
+    // save all native formats into properties array? then load whichever is selected element (last option element)
+    sources.forEach(source => {
+      let matchedFileType = this.nativeSources.filter(s => s.originalFormat === source.originalFormat);
+      if( !this.nativeSources.length || !matchedFileType.length ) {
+        this.nativeSources.push(source);
+      }
+    })
+    this._setDownloadHref(this.nativeSources.pop());
+
+
+    // THIS WORKS SORTA, except when changing type dropdown, tiff disappears. otherwise links seem ok? 
+  
+  
   }
 
   _getDownloadSources(record, nativeImageOnly=false) {
@@ -189,6 +217,7 @@ export default class AppMediaDownload extends Mixin(PolymerElement)
   }
 
   _setDownloadHref(source) {
+    debugger;
     let href = source.src;
     if( source.type === 'image' ) {
       let format = this.$.format.value;
